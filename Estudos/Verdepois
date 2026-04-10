@@ -1,0 +1,3 @@
+diferença entre timeout e $scope.apply()
+
+é necessário definir a variavel scope sempre
