@@ -81,7 +81,9 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     módulo (module)
     
     angular.module("meuApp", []);
-
+    cria um módulo chamado "meuApp"
+    o [] são dependências (outros módulos)
+    
     dentro desse módulo você encontra tipos de registro/artefatos do módulo diferentes:
     
     -----------------------------
