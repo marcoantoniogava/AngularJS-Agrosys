@@ -78,11 +78,76 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
 =======================================================
 {
     o AngularJS tem um conceito central:
-    módulo (module)
-    
-    angular.module("meuApp", []);
-    cria um módulo chamado "meuApp"
-    o [] são dependências (outros módulos)
+    módulo (module) {
+        angular.module("meuApp", []);
+        cria um módulo chamado "meuApp"
+        o [] são dependências outros módulos -> eles podem ser [internos]1
+        ou então [externos]2 {
+            [1] ex: app.controllers
+                    app.routes
+                    comunica
+                    services
+                    sqlite
+
+            [2] (bibliotecas) ex: ui.router
+                                ui.utils.masks
+                                ui.mask
+
+                exemplo do ui.router
+
+                ele registra coisas como:
+
+                $stateProvider
+                $state
+
+                e você usa assim:
+
+                app.config(function($stateProvider) {
+                    $stateProvider.state(...);
+                });
+        }
+
+        Quando fazemos por exemplo app.controller("MainCtrl", function() {});
+        o angular faz algo como "ok, quando alguém pedir MainCtrl, eu sei como criar"
+        isso vale pra tudo
+        controller → Angular sabe instanciar
+        service → Angular sabe injetar
+        directive → Angular sabe aplicar no HTML
+
+        isso se chama
+
+        Dependency Injection (injeção de dependência)
+
+        exemplo real
+        app.controller("MainCtrl", function($scope, UsuarioService) {});
+
+        Angular faz:
+
+        1. vê que precisa de UsuarioService
+        2. procura no módulo
+        3. encontra
+        4. injeta automaticamente
+
+        ponto MAIS importante
+
+        o Angular NÃO executa tudo na hora
+
+        ele só:
+
+        registra
+        guarda
+        usa quando necessário
+
+        criar módulo
+        angular.module("app", []);
+
+        cria
+
+        acessar módulo existente
+        angular.module("app");
+
+        pega o já criado
+    }
     
     dentro desse módulo você encontra tipos de registro/artefatos do módulo diferentes:
     
@@ -94,7 +159,7 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     função: lógica reutilizável / integração / regras
 
     {
-        factory
+        factory 
 
         você retorna um objeto manualmente:
 
@@ -206,5 +271,99 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     }
     
     -----------------------------
+
+    4. configurações do módulo
+    config 
+
+    bloco de configuração do módulo
+
+    função: configurar coisas do framework {
+        config não é bem um artefato do tipo controller/service/directive.
+
+        ele é mais um:
+
+        bloco de configuração do módulo
+
+        exemplo:
+
+        angular.module('app').config(['$stateProvider', function($stateProvider) {
+            // configura rotas aqui
+        }]);
+
+        o que ele faz
+
+        o config roda na fase de configuração do AngularJS, antes da aplicação começar de verdade.
+
+        ele é usado para configurar coisas do framework, por exemplo:
+
+        rotas
+        providers
+        interceptors
+        defaults de bibliotecas
+    }
+
+    5. filtro
+    filter
+
+    função: transforma valores para exibição
+
+    app.filter('maiusculo', function() {
+        return function(valor) {
+            return String(valor).toUpperCase();
+        };
+    });
+
+    uso:
+
+    {{ nome | maiusculo }}
+
+    > - artefatos menos utilizados - < 
+    6. constant {
+        valor fixo disponível em toda a app
+
+        app.constant('API_URL', 'https://api.exemplo.com');
+    }
+    
+    7. value {
+        parecido com constant, mas menos “fixo” em termos de ciclo de config
+
+        app.value('versao', '1.0');
+    }
+
+    8. provider {
+        forma mais avançada de criar serviços configuráveis
+
+        app.provider('configuracao', function() {
+            this.opcao = true;
+
+            this.$get = function() {
+                return {
+                    opcao: this.opcao
+                };
+            };
+        });
+    }
+
+    > - boa prática - <
+    Utilizar array annotation na injeção de dependências:
+
+    app.controller('MainCtrl', ['$scope', '$http', function($scope, $http) {}]);
+
+    ao invés de
+
+    app.controller('MainCtrl', function($scope, $http, $scope, $http) {});
+
+    --------
+    $inject
+
+    melhor quando você quer organização e funções nomeadas
+
+    function Funcoes($http) {
+        return {};
+    }
+
+    Funcoes.$inject = ['$http'];
+
+    app.factory('Funcoes', Funcoes);
 }
 
