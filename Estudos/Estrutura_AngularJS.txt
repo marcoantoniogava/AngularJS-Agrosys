@@ -81,8 +81,7 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     módulo (module) {
         angular.module("meuApp", []);
         cria um módulo chamado "meuApp"
-        o [] são dependências outros módulos -> eles podem ser [internos]1
-        ou então [externos]2 {
+        nos colchetes [] ficam dependências (outros módulos) -> eles podem ser [internos]1 ou então [externos]2 {
             [1] ex: app.controllers
                     app.routes
                     comunica
@@ -90,8 +89,8 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
                     sqlite
 
             [2] (bibliotecas) ex: ui.router
-                                ui.utils.masks
-                                ui.mask
+                                  ui.utils.masks
+                                  ui.mask
 
                 exemplo do ui.router
 
@@ -152,7 +151,7 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     dentro desse módulo você encontra tipos de registro/artefatos do módulo diferentes:
     
     -----------------------------
-    lógica / dados 
+    1. lógica / dados 
     service
     factory
 
@@ -182,6 +181,10 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
             this.buscar = function() {
             };
         });
+
+        RESUMO:
+        os dois na prática funcionam da mesma forma; service é mais "orientado
+        a classe", factory é mais flexível e podemos retornar qualquer coisa.
     }
 
     -----------------------------
@@ -232,6 +235,7 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
             explicação:
             template → HTML que será renderizado
             link → onde você controla comportamento
+
             quando usar directive?
             quando precisa manipular DOM
             quando precisa criar comportamento reutilizável
@@ -259,12 +263,13 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
             $ctrl → referência do controller do componente
             template + lógica no mesmo lugar
             mais organizado que directive
+
             quando usar component?
             criar partes reutilizáveis da tela
             montar UI modular
             substituir directives complexas
-            diferença prática:
 
+            diferença prática:
             directive → baixo nível (mais poder, mais complexidade)
             component → alto nível (mais simples, mais organizado)
         }
@@ -280,9 +285,7 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     função: configurar coisas do framework {
         config não é bem um artefato do tipo controller/service/directive.
 
-        ele é mais um:
-
-        bloco de configuração do módulo
+        ele é mais um bloco de configuração do módulo
 
         exemplo:
 
@@ -331,7 +334,8 @@ COMO A ARQUITETURA/MODULARIZAÇÃO DO ANGULARJS FUNCIONA:
     }
 
     8. provider {
-        forma mais avançada de criar serviços configuráveis
+        forma mais avançada de criar serviços configuráveis;
+        permite configurar no .config
 
         app.provider('configuracao', function() {
             this.opcao = true;
