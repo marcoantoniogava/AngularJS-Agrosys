@@ -1,0 +1,152 @@
+O ciclo de vida do AngularJS é o processo de funcionamento
+da aplicação desde o momento em que ela é carregada até o 
+instante em que a tela é atualizada conforme os dados mudam.
+
+Basicamente, é a forma como ele inicia, conecta HTML com JavaScript,
+observa mudanças e atualiza a interface.
+
+Visão geral do ciclo:
+1 - Página carrega
+2 - AngularJS é inicializado
+3 - O módulo é carregado
+4 - Controllers, services, directives e outros artefatos são registrados
+5 - O AngularJS compila o HTML
+6 - Ele conecta a view ao JavaScript
+7 - Ele observa mudanças nas variáveis
+8 - Atualiza a tela conforma mudanças
+
+________________________________________________________________________________
+
+1 - Inicialização da aplicação {
+    A aplicação começa quando o framework encontra no HTML algo como:
+    <html ng-app="app">
+    ou quando a inicialização é feita manualmente.
+
+    ng-app é uma diretiva nativa do AngularJS que determina o começo da aplicação AngularJS.
+}
+
+________________________________________________________________________________
+
+2 - Carregamento do módulo {
+    Quando o AngularJS encontra ng-app="app" ele procura esse módulo no JavaScript.
+
+    angular.module('app', []);
+}
+
+________________________________________________________________________________
+
+3 - Fase de configuração: config {
+    depois que o módulo é encontrado, o AngularJS executa a fase de configuração.
+
+    Exemplo:
+    angular.module('app').config(function () {
+        console.log('config executado');
+    })
+}
+
+________________________________________________________________________________
+
+4 - Fase de execução: run {
+    depois da configuração, o angular executa o bloco run.
+
+    exemplo:
+    angular.module('app').run(function() {
+        console.log('app iniciada');
+    });
+
+    run é um bloco executado para rodar a aplicação.
+    serve para:
+    - registrar eventos globais
+    - fazer inicializações
+    - ligar componentes gerais da app
+}
+
+________________________________________________________________________________
+
+5 - 
+
+________________________________________________________________________________
+
+6 - 
+
+________________________________________________________________________________
+
+
+7 - 
+
+________________________________________________________________________________
+
+
+8 - 
+
+________________________________________________________________________________
+
+
+9 - 
+
+________________________________________________________________________________
+
+
+10 - 
+
+________________________________________________________________________________
+
+
+11 - 
+
+________________________________________________________________________________
+
+
+12 - 
+
+________________________________________________________________________________
+
+
+13 - 
+
+________________________________________________________________________________
+
+
+14 - 
+
+________________________________________________________________________________
+
+
+15 - 
+
+________________________________________________________________________________
+
+
+16 - 
+
+________________________________________________________________________________
+
+
+17 - 
+
+________________________________________________________________________________
+
+
+18 - 
+
+________________________________________________________________________________
+
+
+19 - 
+
+________________________________________________________________________________
+
+
+20 - 
+
+________________________________________________________________________________
+
+
+21 - 
+
+________________________________________________________________________________
+
+
+22 - 
+
+________________________________________________________________________________
