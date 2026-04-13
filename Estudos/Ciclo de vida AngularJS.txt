@@ -63,21 +63,62 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________
 
-5 - 
+5 - Compilação do HTML {
+    Depois de carregar módulo e blocos iniciais, o AngularJS começa a processar o HTML.
+    Compilar significa ler o HTML e identificar tudo que pertence ao AngularJS
+
+    Exemplo:
+    <div ng-controller="MainCtrl">
+        <input ng-model="nome">
+        <p>{{ nome }}</p>
+    </div>
+
+    O Angular lê esse trecho e percebe:
+
+    existe um ng-controller
+    existe um ng-model
+    existe uma interpolação {{ nome }}
+}
 
 ________________________________________________________________________________
 
-6 - 
+6 - Link entre HTML e JavaScript {
+    Depois de compilar, o AngularJS conecta o HTML ao JavaScript.
+    Esse processo é chamado de binding.
+    
+    No AngularJS, aparece com:
+    {{}}
+    ng-model
+    ng-repeat
+    ng-show
+    ng-click
+}
 
 ________________________________________________________________________________
 
 
-7 - 
+7 - Interpolação {{ }} {
+    Quando você escreve <p> {{nome}} </p>
+    O AngularJS entende que precisa buscar a variável nome no contexto daquele trecho.
+
+    Interpolação é o processo de pegar uma EXPRESSÃO do JavaScript e exibir seu resultado no HTML.
+    usada para mostrar: 
+    - variáveis
+    - expressões simples
+    - propriedades de objetos
+    - retorno de funções simples
+
+    exemplos:
+    {{ nome }}
+    {{ usuario.email }}
+    {{ 2 + 2 }}
+    {{ saudacao() }}
+}
 
 ________________________________________________________________________________
 
 
-8 - 
+8 - Scope (consultar documento separado) 
 
 ________________________________________________________________________________
 
