@@ -525,3 +525,82 @@ ________________________________________________________________________________
 }
 
 ________________________________________________________________________________
+
+EXTRA -> $rootScope {
+    O $rootScope é o scope principal da aplicação AngularJS
+    Todos os outros $scope herdam dele.
+
+    hierarquia de scopes
+    $rootScope
+    ↓
+    Controller A ($scope)
+    ↓
+    Controller B ($scope)
+    isso é herança prototípica
+
+    ------------exemplo------------
+    app.run(function($rootScope) {
+        $rootScope.usuarioLogado = "Nícolas";
+    });
+    
+    <div ng-controller="CtrlA">
+        {{ usuarioLogado }}
+    </div>
+
+    quando usar $rootScope
+    ✔️ usos válidos
+    - dados globais (ex: usuário logado)
+    - eventos globais
+    - configuração geral
+    ❌ quando NÃO usar
+    - regra de negócio
+    - dados específicos de tela
+    - comunicação entre controllers (preferir service)
+
+    problema clássico
+
+    uso excessivo de $rootScope:
+    $rootScope.lista = [];
+    $rootScope.dados = {};
+    $rootScope.tudo = ...
+
+    isso vira:
+    código acoplado
+    difícil de manter
+    difícil de debugar
+
+    eventos com $rootScope
+
+    Angular permite comunicação global via eventos:
+    ------------exemplo------------
+    $rootScope.$broadcast('eventoGlobal');
+    $scope.$on('eventoGlobal', function() {
+        console.log('recebido');
+    });
+
+    tipos de eventos
+    $broadcast → de cima pra baixo
+    $emit → de baixo pra cima
+
+    relação com digest cycle
+
+    como $rootScope participa do ciclo:
+    quando ele muda → todos os scopes filhos são impactados
+
+    ou seja:
+
+    - mais watchers
+    - mais impacto na performance
+    - cuidado com performance
+
+    quanto mais coisa no $rootScope:
+    - mais pesado fica o digest cycle
+
+    boa prática profissional
+    - usar $rootScope com moderação
+    - preferir service para compartilhar dados
+    - usar apenas para estado global real
+
+    se é global → pode usar $rootScope
+    se é específico → use $scope ou service
+}
