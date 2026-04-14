@@ -123,71 +123,270 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 
 
-9 - 
+9 - Two-way data binding {
+    Esse é um dos conceitos mais famosos do AngularJS.
+
+    <div ng-controller="MainCtrl">
+        <input ng-model="nome">
+        <p>{{ nome }}</p>
+    </div>
+
+    app.controller('MainCtrl', function($scope) {
+        $scope.nome = '';
+    });
+
+    O que acontece
+    usuário digita no input
+    ng-model atualiza $scope.nome
+    {{ nome }} é atualizado automaticamente
+
+    E o contrário também funciona:
+
+    o controller muda $scope.nome
+    a tela atualiza
+    O que é two-way data binding
+
+    É a atualização em duas direções:
+
+    da view para o JavaScript
+    do JavaScript para a view
+}
 
 ________________________________________________________________________________
 
 
-10 - 
+10 - Digest cycle (consultar documento separado)
 
 ________________________________________________________________________________
 
 
-11 - 
+11 - Watchers {
+    Para o digest funcionar, o Angular usa watchers.
+
+    O que é um watcher
+
+    Watcher é um observador.
+
+    Ele observa expressões ligadas à view, como:
+
+    {{ nome }}
+    ng-model="nome"
+    ng-show="ativo"
+
+    Exemplo:
+
+    <p>{{ nome }}</p>
+
+    O Angular cria um watcher para acompanhar nome.
+
+    Se nome mudar, a tela é atualizada.
+
+    Observação importante
+
+    Quanto mais watchers a tela tiver, mais trabalho o Angular terá no digest cycle.
+
+    Por isso, aplicações AngularJS grandes podem sofrer com performance.
+}
 
 ________________________________________________________________________________
 
 
-12 - 
+12 - Quando o digest roda automaticamente {
+    O Angular sabe rodar o digest automaticamente em eventos que ele mesmo controla.
+
+    Exemplos:
+
+    ng-click
+    ng-change
+    $http
+    $timeout
+    $interval
+    eventos internos do framework
+
+    Exemplo:
+
+    <button ng-click="alterarNome()">Alterar</button>
+    $scope.alterarNome = function() {
+        $scope.nome = 'Novo nome';
+    };
+
+    Aqui a tela atualiza sozinha porque o Angular sabe que essa alteração aconteceu.
+}
 
 ________________________________________________________________________________
 
 
-13 - 
+13 - Quando o digest não roda automaticamente {
+    Se a mudança acontecer fora do AngularJS, ele não percebe sozinho.
+
+    Exemplo com JavaScript puro:
+
+    setTimeout(function() {
+        $scope.nome = 'Novo nome';
+    }, 1000);
+
+    Nesse caso, o valor muda no JavaScript, mas a tela pode não atualizar.
+
+    Por quê
+
+    Porque setTimeout pertence ao JavaScript puro, não ao AngularJS.
+
+    O Angular não foi avisado de que algo mudou.
+}
 
 ________________________________________________________________________________
 
 
-14 - 
+14 - $apply() {
+    Para avisar o Angular que algo externo mudou, usamos $apply().
+
+    Exemplo:
+    setTimeout(function() {
+        $scope.$apply(function() {
+            $scope.nome = 'Novo nome';
+        });
+    }, 1000);
+
+    O que $apply() faz
+
+    Ele diz ao Angular:
+
+    “rode o digest cycle agora, porque eu alterei algo fora do framework”
+
+    Então o Angular reavalia os watchers e atualiza a tela.
+}
 
 ________________________________________________________________________________
 
 
-15 - 
+15 - $timeout {
+    $timeout é a versão AngularJS do setTimeout.
+
+    Exemplo:
+
+    $timeout(function() {
+        $scope.nome = 'Novo nome';
+    }, 1000);
+    
+    Diferença entre $timeout e setTimeout
+    setTimeout
+
+    É JavaScript puro. O Angular não acompanha.
+
+    $timeout
+
+    É do AngularJS. Ele já chama o digest automaticamente.
+
+    Por isso, com $timeout, normalmente não precisa usar $apply().
+}
 
 ________________________________________________________________________________
 
 
-16 - 
+16 - Exemplo prático comparando {
+    Exemplo 1: sem atualizar a view
+
+    setTimeout(function() {
+        $scope.nome = 'Nícolas';
+    }, 1000);
+
+    Pode mudar a variável, mas a interface não atualizar na hora.
+
+    Exemplo 2: usando $apply()
+
+    setTimeout(function() {
+        $scope.$apply(function() {
+            $scope.nome = 'Nícolas';
+        });
+    }, 1000);
+
+    Agora o Angular é avisado e atualiza a tela.
+
+    Exemplo 3: usando $timeout
+
+    $timeout(function() {
+        $scope.nome = 'Nícolas';
+    }, 1000);
+
+    Mesma ideia, só que de forma mais integrada ao Angular.
+}
 
 ________________________________________________________________________________
 
 
-17 - 
+17 - $destroy{
+    Quando uma tela ou escopo deixa de existir, o Angular dispara o evento $destroy.
+
+    Exemplo:
+
+    $scope.$on('$destroy', function() {
+        console.log('controller destruído');
+    });
+
+    Para que serve
+    Serve para limpar recursos e evitar vazamento de memória.
+
+    Exemplos de uso:
+    - remover event listeners
+    - cancelar intervalos
+    - destruir plugins
+    - soltar objetos do DOM
+
+    No teu caso, isso é muito importante em controllers que adicionam addEventListener.
+
+    Exemplo:
+
+    tela.addEventListener('scroll', handleScroll);
+
+    $scope.$on('$destroy', function() {
+        tela.removeEventListener('scroll', handleScroll);
+    });
+
+    Isso é boa prática real de mercado.
+}
 
 ________________________________________________________________________________
 
 
-18 - 
+18 - Ordem simplificada do ciclo de vida {
+    1. HTML carrega
+    2. Angular encontra ng-app
+    3. módulo é carregado
+    4. config é executado
+    5. run é executado
+    6. HTML é compilado
+    7. controller é instanciado
+    8. bindings são criados
+    9. digest cycle monitora mudanças
+    10. view é atualizada quando necessário
+    11. quando a tela morre, $destroy é disparado
+}
 
 ________________________________________________________________________________
 
 
-19 - 
+Erros comuns ligados ao ciclo de vida {
+    1. Alterar variável fora do Angular e esquecer $apply()
 
-________________________________________________________________________________
+    A tela não atualiza.
 
+    2. Usar $apply() sem necessidade
 
-20 - 
+    Pode gerar erro como:
 
-________________________________________________________________________________
+    $digest already in progress
 
+    3. Adicionar listener e não remover no $destroy
 
-21 - 
+    Pode causar vazamento de memória.
 
-________________________________________________________________________________
+    4. Colocar lógica demais no template
 
+    Aumenta watchers e piora performance.
 
-22 - 
+    5. Não entender quando o Angular sabe ou não sabe da mudança
+
+    Isso gera comportamento “misterioso”.
+}
 
 ________________________________________________________________________________
