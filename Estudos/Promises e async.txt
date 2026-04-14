@@ -1,0 +1,265 @@
+Promisses e programação assíncrona em JavaScript
+
+Introdução
+JavaScript é uma linguagem assíncrona e orientada a eventos
+
+Isso significa que algumas operações não retornam resultado imediatamente, como:
+- requisições HTTP
+- acesso ao banco de dados
+- leitura de arquivos
+- timers (setTimeout)
+
+----------------------------------------------------------------------------------------
+
+O que é programação assíncrona {
+    Programação assíncrona é quando o código continua executando sem esperar o resultado de uma operação.
+
+    console.log("início");
+
+    setTimeout(function() {
+        console.log("meio");
+    }, 1000);
+
+    console.log("fim");
+
+    saída:
+
+    início
+    fim
+    (meio depois de 1 segundo)
+
+    explicação
+    - setTimeout demora
+    - o JavaScript não espera
+    - continua executando
+
+    problema: código síncrono vs assíncrono
+
+    ❌ errado (pensamento síncrono)
+    var dados = buscarDados();
+    console.log(dados);
+
+    ✔️ correto (assíncrono)
+    buscarDados(function(dados) {
+        console.log(dados);
+    });
+}
+
+----------------------------------------------------------------------------------------
+
+Callbacks {
+    antes das promises, o padrão era usar callbacks.
+
+    é uma função passada como argumento que será executada depois
+
+    exemplo
+    function buscarDados(callback) {
+        setTimeout(function() {
+            callback("dados carregados");
+        }, 1000);
+    }
+
+    buscarDados(function(resultado) {
+        console.log(resultado);
+    });
+
+    problema dos callbacks
+    callback hell
+    buscarA(function(a) {
+        buscarB(a, function(b) {
+            buscarC(b, function(c) {
+                console.log(c);
+            });
+        });
+    });
+
+    - difícil de ler
+    - difícil de manter
+}
+
+----------------------------------------------------------------------------------------
+
+Promises {
+    Promises foram criadas para resolver esse problema.
+
+    é um objeto que representa um valor que estará disponível no futuro
+    
+    estados de uma Promise
+    pending   → em andamento
+    fulfilled → sucesso
+    rejected  → erro
+
+    -------exemplo---------
+    var promessa = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve("deu certo");
+        }, 1000);
+    });
+
+    consumindo a promise:
+    -------exemplo---------
+    promessa.then(function(resultado) {
+        console.log(resultado);
+    });
+}
+
+----------------------------------------------------------------------------------------
+
+then () {
+    then() é executado quando a promise resolve com sucesso.
+
+    -------exemplo---------
+    buscarDados().then(function(dados) {
+        console.log(dados);
+    });
+}
+
+----------------------------------------------------------------------------------------
+
+catch () {
+    catch() é executado quando ocorre erro.
+
+    -------exemplo---------
+    buscarDados()
+        .then(function(dados) {
+            console.log(dados);
+        })
+        .catch(function(erro) {
+            console.log("erro:", erro);
+        });
+}
+
+----------------------------------------------------------------------------------------
+
+exemplo real com sucesso/erro {
+    function buscarDados() {
+        return new Promise(function(resolve, reject) {
+            var sucesso = true;
+
+            if (sucesso) {
+                resolve("dados carregados");
+            } else {
+                reject("erro ao carregar");
+            }
+        });
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+encadeamento de promises {
+    você pode encadear várias operações:
+    -------exemplo---------
+    buscarDados()
+        .then(function(dados) {
+            return processarDados(dados);
+        })
+        .then(function(resultado) {
+            console.log(resultado);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+        });
+}
+
+----------------------------------------------------------------------------------------
+
+async / await {
+    é uma forma mais moderna de trabalhar com promises.
+
+    -------exemplo---------
+    async function carregar() {
+        var dados = await buscarDados();
+        console.log(dados);
+    }
+
+    explicação
+    async → define função assíncrona
+    await → espera a promise resolver
+
+    versão equivalente com then
+    -------exemplo---------
+    buscarDados().then(function(dados) {
+        console.log(dados);
+    });
+}
+
+----------------------------------------------------------------------------------------
+
+tratamento de erro com async/await {
+    async function carregar() {
+        try {
+            var dados = await buscarDados();
+            console.log(dados);
+        } catch (erro) {
+            console.log("erro:", erro);
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+comparação {
+    abordagem	    legibilidade
+    callback	    ruim
+    promise	        boa
+    async/await	    melhor
+}
+
+----------------------------------------------------------------------------------------
+
+no contexto do AngularJS {
+    AngularJS antigo usa MUITO callback.
+
+    -------exemplo---------
+    sql.select(classe, where, function(resultado, vcod) {
+        if (vcod === 1) {
+            console.log(resultado);
+        }
+    });
+
+    como melhorar (conceito de promise)
+
+    é possível adaptar para promise:
+
+    function selectPromise(classe, where) {
+        return new Promise(function(resolve, reject) {
+            sql.select(classe, where, function(resultado, vcod) {
+                if (vcod === 1) {
+                    resolve(resultado);
+                } else {
+                    reject("erro");
+                }
+            });
+        });
+    }
+
+    usando com async/await
+    async function carregar() {
+        try {
+            var dados = await selectPromise('clientes', '');
+            console.log(dados);
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+erros comuns {
+    1. esquecer que é assíncrono
+    var dados = buscar();
+
+    2. não tratar erro
+    .then(...)
+    sem .catch()
+
+    3. misturar padrões sem entender
+    callback + promise + async tudo junto
+
+    4. usar await fora de async
+    var dados = await buscar(); // erro
+}
+
+----------------------------------------------------------------------------------------
