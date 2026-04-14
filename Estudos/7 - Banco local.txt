@@ -21,7 +21,7 @@ por que usar banco local? {
     1 - funcionar offline
 
     2 - performance
-        leitura local é muito mais rápida do que aplicações
+        leitura local é muito mais rápida do que realizar requisições a servidores remotos, pois elimina latência de rede e processamento externo
 
     3 - reduzir consumo de dados
         não precisa bater na API toda hora
