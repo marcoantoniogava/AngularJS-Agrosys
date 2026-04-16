@@ -1,0 +1,59 @@
+1. Função normal (function)
+Tem o próprio this
+O valor do this depende de como a função é chamada
+const obj = {
+  nome: "Nícolas",
+  falar: function () {
+    console.log(this.nome);
+  }
+};
+
+obj.falar(); // "Nícolas"
+
+aqui this aponta para obj
+
+2. Arrow function (=>)
+NÃO tem this próprio
+Ela herda o this do contexto onde foi criada
+const obj = {
+  nome: "Nícolas",
+  falar: () => {
+    console.log(this.nome);
+  }
+};
+
+obj.falar(); // undefined
+
+porque o this aqui não é do obj, é do escopo externo
+
+Diferença simples pra gravar
+function → tem this próprio
+arrow → herda o this
+
+const obj = {
+  nome: "Nícolas",
+
+  metodo1: function () {
+    console.log("1:", this.nome);
+
+    const metodo2 = () => {
+      console.log("2:", this.nome);
+
+      function metodo3() {
+        console.log("3:", this.nome);
+
+        const metodo4 = () => {
+          console.log("4:", this.nome);
+        };
+
+        metodo4();
+      }
+
+      metodo3();
+    };
+
+    metodo2();
+  }
+};
+
+obj.metodo1();

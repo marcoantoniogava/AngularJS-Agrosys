@@ -263,6 +263,10 @@ ________________________________________________________________________________
 
 6 - watchers e $scope{
     cada binding importante cria um watcher ou participa desse sistema
+    watchers são “observadores” de variáveis do AngularJS
+
+    eles ficam monitorando valores (do $scope, por exemplo) pra saber:
+    “isso mudou?”
 
     você também pode criar um manualmente com $watch
 
