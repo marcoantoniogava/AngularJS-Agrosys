@@ -3,7 +3,7 @@ function MinhaPromise(executor) {
     let valor;
     let callbacks = [];
 
-    function resolve(novoValor) {
+    function resolvePromise(novoValor) {
         if (estado !== "pending") return;
 
         estado = "fulfilled";
@@ -42,12 +42,12 @@ function MinhaPromise(executor) {
         };
     */
 
-    executor(resolve);
+    executor(resolvePromise);
 }
 
-const p = new MinhaPromise(function(resolve) {
+const p = new MinhaPromise(function(resolveParam) {
     setTimeout(() => {
-        resolve("deu certo");
+        resolveParam("deu certo");
     }, 1000);
 });
 
