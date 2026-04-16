@@ -1,0 +1,27 @@
+&& -> E 
+|| -> ou
+
+falsys:
+"", '', ``
+0
+-0
+0n
+null
+undefined
+false
+Nenhuma
+
+truthys:
+"valor"
+"0"
+"false"
+{}
+[]
+true
+1
+Infinity
+-Infinity
+new Promise()
+
+console.log("teste" && null && "opa") -> imprime null, parará no primeiro valor falsy
+console.log(0 && null && "opa") -> imprime "opa", parará no primeiro valor falsy
