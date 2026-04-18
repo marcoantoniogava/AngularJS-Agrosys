@@ -182,6 +182,21 @@ async / await {
     buscarDados().then(function(dados) {
         console.log(dados);
     });
+
+    const p1 = new Promise(res => res(123))
+
+    isso aqui:
+    async function teste() {
+        const valor = await p1;
+        console.log(valor);
+    }
+
+    é transformado em algo tipo:
+    function teste() {
+        p1.then(function(valor) {
+            console.log(valor);
+        });
+    }
 }
 
 ----------------------------------------------------------------------------------------
