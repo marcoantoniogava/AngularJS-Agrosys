@@ -1,0 +1,68 @@
+Expressão é qualquer pedaço de código que >>retorna um valor<<
+
+exemplos básicos:
+2 + 2; // 4
+"oi " + "nicolas"; // "oi nicolas"
+true && false // false
+
+expressão vs instrução (statement)
+
+aqui tá a diferença que pega muita gente:
+
+expressão (tem valor)
+let x = 10 + 5;
+
+10 + 5 → expressão → vira 15
+
+instrução (não retorna valor direto)
+
+if (x > 10) {
+    console.log("maior");
+}
+
+isso é um statement, não uma expressão.
+
+1. expressão de atribuição {
+    let x = 10;
+
+    o 10 é expressão
+    e o próprio x = 10 também retorna valor
+
+    let y = (x = 10); // y vira 10
+}
+
+2. expressão de função {
+    const soma = function(a, b) {
+        return a + b;
+    };
+
+    isso é uma function expression
+}
+
+3. arrow function (também é expressão) {
+    const soma = (a, b) => a + b;
+
+    retorna automaticamente
+}
+
+4. expressão ternária {
+    isso aqui é expressão de verdade (diferente do if)
+
+    let resultado = idade >= 18 ? "maior" : "menor";
+
+    isso retorna um valor direto.
+}
+
+5. chamadas de função {
+    console.log("oi");
+
+    também é expressão — retorna undefined, mas retorna algo
+}
+
+se você consegue usar algo dentro de outro código esperando valor, então é expressão
+
+exemplo:
+
+let x = 10 + 5; // funciona → é expressão
+
+let y = if (true) { 10 }; // erro → if não é expressão
