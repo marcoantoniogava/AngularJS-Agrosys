@@ -10,20 +10,28 @@ class PromiseSimulada {
             estado = "fullfiled";
             valorPromise = valor;
 
-            callbacks.forEach(cb => {
-                setTimeout(() => {
+            setTimeout(() => {
+                callbacks.forEach(cb => {
                     cb(valorPromise);
-                }, 0);
-            });
+                });
+            }, 0);
         }
 
         this.then = function (callback) {
             return new PromiseSimulada((res) => {
-                if (estado == "pending")
-                    callbacks.push(() => { res(callback(valorPromise)); });
+                function handleResolve () {
+                    let resultado = callback(valorPromise)
+                    
+                    res(resultado)
+                }
 
-                else
-                    res(callback(valorPromise));
+                if (estado == "pending")
+                    callbacks.push(() => { handleResolve(); });
+
+                else setTimeout(() => {
+                    handleResolve();
+                }, 0);
+                    
             });
         };
 
@@ -45,6 +53,8 @@ const p = new PromiseSimulada((res) => {
 
 p.then(x => x + 2)
  .then(x => x * 2)
- .then(console.log)
+ .then(console.log);
 
 PromiseSimulada.resolve(2).then(console.log);
+
+console.log("sync");

@@ -8,9 +8,9 @@ const p2 = new Promise((resolve) => {
 
 p2.then(console.log);
 
-const p1 = new Promise(res => res(console.log))
+const p3 = new Promise(res => res(console.log))
 
-p1.then((callback) => {callback(123)}) 
+p3.then((callback) => {callback(123)}) 
 
 const asyncFunction = async () => {
     console.log("teste")
