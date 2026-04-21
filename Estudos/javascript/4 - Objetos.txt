@@ -293,6 +293,47 @@ ________________________________________________________________________________
     Object.freeze()
     
     - trava o objeto, tornando impossível modificá-lo
+
+    Object.getOwnPropertyDescriptor(obj, 'atributo');
+
+    ------------------------------------------------------------------------
+    Object.defineProperty() e Object.defineProperties()
+
+    function Produto(nome, preco, estoque) {
+        Object.defineProperty(this, 'estoque', {
+            enumerable: true, // mostra a chave
+            configurable: true // configurável
+            get: function () {
+                return estoque;
+            },
+            set: function (valor) {
+                if (typeof valor !== "number") {
+                    console.log("informe um número");
+                    return;
+                }
+
+                estoque = valor;
+            } 
+        });
+
+        Object.defineProperties(this, {
+            nome: {
+                enumerable: true, // mostra a chave
+                value: nome, // valor
+                writable: true, // pode alterar
+                configurable: true // configurável
+            },
+            preco: {
+                enumerable: true, // mostra a chave
+                value: preco, // valor
+                writable: true, // pode alterar
+                configurable: true // configurável
+            },
+        });
+    }
+
+    const p1 = new Produto("camisa", 10.99, 5);
+    console.log(p1);
 }
 
 ________________________________________________________________________________
