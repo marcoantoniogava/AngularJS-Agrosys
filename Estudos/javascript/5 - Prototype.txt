@@ -4,7 +4,7 @@ o que é Prototype?
     Todo objeto em JavaScript tem uma ligação interna invisível chamada:
     [[Prototype]]
     Isso significa que ele pode "herdar" coisas de outro objeto.
-    Prototype é outro objeto.
+    Prototype é um objeto.
 
     Exemplo simples:
     const pessoa = {
@@ -16,6 +16,8 @@ o que é Prototype?
     toString() nunca foi definido, mas mesmo assim funciona.
     por quê?
     porque ele foi herdado do Prototype.
+    // o js faz:
+    pessoa → Object.prototype → achou lá
 
 ________________________________________________________________________________
 
@@ -29,11 +31,11 @@ Prototype na prática
     --DUVIDAS-- {
         //// cada objeto tem seu proprio prototype?
         //// esse são retornos do devtools, qual é a diferença de __proto__ e prototype? 
-        Object.prototype
-        {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}constructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()__proto__: (...)get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
-        
-        Object.__proto__
-        ƒ () { [native code] }
+            Object.prototype
+            {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}constructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()__proto__: (...)get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
+            
+            Object.__proto__
+            ƒ () { [native code] }
 
         //// o que define qual prototype o objeto aponta?
     }

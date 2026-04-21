@@ -289,6 +289,10 @@ ________________________________________________________________________________
     Object.entries(pessoa);
 
     - retorna pares [chave, valor]
+
+    Object.freeze()
+    
+    - trava o objeto, tornando impossível modificá-lo
 }
 
 ________________________________________________________________________________
