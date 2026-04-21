@@ -181,7 +181,7 @@ ________________________________________________________________________________
 
 7. Métodos (funções dentro de objetos) {
     const pessoa = {
-    nome: "Nícolas",
+        nome: "Nícolas",
         falar: function () {
             console.log("Olá!");
         }
@@ -350,7 +350,7 @@ ________________________________________________________________________________
 
         3. Sobrescrita acidental (shadowing bug)
         const pai = {
-        idade: 50
+            idade: 50
         };
 
         const filho = Object.create(pai);
@@ -383,7 +383,7 @@ ________________________________________________________________________________
 
         6. Problema em loops
         for (let key in obj) {
-        console.log(key);
+            console.log(key);
         }
 
         - ele percorre também propriedades do prototype
