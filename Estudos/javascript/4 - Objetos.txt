@@ -296,7 +296,18 @@ ________________________________________________________________________________
 
     Object.getOwnPropertyDescriptor(obj, 'atributo');
 
+    - pega todas as propriedades do atributo
+
+    Object.setPrototypeOf(objB, objA)
+
+    - seta o prototype do objB igual ao objeto objA
+
+    Object.getPrototypeOf(objB)
+
+    - pega o prototype do objeto
+
     ------------------------------------------------------------------------
+    
     Object.defineProperty() e Object.defineProperties()
 
     function Produto(nome, preco, estoque) {
