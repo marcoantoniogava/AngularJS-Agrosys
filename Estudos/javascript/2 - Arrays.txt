@@ -1,0 +1,349 @@
+o que é um array?
+    array é uma estrutura que guarda vários valores em uma única variável, organizados por índice.
+
+    const nomes = ["nicolas", "joao", "maria"];
+
+    regras importantes:
+
+    - começa no índice 0
+    - acessa com colchetes []
+    - console.log(nomes[0]); // "nicolas"
+
+____________________________________________________________________________________________________________
+
+criando arrays
+    const lista1 = []; // vazio
+    const lista2 = [1, 2, 3];
+    const lista3 = new Array(10); // não recomendado
+
+____________________________________________________________________________________________________________
+
+tamanho do array
+    const arr = [10, 20, 30];
+
+    console.log(arr.length); // 3
+
+____________________________________________________________________________________________________________
+
+adicionar elementos
+    const arr = [1, 2];
+
+    // final
+    arr.push(3);
+
+    // início
+    arr.unshift(0);
+    
+____________________________________________________________________________________________________________
+    
+remover elementos
+    const arr = [1, 2, 3];
+
+    // final
+    arr.pop();
+
+    // início
+    arr.shift();
+
+____________________________________________________________________________________________________________
+
+buscar elementos
+    const arr = ["a", "b", "c"];
+
+    arr.includes("b"); // true
+    arr.indexOf("b"); // 1
+
+____________________________________________________________________________________________________________
+
+percorrer array (LOOP)
+    clássico (menos usado hoje)
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+    }
+
+    moderno (mais usado)
+    arr.forEach(function(item) {
+        console.log(item);
+    });
+
+    ou
+
+    arr.forEach(item => console.log(item));
+
+____________________________________________________________________________________________________________
+
+métodos IMPORTANTES
+    🔹 map → transformar
+    const numeros = [1, 2, 3];
+
+    const dobrados = numeros.map(n => n * 2);
+
+    console.log(dobrados); // [2, 4, 6]
+
+    retorna novo array
+
+    ----------------------------------------------
+
+    🔹 filter → filtrar
+    const numeros = [1, 2, 3, 4];
+
+    const pares = numeros.filter(n => n % 2 === 0);
+
+    console.log(pares); // [2, 4]
+
+    ----------------------------------------------
+
+    🔹 find → encontrar 1 item
+    const usuarios = [
+        { nome: "nico" },
+        { nome: "joao" }
+    ];
+
+    const user = usuarios.find(u => u.nome === "nico");
+
+    console.log(user);
+
+    ----------------------------------------------
+
+    🔹 some → algum passa?
+    arr.some(n => n > 10);
+
+    ----------------------------------------------
+
+    🔹 every → todos passam?
+    arr.every(n => n > 0);
+
+    ----------------------------------------------
+
+    🔹 reduce → o mais poderoso
+    const nums = [1, 2, 3];
+
+    const soma = nums.reduce((acc, n) => acc + n, 0);
+
+    console.log(soma); // 6
+
+    usado pra:
+
+    somar
+    agrupar
+    transformar estrutura
+
+____________________________________________________________________________________________________________
+
+slice vs splice 
+    slice → NÃO altera original
+    const arr = [1, 2, 3, 4];
+
+    const novo = arr.slice(1, 3);
+
+    console.log(novo); // [2, 3]
+    splice → ALTERA o array
+    const arr = [1, 2, 3];
+
+    arr.splice(1, 1); // remove 1 item a partir do índice 1
+
+    console.log(arr); // [1, 3]
+
+____________________________________________________________________________________________________________
+
+arrays de objetos
+    const usuarios = [
+        { nome: "nico", idade: 20 },
+        { nome: "joao", idade: 30 }
+    ];
+
+    exemplo real:
+    const maiores = usuarios.filter(u => u.idade >= 21);
+
+____________________________________________________________________________________________________________
+
+referência vs cópia 
+    const a = [1, 2];
+    const b = a;
+
+    b.push(3);
+
+    console.log(a); // [1, 2, 3]
+
+    isso acontece porque array é referência
+
+    copiar corretamente:
+    const copia = [...a];
+
+____________________________________________________________________________________________________________
+
+destructuring
+    const arr = [10, 20];
+
+    const [a, b] = arr;
+
+    console.log(a); // 10
+
+____________________________________________________________________________________________________________
+
+spread operator
+    const a = [1, 2];
+    const b = [3, 4];
+
+    const c = [...a, ...b];
+
+____________________________________________________________________________________________________________
+
+arrays + async
+
+    o erro clássico:
+
+    const ids = [1, 2, 3];
+
+    ids.forEach(async (id) => {
+        await buscarUsuario(id);
+    });
+
+    forEach não espera async
+
+    ✅ jeito correto
+
+    🔹 com Promise.all (paralelo - mais usado)
+    const ids = [1, 2, 3];
+
+    const promessas = ids.map(id => buscarUsuario(id));
+
+    const usuarios = await Promise.all(promessas);
+
+    roda tudo ao mesmo tempo → mais rápido
+
+    🔹 com for...of (sequencial)
+    const usuarios = [];
+
+    for (const id of ids) {
+        const user = await buscarUsuario(id);
+        usuarios.push(user);
+    }
+
+    usa quando depende da ordem ou de um resultado anterior
+
+    regra prática:
+    pode rodar junto? → Promise.all
+    precisa ordem? → for...of
+
+____________________________________________________________________________________________________________
+
+imutabilidade
+    na prática (principalmente Angular/React), você não deve mutar array diretamente
+
+    ❌ errado:
+    arr.push(4);
+
+    ✅ certo:
+    const novo = [...arr, 4];
+
+    atualizar item dentro do array:
+    const usuarios = [
+        { id: 1, nome: "nico" },
+        { id: 2, nome: "joao" }
+    ];
+
+    const atualizado = usuarios.map(u =>
+        u.id === 1 ? { ...u, nome: "novo nome" } : u
+    );
+
+    isso aqui é MUITO usado em front
+
+____________________________________________________________________________________________________________
+
+performance
+    ❌ ruim (vários loops):
+    arr.filter(...).map(...).reduce(...);
+
+    ✅ melhor (1 loop só):
+    const resultado = arr.reduce((acc, item) => {
+        if (item.ativo) {
+            acc.push(item.valor * 2);
+        }
+        return acc;
+    }, []);
+
+    menos iteração → mais performático
+
+____________________________________________________________________________________________________________
+
+estruturação de dados
+    transformar array em objeto (indexação rápida):
+
+    const usuarios = [
+        { id: 1, nome: "nico" },
+        { id: 2, nome: "joao" }
+    ];
+
+    const mapa = usuarios.reduce((acc, u) => {
+        acc[u.id] = u;
+        return acc;
+    }, {});
+
+    agora você acessa em O(1):
+
+    mapa[1];
+
+____________________________________________________________________________________________________________
+
+flat e flatMap
+    array dentro de array
+    const arr = [[1, 2], [3, 4]];
+
+    const flat = arr.flat(); // [1, 2, 3, 4]
+
+    flatMap (map + flatten)
+    const frases = ["oi mundo", "js é bom"];
+
+    const palavras = frases.flatMap(f => f.split(" "));
+
+____________________________________________________________________________________________________________
+
+deduplicar array
+    const arr = [1, 1, 2, 3];
+
+    const unico = [...new Set(arr)];
+
+____________________________________________________________________________________________________________
+
+ordenação (sort)
+    ⚠️ cuidado: sort muta o array
+
+    const nums = [10, 2, 5];
+
+    nums.sort((a, b) => a - b);
+
+    ordenar objetos:
+    usuarios.sort((a, b) => a.idade - b.idade);
+
+____________________________________________________________________________________________________________
+
+exemplo REAL 
+    imagina API de pedidos:
+
+    const pedidos = [
+        { id: 1, cliente: "nico", valor: 100, ativo: true },
+        { id: 2, cliente: "joao", valor: 200, ativo: false },
+        { id: 3, cliente: "nico", valor: 50, ativo: true }
+    ];
+
+    objetivo:
+    só ativos
+    agrupar por cliente
+    somar valores
+
+    solução profissional:
+    const resultado = pedidos
+        .filter(p => p.ativo)
+        .reduce((acc, p) => {
+            if (!acc[p.cliente]) {
+            acc[p.cliente] = 0;
+        }
+        acc[p.cliente] += p.valor;
+        return acc;
+    }, {});
+
+    saída:
+    {
+      nico: 150
+    }
