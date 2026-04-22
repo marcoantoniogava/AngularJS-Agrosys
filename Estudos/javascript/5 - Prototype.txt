@@ -1,10 +1,19 @@
 Prototype e Prototype Chain (JavaScript real por trás dos objetos)
 
 o que é Prototype? 
+    JavaScript é baseado em protótipos para passar propriedades e métodos de um
+    objeto para outro.
+
+    Protótipo é o termo usado para se referir ao que foi criado pela primeira
+    vez, servindo de modelo ou molde para futuras produções.
+
     Todo objeto em JavaScript tem uma ligação interna invisível chamada:
-    [[Prototype]]
+    [[Prototype]] __proto__ que vem da propriedade prototype da função construtora
+    que foi usada para criá-lo. Quando tentamos acessar um membro de um objeto, 
+    primeiro o motor do JS vai tentar encontrar esse membro no próprio objeto 
+    e depois a cadeia de protótipos é usada até o topo (null) até encontrar 
+    (ou não) tal membro. 
     Isso significa que ele pode "herdar" coisas de outro objeto.
-    Prototype é um objeto.
 
     Exemplo simples:
     const pessoa = {
@@ -28,19 +37,18 @@ Prototype na prática
     console.log(obj.__proto__);
     Esse __proto__ (antigo, mas útil para entender) mostra o prototype
     
-    --DUVIDAS-- {
+    --DUVIDAS-- 
         //// cada objeto tem seu proprio prototype?
         //// esse são retornos do devtools, qual é a diferença de __proto__ e prototype? 
-            Object.prototype
+            Object.prototype:
             {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}constructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()__proto__: (...)get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
             
-            Object.__proto__
+            Object.__proto__:
             ƒ () { [native code] }
 
         //// o que define qual prototype o objeto aponta?
-    }
 
-    --EXPLICACOES-- {
+    --EXPLICACOES-- 
         Todo objeto tem um [[Prototype]] (essa ligação interna)
         Vários objetos podem apontar pro mesmo prototype.
 
@@ -135,7 +143,6 @@ Prototype na prática
             funções são objetos, então:
 
             teste.__proto__ === Function.prototype
-    }
 
 ________________________________________________________________________________
 
@@ -265,12 +272,11 @@ New
 
     Pessoa.call(p1, "Nícolas") 
     
-    -- DUVIDAS -- {
+    -- DUVIDAS -- 
         //// porque vincula prototype da função no prototype do objeto?
         //// O que é esse call?
-    }
 
-    -- EXPLICACOES -- {
+    -- EXPLICACOES -- 
         é assim que a herança funciona.
 
         o new conecta:
@@ -298,7 +304,35 @@ New
         this.nome = "Nícolas";
 
         mas aplicado dentro do p1.
-    }
+
+        Exemplo: 
+            function Produto (nome, preco) {
+                this.nome;
+                this.preco;
+            }
+
+            Produto.prototype.aumentarPreco = function (valor) {
+                this.preco += valor;
+            }
+
+            Produto.prototype.diminuiPreco = function (valor) {
+                this.preco -= valor;
+            }
+
+            function Camiseta (nome, preco, material) {
+                Produto.call(this, nome, preco);
+                this.material = material;
+            }
+
+            Camiseta.prototype = Object.create(Produto.prototype);
+            Camiseta.prototype.constructor = Camiseta;
+
+            const produto = new Produto('Prod. Generico', 10)
+            const camiseta = new Camiseta('Regata', 57.5, 'algodão')
+
+            console.log(produto);
+            console.log(camiseta);
+
 
 ________________________________________________________________________________
 
