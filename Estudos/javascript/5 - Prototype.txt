@@ -41,8 +41,35 @@ Prototype na prática
         //// cada objeto tem seu proprio prototype?
         //// esse são retornos do devtools, qual é a diferença de __proto__ e prototype? 
             Object.prototype:
-            {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}constructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()__proto__: (...)get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
-            
+                {__defineGetter__: ƒ
+                __defineSetter__: ƒ
+                hasOwnProperty: ƒ
+                __lookupGetter__: ƒ
+                __lookupSetter__: ƒ
+                 …}constructor: ƒ
+                    Object()hasOwnProperty: ƒ
+                    hasOwnProperty()isPrototypeOf: ƒ
+                    isPrototypeOf()propertyIsEnumerable: ƒ
+                    propertyIsEnumerable()toLocaleString: ƒ
+                    toLocaleString()toString: ƒ
+                    toString()
+                    valueOf: ƒ
+                    valueOf()
+                    __defineGetter__: ƒ
+                    __defineGetter__()
+                    __defineSetter__: ƒ
+                    __defineSetter__()
+                    __lookupGetter__: ƒ
+                    __lookupGetter__()
+                    __lookupSetter__: ƒ
+                    __lookupSetter__()
+                    __proto__: 
+                    (...)
+                get __proto__: ƒ
+                __proto__()
+                set __proto__: ƒ
+                __proto__()
+                
             Object.__proto__:
             ƒ () { [native code] }
 
@@ -329,13 +356,11 @@ New
 
             const produto = new Produto('Prod. Generico', 10)
             const camiseta = new Camiseta('Regata', 57.5, 'algodão')
-
+            
             console.log(produto);
             console.log(camiseta);
 
-
 ________________________________________________________________________________
-
 
 Object.create (herança direta)
     const pessoa = {
