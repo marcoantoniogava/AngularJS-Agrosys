@@ -1,5 +1,6 @@
 && -> E 
 || -> ou
+?? -> operador de coalescência nula
 
 falsys:
 "", '', ``
@@ -25,3 +26,6 @@ new Promise()
 
 console.log("teste" && null && "opa") -> imprime null, parará no primeiro valor falsy
 console.log(0 && null && "opa") -> imprime "opa", parará no primeiro valor falsy
+
+console.log(0 ?? 10);   // -> imprime 0, ?? = “usa o da esquerda se existir de verdade”
+console.log(null ?? "teste");   // -> imprime "teste"
