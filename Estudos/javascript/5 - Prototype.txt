@@ -25,7 +25,7 @@ o que é Prototype?
     toString() nunca foi definido, mas mesmo assim funciona.
     por quê?
     porque ele foi herdado do Prototype.
-    // o js faz:
+    // o js faz:sso
     pessoa → Object.prototype → achou lá
 
 ________________________________________________________________________________
