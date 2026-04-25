@@ -1,0 +1,137 @@
+Onde encontrar cada conteúdo desse diretório:
+
+as seções não estão organizadas em ordem de dificuldade, apenas na ordem que foram criadas.
+
+conteúdo da secao 1 do JavaScript 
+(secao-1):
+    !. 1 - Promises e async 
+        #. 1 - O que é programação assíncrona 
+        #. 2 - Callbacks 
+        #. 3 - Promises 
+        #. 4 - then () 
+        #. 5 - catch () 
+        #. 6 - exemplo real com sucesso/erro 
+        #. 7 - encadeamento de promises 
+        #. 8 - async / await 
+        #. 9 - tratamento de erro com async/await 
+        #. 10 - comparação 
+        #. 11 - no contexto do AngularJS 
+        #. 12 - erros comuns 
+        #. 13 - métodos da Promise
+    ________________________________________________
+    !. 2 - Arrays
+        #. 1 - o que é um array?
+        #. 2 - criando arrays
+        #. 3 - tamanho do array
+        #. 4 - adicionar elementos
+        #. 5 - remover elementos
+        #. 6 - buscar elementos
+        #. 7 - percorrer array (LOOP)
+        #. 8 - métodos IMPORTANTES
+        #. 9 - slice vs splice 
+        #. 10 - arrays de objetos
+        #. 11 - referência vs cópia 
+        #. 12 - destructuring
+        #. 13 - spread operator
+        #. 14 - arrays + async
+        #. 15 - imutabilidade
+        #. 16 - performance
+        #. 17 - estruturação de dados
+        #. 18 - flat e flatMap
+        #. 19 - deduplicar array
+        #. 20 - ordenação (sort)
+        #. 21 - exemplo REAL 
+    ________________________________________________
+    !. 3 - Funções
+        #. 1 - Maneiras de escrever funções 
+        #. 2 - Closures 
+        #. 3 - Tipos de funções
+    ________________________________________________
+    !. 4 - Objetos
+        #. 1. O que é um objeto?
+        #. 2. Como criar objetos
+        #. 3. Acessando propriedades
+        #. 4. Modificar objetos
+        #. 5. Adicionar propriedades
+        #. 6. Remover propriedades
+        #. 7. Métodos (funções dentro de objetos)
+        #. 8. this dentro de objetos
+        #. 9. Objetos aninhados
+        #. 10. Arrays dentro de objetos
+        #. 11. Desestruturação
+        #. 12. Spread operator
+        #. 13. Object methods úteis
+        #. 14. Comparação de objetos
+        #. 15. Cópia de objetos
+        #. 16. Propriedades dinâmicas
+        #. 17. Objetos são dinâmicos
+        #. 18. Quando usar objetos
+        #. 19. Objetos primitivos (wrapper)
+    ________________________________________________
+    !. 5 - Prototype
+        #. 1 - o que é Prototype? 
+        #. 2 - Prototype na prática 
+        #. 3 - Prototype chain 
+        #. 4 - Criando herança com prototype 
+        #. 5 - Prototype de funções
+        #. 6 - New
+        #. 7 - Object.create (herança direta)
+        #. 8 - Shadowing (Sobrescrita)
+        #. 9 - Como o JS resolve propriedades 
+    ________________________________________________
+    !. 6 - Avaliação de curto-circuito
+    ________________________________________________
+    !. 7 - Classes
+        #. 1 - Sintaxe básica 
+        #. 2 - O construtor
+        #. 3 - Métodos
+        #. 4 - This dentro da classe
+        #. 5 - Métodos estáticos 
+        #. 6 - Getters e Setters
+        #. 7 - Herança (extends)
+        #. 8 - Super
+        #. 9 - Campos de classe (class fields)
+        #. . 0 - Métodos privados (#)
+        #. . 2 - Static + private 
+        #. . 3 - Como funciona por baixo dos panos
+        #. . 4 - Boas práticas
+        #. . 5 - Não usar arrow function como método de classe
+    ________________________________________________
+    !. 8 - Expressões
+    ________________________________________________
+    !. 9 - Memória
+        #. 1 - Estrutura da memória
+        #. 2 - Tipos de dado e memória
+        #. 3 - Comparação de valores
+        #. 4 - Mutabilidade
+        #. 5 - Passagem de valores
+        #. 6 - Call Stack (Pilha de execução)
+        #. 7 - Stack Overflow
+        #. 8 - Heap na prática
+        #. 9 - Garbage Collector (GC)
+        #. 10 - Memory leaks
+        #. 11 - Shallow Copy vs Deep Copy
+        #. 12 - Closures
+        #. 13 - Event Loop 
+        #. 14 - Boas práticas
+
+conteúdo da secao 2 do JavaScript 
+(secao-2):
+    !. 10 - this, bind, call e apply
+        #. 1 - contexto (this) -  a base de tudo
+        #. 2 - bind() - fixa o this
+        #. 3 - call() 
+        #. 4 - apply()
+        #. 5 - Diferenças práticas
+        #. 6 - Casos reais de uso
+    ________________________________________________ 
+    !. 11 - Motor JavaScript
+    ________________________________________________ 
+    !. 12 - ES6 Modules
+    ________________________________________________ 
+    !. 13 - DOM
+    ________________________________________________
+    !. 14 - Eventos
+    ________________________________________________
+    !. 15 - Web Storage API
+
