@@ -5,112 +5,316 @@ as seções não estão organizadas em ordem de dificuldade, apenas na ordem que
 conteúdo da secao 1 do JavaScript 
 (secao-1):
     !. 1 - Promises e async 
-        #. 1 - O que é programação assíncrona 
-        #. 2 - Callbacks 
-        #. 3 - Promises 
-        #. 4 - then () 
-        #. 5 - catch () 
-        #. 6 - exemplo real com sucesso/erro 
-        #. 7 - encadeamento de promises 
-        #. 8 - async / await 
-        #. 9 - tratamento de erro com async/await 
-        #. 10 - comparação 
-        #. 11 - no contexto do AngularJS 
-        #. 12 - erros comuns 
+        #. 1 - O que é programação assíncrona
+            #@ 1 - Conceito básico
+            #@ 2 - Por que é necessário
+            #@ 3 - Diferença: síncrono vs assíncrono
+
+        #. 2 - Callbacks
+            #@ 1 - O que é uma callback
+            #@ 2 - Como usar callbacks
+            #@ 3 - Callback Hell (problema dos callbacks)
+
+        #. 3 - Promises
+            #@ 1 - O que é uma Promise
+            #@ 2 - Estados de uma Promise
+            #@ 3 - Criando uma Promise
+            #@ 4 - Consumindo uma Promise
+
+        #. 4 - then ()
+            #@ 1 - Como funciona
+            #@ 2 - Sintaxe básica
+            
+        #. 5 - catch ()
+            #@ 1 - Como funciona
+            #@ 2 - Sintaxe básica
+
+        #. 6 - exemplo real com sucesso/erro
+            #@ 1 - Tratamento completo
+
+        #. 7 - encadeamento de promises
+            #@ 1 - Chaining múltiplas operações
+            
+        #. 8 - async / await
+            #@ 1 - Forma moderna de trabalhar com promises
+            #@ 2 - Sintaxe básica
+            #@ 3 - Equivalência com then()
+
+        #. 9 - tratamento de erro com async/await
+            #@ 1 - Usando try/catch
+
+        #. 10 - comparação
+            #@ 1 - Comparação entre abordagens
+
+        #. 11 - no contexto do AngularJS
+            #@ 1 - AngularJS antigo usa callbacks
+            #@ 2 - Adaptando para Promise
+            #@ 3 - Usando com async/await
+
+        #. 12 - erros comuns
+            #@ 1 - Esquecer que é assíncrono
+            #@ 2 - Não tratar erro
+            #@ 3 - Misturar padrões sem entender
+            #@ 4 - Usar await fora de async
+
         #. 13 - métodos da Promise
+            #@ 1 - Promise.resolve()
+            #@ 2 - Promise.reject()
+            #@ 3 - Promise.all()
+            #@ 4 - Promise.allSettled()
+            #@ 5 - Promise.race()
+            #@ 6 - Promise.any()
+            #@ 7 - Promise.finally()
+            #@ 8 - Comparação e exemplos práticos
     ________________________________________________
     !. 2 - Arrays
         #. 1 - o que é um array?
+            #@ 1 - Conceito básico
+            #@ 2 - Regras importantes
+        
         #. 2 - criando arrays
+            #@ 1 - Array vazio
+            #@ 2 - Array com valores
+            #@ 3 - Usando new Array (não recomendado)
+        
         #. 3 - tamanho do array
+            #@ 1 - Propriedade length
+        
         #. 4 - adicionar elementos
+            #@ 1 - Adicionar no final
+            #@ 2 - Adicionar no início
+        
         #. 5 - remover elementos
+            #@ 1 - Remover do final
+            #@ 2 - Remover do início
+        
         #. 6 - buscar elementos
+            #@ 1 - Verificar se existe
+            #@ 2 - Encontrar índice
+        
         #. 7 - percorrer array (LOOP)
+            #@ 1 - For clássico (menos usado hoje)
+            #@ 2 - forEach (mais usado)
+        
         #. 8 - métodos IMPORTANTES
-        #. 9 - slice vs splice 
+            #@ 1 - map → transformar
+            #@ 2 - filter → filtrar
+            #@ 3 - find → encontrar 1 item
+            #@ 4 - some → algum passa?
+            #@ 5 - every → todos passam?
+            #@ 6 - reduce → o mais poderoso
+        
+        #. 9 - slice vs splice
+            #@ 1 - slice (NÃO altera original)
+            #@ 2 - splice (ALTERA o array)
+        
         #. 10 - arrays de objetos
-        #. 11 - referência vs cópia 
+            #@ 1 - Estrutura básica
+            #@ 2 - Operações com filter
+        
+        #. 11 - referência vs cópia
+            #@ 1 - Problema de referência
+            #@ 2 - Copiar corretamente
+        
         #. 12 - destructuring
+            #@ 1 - Desempacotando arrays
+        
         #. 13 - spread operator
+            #@ 1 - Unindo arrays
+        
         #. 14 - arrays + async
+            #@ 1 - O erro clássico
+            #@ 2 - Com Promise.all (paralelo - mais usado)
+            #@ 3 - Com for...of (sequencial)
+            #@ 4 - Regra prática
+        
         #. 15 - imutabilidade
+            #@ 1 - Princípio geral (Angular/React)
+            #@ 2 - Atualizar item dentro do array
+        
         #. 16 - performance
+            #@ 1 - Evitar múltiplos loops
+        
         #. 17 - estruturação de dados
+            #@ 1 - Transformar array em objeto (indexação rápida)
+        
         #. 18 - flat e flatMap
+            #@ 1 - flat (array dentro de array)
+            #@ 2 - flatMap (map + flatten)
+        
         #. 19 - deduplicar array
+            #@ 1 - Removendo duplicatas
+        
         #. 20 - ordenação (sort)
-        #. 21 - exemplo REAL 
+            #@ 1 - Cuidado: sort muta o array
+            #@ 2 - Ordenar objetos
+        
+        #. 21 - exemplo REAL
+            #@ 1 - Cenário: API de pedidos
+            #@ 2 - Solução profissional
     ________________________________________________
     !. 3 - Funções
-        #. 1 - Maneiras de escrever funções 
-        #. 2 - Closures 
+        #. 1 - Maneiras de escrever funções
+            #@ 1 - Função normal (function)
+            #@ 2 - Arrow function (=>)
+
+        #. 2 - Closures
+            #@ 1 - Conceito de escopo léxico
+            #@ 2 - O que é Closure
+
         #. 3 - Tipos de funções
+            #@ 1 - Funções de callback
+            #@ 2 - Funções imediatas (IIFE)
+            #@ 3 - Funções fábrica (Factory Functions)
+            #@ 4 - Funções construtoras
+            #@ 5 - Funções recursivas
+            #@ 6 - Funções geradoras
     ________________________________________________
     !. 4 - Objetos
-        #. 1. O que é um objeto?
-        #. 2. Como criar objetos
-        #. 3. Acessando propriedades
-        #. 4. Modificar objetos
-        #. 5. Adicionar propriedades
-        #. 6. Remover propriedades
-        #. 7. Métodos (funções dentro de objetos)
-        #. 8. this dentro de objetos
-        #. 9. Objetos aninhados
-        #. 10. Arrays dentro de objetos
-        #. 11. Desestruturação
-        #. 12. Spread operator
-        #. 13. Object methods úteis
-        #. 14. Comparação de objetos
-        #. 15. Cópia de objetos
-        #. 16. Propriedades dinâmicas
-        #. 17. Objetos são dinâmicos
-        #. 18. Quando usar objetos
-        #. 19. Objetos primitivos (wrapper)
+        #. 1 - O que é um objeto?
+            #@ 1 - Conceito
+            #@ 2 - Exemplo simples
+        
+        #. 2 - Como criar objetos
+            #@ 1 - Literal (mais comum)
+            #@ 2 - Usando new Object()
+            #@ 3 - Função construtora
+            #@ 4 - ES6 Class (mais moderno)
+        
+        #. 3 - Acessando propriedades
+            #@ 1 - Notação ponto
+            #@ 2 - Notação colchetes
+        
+        #. 4 - Modificar objetos
+            #@ 1 - Alterando propriedades
+        
+        #. 5 - Adicionar propriedades
+            #@ 1 - Adicionando novas propriedades
+        
+        #. 6 - Remover propriedades
+            #@ 1 - Usando delete
+        
+        #. 7 - Métodos (funções dentro de objetos)
+            #@ 1 - Forma clássica
+            #@ 2 - Forma moderna
+        
+        #. 8 - this dentro de objetos
+            #@ 1 - Referência ao objeto
+        
+        #. 9 - Objetos aninhados
+            #@ 1 - Objetos dentro de objetos
+        
+        #. 10 - Arrays dentro de objetos
+            #@ 1 - Estrutura mista
+        
+        #. 11 - Desestruturação
+            #@ 1 - Extraindo valores do objeto
+        
+        #. 12 - Spread operator
+            #@ 1 - Copiando e expandindo objetos
+        
+        #. 13 - Object methods úteis
+            #@ 1 - Object.keys()
+            #@ 2 - Object.values()
+            #@ 3 - Object.entries()
+            #@ 4 - Object.freeze()
+            #@ 5 - Object.getOwnPropertyDescriptor()
+            #@ 6 - Object.setPrototypeOf()
+            #@ 7 - Object.getPrototypeOf()
+            #@ 8 - Object.defineProperty() e Object.defineProperties()
+        
+        #. 14 - Comparação de objetos
+            #@ 1 - Comparação por referência
+        
+        #. 15 - Cópia de objetos
+            #@ 1 - Cópia rasa (shallow copy)
+            #@ 2 - Cópia profunda (deep copy)
+            #@ 3 - Limitações do Shadowing e Prototype Lookup
+        
+        #. 16 - Propriedades dinâmicas
+            #@ 1 - Chaves dinâmicas
+        
+        #. 17 - Objetos são dinâmicos
+            #@ 1 - Mudanças em runtime
+        
+        #. 18 - Quando usar objetos
+            #@ 1 - Casos de uso
+        
+        #. 19 - Objetos primitivos (wrapper)
+            #@ 1 - Wrapper objects
+            #@ 2 - Comparação
+            #@ 3 - ❗ NUNCA UTILIZAR new Number, new String, new Boolean
     ________________________________________________
     !. 5 - Prototype
-        #. 1 - o que é Prototype? 
-        #. 2 - Prototype na prática 
-        #. 3 - Prototype chain 
-        #. 4 - Criando herança com prototype 
+        #. 1 - o que é Prototype?
+            #@ 1 - Conceito de protótipo em JS
+            #@ 2 - [[Prototype]] e __proto__
+        #. 2 - Prototype na prática
+            #@ 1 - Como acessar o prototype
+            #@ 2 - Diferença entre __proto__ e .prototype
+            #@ 3 - O que define qual prototype um objeto aponta
+        #. 3 - Prototype chain
+            #@ 1 - Como o JS resolve propriedades
+        #. 4 - Criando herança com prototype
         #. 5 - Prototype de funções
         #. 6 - New
         #. 7 - Object.create (herança direta)
         #. 8 - Shadowing (Sobrescrita)
-        #. 9 - Como o JS resolve propriedades 
+        #. 9 - Como o JS resolve propriedades
     ________________________________________________
     !. 6 - Avaliação de curto-circuito
         #. 1 - Operador AND (&&)
+            #@ 1 - Como funciona
+            #@ 2 - Exemplos
         #. 2 - Operador OR (||)
+            #@ 1 - Como funciona
+            #@ 2 - Exemplos
         #. 3 - Operador de Coalescência Nula (??)
+            #@ 1 - Como funciona
+            #@ 2 - Exemplos
         #. 4 - Valores Falsy
         #. 5 - Valores Truthy
         #. 6 - Curto-Circuito em Atribuições
     ________________________________________________
     !. 7 - Classes
-        #. 1 - Sintaxe básica 
+        #. 1 - Sintaxe básica
+            #@ 1 - Estrutura básica
         #. 2 - O construtor
+            #@ 1 - Constructor é executado automaticamente
         #. 3 - Métodos
+            #@ 1 - Métodos na classe
         #. 4 - This dentro da classe
-        #. 5 - Métodos estáticos 
+            #@ 1 - Contexto de this
+            #@ 2 - Problemas comuns
+        #. 5 - Métodos estáticos
         #. 6 - Getters e Setters
         #. 7 - Herança (extends)
         #. 8 - Super
         #. 9 - Campos de classe (class fields)
-        #. . 0 - Métodos privados (#)
-        #. . 2 - Static + private 
-        #. . 3 - Como funciona por baixo dos panos
-        #. . 4 - Boas práticas
-        #. . 5 - Não usar arrow function como método de classe
+        #. 10 - Métodos privados (#)
+        #. 11 - Static + private
+        #. 12 - Como funciona por baixo dos panos
+        #. 13 - Boas práticas
+        #. 14 - Não usar arrow function como método de classe
     ________________________________________________
     !. 8 - Expressões
         #. 1 - Expressão vs Instrução (Statement)
+            #@ 1 - Expressão (retorna valor)
+            #@ 2 - Instrução/Statement (não retorna valor direto)
         #. 2 - Expressão de Atribuição
+            #@ 1 - Atribuição como expressão
         #. 3 - Expressão de Função
+            #@ 1 - Function expression
+            #@ 2 - Diferença de função declarada
         #. 4 - Arrow Function (também é expressão)
+            #@ 1 - Sintaxe
         #. 5 - Expressão Ternária
+            #@ 1 - Operador ternário
+            #@ 2 - Diferença do if
         #. 6 - Chamadas de Função
+            #@ 1 - Funções como expressões
         #. 7 - Teste Prático: É Expressão ou Não?
+            #@ 1 - Teste prático
     ________________________________________________
     !. 9 - Memória
         #. 1 - Estrutura da memória
@@ -147,4 +351,5 @@ conteúdo da secao 2 do JavaScript
     !. 14 - Eventos
     ________________________________________________
     !. 15 - Web Storage API
+
 

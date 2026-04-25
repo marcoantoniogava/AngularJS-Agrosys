@@ -10,263 +10,278 @@ Isso significa que algumas operações não retornam resultado imediatamente, co
 - timers (setTimeout)
 
 #. 1 - O que é programação assíncrona 
-    Programação assíncrona é quando o código continua executando sem esperar o resultado de uma operação.
+    #@ 1 - Conceito básico
+        Programação assíncrona é quando o código continua executando sem esperar o resultado de uma operação.
 
-    console.log("início");
+        console.log("início");
 
-    setTimeout(function() {
-        console.log("meio");
-    }, 1000);
+        setTimeout(function() {
+            console.log("meio");
+        }, 1000);
 
-    console.log("fim");
+        console.log("fim");
 
-    saída:
+        saída:
 
-    início
-    fim
-    (meio depois de 1 segundo)
+        início
+        fim
+        (meio depois de 1 segundo)
 
-    explicação
-    - setTimeout demora
-    - o JavaScript não espera
-    - continua executando
+    #@ 2 - Por que é necessário
+        - setTimeout demora
+        - o JavaScript não espera
+        - continua executando
 
-    problema: código síncrono vs assíncrono
-
-    ❌ errado (pensamento síncrono)
-    var dados = buscarDados();
-    console.log(dados);
-
-    ✔️ correto (assíncrono)
-    buscarDados(function(dados) {
+    #@ 3 - Diferença: síncrono vs assíncrono
+        ❌ errado (pensamento síncrono)
+        var dados = buscarDados();
         console.log(dados);
-    });
+
+        ✔️ correto (assíncrono)
+        buscarDados(function(dados) {
+            console.log(dados);
+        });
 
 _______________________________________________________________________________________________________________________
 
 #. 2 - Callbacks 
-    antes das promises, o padrão era usar callbacks.
+    #@ 1 - O que é uma callback
+        é uma função passada como argumento que será executada depois
 
-    é uma função passada como argumento que será executada depois
+    #@ 2 - Como usar callbacks
+        example
+        function buscarDados(callback) {
+            setTimeout(function() {
+                callback("dados carregados");
+            }, 1000);
+        }
 
-    exemplo
-    function buscarDados(callback) {
-        setTimeout(function() {
-            callback("dados carregados");
-        }, 1000);
-    }
+        buscarDados(function(resultado) {
+            console.log(resultado);
+        });
 
-    buscarDados(function(resultado) {
-        console.log(resultado);
-    });
-
-    problema dos callbacks
-    callback hell
-    buscarA(function(a) {
-        buscarB(a, function(b) {
-            buscarC(b, function(c) {
-                console.log(c);
+    #@ 3 - Callback Hell (problema dos callbacks)
+        buscarA(function(a) {
+            buscarB(a, function(b) {
+                buscarC(b, function(c) {
+                    console.log(c);
+                });
             });
         });
-    });
 
-    - difícil de ler
-    - difícil de manter
+        - difícil de ler
+        - difícil de manter
 
 _______________________________________________________________________________________________________________________
 
 #. 3 - Promises 
-    Promises foram criadas para resolver esse problema.
+    #@ 1 - O que é uma Promise
+        é um objeto que representa um valor que estará disponível no futuro
+        
+    #@ 2 - Estados de uma Promise
+        pending   → em andamento
+        fulfilled → sucesso
+        rejected  → erro
 
-    é um objeto que representa um valor que estará disponível no futuro
-    
-    estados de uma Promise
-    pending   → em andamento
-    fulfilled → sucesso
-    rejected  → erro
+    #@ 3 - Criando uma Promise
+        -------exemplo---------
+        var promessa = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve("deu certo");
+            }, 1000);
+        });
+        --------fim-exemplo-----
 
-    -------exemplo---------
-    var promessa = new Promise(function(resolve, reject) {
-        setTimeout(function() {
-            resolve("deu certo");
-        }, 1000);
-    });
-
-    consumindo a promise:
-    -------exemplo---------
-    promessa.then(function(resultado) {
-        console.log(resultado);
-    });
+    #@ 4 - Consumindo uma Promise
+        -------exemplo---------
+        promessa.then(function(resultado) {
+            console.log(resultado);
+        });
+        --------fim-exemplo-----
 
 _______________________________________________________________________________________________________________________
 
 #. 4 - then () 
-    then() é executado quando a promise resolve com sucesso.
+    #@ 1 - Como funciona
+        then() é executado quando a promise resolve com sucesso.
 
-    -------exemplo---------
-    buscarDados().then(function(dados) {
-        console.log(dados);
-    });
+    #@ 2 - Sintaxe básica
+        -------exemplo---------
+        buscarDados().then(function(dados) {
+            console.log(dados);
+        });
+        --------fim-exemplo-----
 
 _______________________________________________________________________________________________________________________
 
 #. 5 - catch () 
-    catch() é executado quando ocorre erro.
+    #@ 1 - Como funciona
+        catch() é executado quando ocorre erro.
 
-    -------exemplo---------
-    buscarDados()
-        .then(function(dados) {
-            console.log(dados);
-        })
-        .catch(function(erro) {
-            console.log("erro:", erro);
-        });
+    #@ 2 - Sintaxe básica
+        -------exemplo---------
+        buscarDados()
+            .then(function(dados) {
+                console.log(dados);
+            })
+            .catch(function(erro) {
+                console.log("erro:", erro);
+            });
+        --------fim-exemplo-----
 
 _______________________________________________________________________________________________________________________
 
 #. 6 - exemplo real com sucesso/erro 
-    function buscarDados() {
-        return new Promise(function(resolve, reject) {
-            var sucesso = true;
+    #@ 1 - Tratamento completo
+        function buscarDados() {
+            return new Promise(function(resolve, reject) {
+                var sucesso = true;
 
-            if (sucesso) {
-                resolve("dados carregados");
-            } else {
-                reject("erro ao carregar");
-            }
-        });
-    }
+                if (sucesso) {
+                    resolve("dados carregados");
+                } else {
+                    reject("erro ao carregar");
+                }
+            });
+        }
 
 _______________________________________________________________________________________________________________________
 
 #. 7 - encadeamento de promises 
-    você pode encadear várias operações:
-    -------exemplo---------
-    buscarDados()
-        .then(function(dados) {
-            return processarDados(dados);
-        })
-        .then(function(resultado) {
-            console.log(resultado);
-        })
-        .catch(function(erro) {
-            console.log(erro);
-        });
+    #@ 1 - Chaining múltiplas operações
+        você pode encadear várias operações:
+        -------exemplo---------
+        buscarDados()
+            .then(function(dados) {
+                return processarDados(dados);
+            })
+            .then(function(resultado) {
+                console.log(resultado);
+            })
+            .catch(function(erro) {
+                console.log(erro);
+            });
+        --------fim-exemplo-----
 
 _______________________________________________________________________________________________________________________
 
 #. 8 - async / await 
-    é uma forma mais moderna de trabalhar com promises.
+    #@ 1 - Forma moderna de trabalhar com promises
+        é uma forma mais moderna de trabalhar com promises.
 
-    -------exemplo---------
-    async function carregar() {
-        var dados = await buscarDados();
-        console.log(dados);
-    }
+    #@ 2 - Sintaxe básica
+        -------exemplo---------
+        async function carregar() {
+            var dados = await buscarDados();
+            console.log(dados);
+        }
 
-    explicação
-    async → define função assíncrona
-    await → espera a promise resolver
+        explicação
+        async → define função assíncrona
+        await → espera a promise resolver
+        --------fim-exemplo-----
 
-    versão equivalente com then
-    -------exemplo---------
-    buscarDados().then(function(dados) {
-        console.log(dados);
-    });
-
-    const p1 = new Promise(res => res(123))
-
-    isso aqui:
-    async function teste() {
-        const valor = await p1;
-        console.log(valor);
-    }
-
-    é transformado em algo tipo:
-    function teste() {
-        p1.then(function(valor) {
-            console.log(valor);
+    #@ 3 - Equivalência com then()
+        -------exemplo---------
+        buscarDados().then(function(dados) {
+            console.log(dados);
         });
-    }
+
+        const p1 = new Promise(res => res(123))
+
+        isso aqui:
+        async function teste() {
+            const valor = await p1;
+            console.log(valor);
+        }
+
+        é transformado em algo tipo:
+        function teste() {
+            p1.then(function(valor) {
+                console.log(valor);
+            });
+        }
+        --------fim-exemplo-----
 
 _______________________________________________________________________________________________________________________
 
 #. 9 - tratamento de erro com async/await 
-    async function carregar() {
-        try {
-            var dados = await buscarDados();
-            console.log(dados);
-        } catch (erro) {
-            console.log("erro:", erro);
+    #@ 1 - Usando try/catch
+        async function carregar() {
+            try {
+                var dados = await buscarDados();
+                console.log(dados);
+            } catch (erro) {
+                console.log("erro:", erro);
+            }
         }
-    }
 
 _______________________________________________________________________________________________________________________
 
 #. 10 - comparação 
-    abordagem	    legibilidade
-    callback	    ruim
-    promise	        boa
-    async/await	    melhor
+    #@ 1 - Comparação entre abordagens
+        abordagem	    legibilidade
+        callback	    ruim
+        promise	        boa
+        async/await	    melhor
 
 _______________________________________________________________________________________________________________________
 
 #. 11 - no contexto do AngularJS 
-    AngularJS antigo usa MUITO callback.
-
-    -------exemplo---------
-    sql.select(classe, where, function(resultado, vcod) {
-        if (vcod === 1) {
-            console.log(resultado);
-        }
-    });
-
-    como melhorar (conceito de promise)
-
-    é possível adaptar para promise:
-
-    function selectPromise(classe, where) {
-        return new Promise(function(resolve, reject) {
-            sql.select(classe, where, function(resultado, vcod) {
-                if (vcod === 1) {
-                    resolve(resultado);
-                } else {
-                    reject("erro");
-                }
-            });
+    #@ 1 - AngularJS antigo usa callbacks
+        -------exemplo---------
+        sql.select(classe, where, function(resultado, vcod) {
+            if (vcod === 1) {
+                console.log(resultado);
+            }
         });
-    }
+        --------fim-exemplo-----
 
-    usando com async/await
-    async function carregar() {
-        try {
-            var dados = await selectPromise('clientes', '');
-            console.log(dados);
-        } catch (erro) {
-            console.log(erro);
+    #@ 2 - Adaptando para Promise
+        é possível adaptar para promise:
+
+        function selectPromise(classe, where) {
+            return new Promise(function(resolve, reject) {
+                sql.select(classe, where, function(resultado, vcod) {
+                    if (vcod === 1) {
+                        resolve(resultado);
+                    } else {
+                        reject("erro");
+                    }
+                });
+            });
         }
-    }
+
+    #@ 3 - Usando com async/await
+        async function carregar() {
+            try {
+                var dados = await selectPromise('clientes', '');
+                console.log(dados);
+            } catch (erro) {
+                console.log(erro);
+            }
+        }
 
 _______________________________________________________________________________________________________________________
 
 #. 12 - erros comuns 
-    1. esquecer que é assíncrono
-    var dados = buscar();
+    #@ 1 - Esquecer que é assíncrono
+        var dados = buscar();
 
-    2. não tratar erro
-    .then(...)
-    sem .catch()
+    #@ 2 - Não tratar erro
+        .then(...)
+        sem .catch()
 
-    3. misturar padrões sem entender
-    callback + promise + async tudo junto
+    #@ 3 - Misturar padrões sem entender
+        callback + promise + async tudo junto
 
-    4. usar await fora de async
-    var dados = await buscar(); // erro
+    #@ 4 - Usar await fora de async
+        var dados = await buscar(); // erro
 
 _______________________________________________________________________________________________________________________
 
 #. 13 - métodos da Promise
-    Promise.resolve() 
+    #@ 1 - Promise.resolve()
         retorna uma promise já resolvida
 
         Promise.resolve(10).then(console.log);
@@ -275,7 +290,7 @@ ________________________________________________________________________________
 
         10
 
-    Promise.reject() 
+    #@ 2 - Promise.reject()
         retorna uma promise já rejeitada
 
         Promise.reject("erro").catch(console.log);
@@ -284,7 +299,7 @@ ________________________________________________________________________________
 
         erro
 
-    Promise.all() 
+    #@ 3 - Promise.all()
         executa várias promises em paralelo
         retorna quando TODAS resolvem
 
@@ -310,7 +325,7 @@ ________________________________________________________________________________
 
         erro
 
-    Promise.allSettled() 
+    #@ 4 - Promise.allSettled()
         espera TODAS terminarem (sucesso ou erro)
 
         Promise.allSettled([
@@ -325,7 +340,7 @@ ________________________________________________________________________________
             { status: "rejected", reason: "erro" }
         ]
 
-    Promise.race() 
+    #@ 5 - Promise.race()
         retorna a PRIMEIRA que terminar (sucesso ou erro)
 
         Promise.race([
@@ -337,7 +352,7 @@ ________________________________________________________________________________
 
         B
 
-    Promise.any() 
+    #@ 6 - Promise.any()
         retorna a PRIMEIRA que resolver com sucesso
         ignora erros até conseguir uma válida
 
@@ -360,7 +375,7 @@ ________________________________________________________________________________
 
         👉 retorna um erro especial (AggregateError)
 
-    Promise.finally() 
+    #@ 7 - Promise.finally()
         executa sempre, independente de sucesso ou erro
 
         Promise.resolve("ok")
@@ -373,54 +388,49 @@ ________________________________________________________________________________
 
         👉 usado para limpeza (loading, etc)
 
-    ----------------------------------------------------------------------------------------
+    #@ 8 - Comparação e exemplos práticos
+        comparação prática
+            método	    quando usar
+            resolve	    criar promise resolvida
+            reject	    criar promise com erro
+            all         quando precisa de TODOS
+            allSettled  quando quer TODOS, mesmo com erro
+            race	    pegar o mais rápido
+            any	        pegar o primeiro que der certo
+            finally	    executar sempre
 
-    comparação prática
-        método	    quando usar
-        resolve	    criar promise resolvida
-        reject	    criar promise com erro
-        all         quando precisa de TODOS
-        allSettled  quando quer TODOS, mesmo com erro
-        race	    pegar o mais rápido
-        any	        pegar o primeiro que der certo
-        finally	    executar sempre
+        exemplos reais 
+            carregar várias coisas ao mesmo tempo
+                const [usuarios, produtos] = await Promise.all([
+                    buscarUsuarios(),
+                    buscarProdutos()
+                ]);
+                
+            não parar se der erro
+                const resultados = await Promise.allSettled([
+                    buscarUsuarios(),
+                    buscarProdutos()
+                ]);
 
-    ----------------------------------------------------------------------------------------
-    
-    exemplos reais 
-        carregar várias coisas ao mesmo tempo
-            const [usuarios, produtos] = await Promise.all([
-                buscarUsuarios(),
-                buscarProdutos()
-            ]);
+            pegar resposta mais rápida (timeout)
+                const resposta = await Promise.race([
+                    fetch("/api"),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject("timeout"), 3000)
+                    )
+                ]);
             
-        não parar se der erro
-            const resultados = await Promise.allSettled([
-                buscarUsuarios(),
-                buscarProdutos()
-            ]);
+            tentar várias fontes
+                const dados = await Promise.any([
+                    fetch("/api1"),
+                    fetch("/api2"),
+                    fetch("/api3")
+                ]);
 
-        pegar resposta mais rápida (timeout)
-            const resposta = await Promise.race([
-                fetch("/api"),
-                new Promise((_, reject) => 
-                    setTimeout(() => reject("timeout"), 3000)
-                )
-            ]);
-        
-        tentar várias fontes
-            const dados = await Promise.any([
-                fetch("/api1"),
-                fetch("/api2"),
-                fetch("/api3")
-            ]);
-
-    ----------------------------------------------------------------------------------------
-
-    dica final
-        Promise.all → padrão mais usado
-        Promise.race → usado pra timeout
-        Promise.any → fallback entre APIs
-        Promise.allSettled → relatórios/logs
+        dica final
+            Promise.all → padrão mais usado
+            Promise.race → usado pra timeout
+            Promise.any → fallback entre APIs
+            Promise.allSettled → relatórios/logs
 
 _______________________________________________________________________________________________________________________

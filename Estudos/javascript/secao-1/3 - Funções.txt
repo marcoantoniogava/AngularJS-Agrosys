@@ -1,5 +1,5 @@
 #. 1 - Maneiras de escrever funções 
-  !1 - Função normal (function)
+  #@ 1 - Função normal (function)
     Tem o próprio this
     O valor do this depende de como a função é chamada
     const obj = {
@@ -13,7 +13,7 @@
 
     aqui this aponta para obj
 
-  !2 - Arrow function (=>)
+  #@ 2 - Arrow function (=>)
     NÃO tem this próprio
     Ela herda o this do contexto onde foi criada
     const obj = {
@@ -62,41 +62,41 @@
 _________________________________________________________________________
 
 #. 2 - Closures 
-  A habilidade da função de reconhecer seu escopo léxico
-  escopo léxico é basicamente:
-  uma função enxerga variáveis de onde ela foi criada, não de onde ela é chamada
-  
-  const nome = "global";
+  #@ 1 - Conceito de escopo léxico
+    A habilidade da função de reconhecer seu escopo léxico
+    escopo léxico é basicamente:
+    uma função enxerga variáveis de onde ela foi criada, não de onde ela é chamada
+    
+    const nome = "global";
 
-  function fora() {
-      const nome = "fora";
+    function fora() {
+        const nome = "fora";
 
-      function dentro() {
-          console.log(nome);
-      }
+        function dentro() {
+            console.log(nome);
+        }
 
-      dentro();
-  }
+        dentro();
+    }
 
-  fora(); // "fora"
+    fora(); // "fora"
 
-  a função dentro pega o nome do lugar onde ela foi definida, não de onde foi chamada.
+    a função dentro pega o nome do lugar onde ela foi definida, não de onde foi chamada.
 
-  -------------------------------------------------------------------------------------------
+  #@ 2 - O que é Closure
+    closure é quando uma função:
 
-  closure é quando uma função:
+    lembra das variáveis do escopo onde foi criada, mesmo depois desse escopo ter "acabado"
 
-  lembra das variáveis do escopo onde foi criada, mesmo depois desse escopo ter "acabado"
+    exemplo clássico
+    function criarContador() {
+        let contador = 0;
 
-  exemplo clássico
-  function criarContador() {
-      let contador = 0;
-
-      return function() {
-          contador++;
-          return contador;
-      };
-  }
+        return function() {
+            contador++;
+            return contador;
+        };
+    }
 
   const contar = criarContador();
 
@@ -162,7 +162,7 @@ _________________________________________________________________________
 _________________________________________________________________________
 
 #. 3 - Tipos de funções
-  !1 - Funções de callback 
+  #@ 1 - Funções de callback 
     Funções passadas como argumento que outras funções manipulam ela como parâmetro.
     no JavaScript, funções são objetos e podem ser declaradas em basicamente qualquer lugar do código.
 
@@ -182,8 +182,8 @@ _________________________________________________________________________
     }
 
     executaCallback(f1);
-  ------------------------------------
-  !2 - Funções imediatas (IIFE)
+
+  #@ 2 - Funções imediatas (IIFE)
     Funções anônimas executadas logo após sua criação:
     São úteis para não poluir o escopo global com funções.
 
@@ -193,8 +193,8 @@ _________________________________________________________________________
     })();
 
     const nome = "Teste";
-  ------------------------------------
-  !3 - Funções fábrica (Factory Functions) 
+
+  #@ 3 - Funções fábrica (Factory Functions) 
     são funções que retornam objetos prontos, sem usar new.
     ideia: você chama a função e ela fabrica um objeto pra você.
     usa quando o intuito é criar objetos de forma simples e flexível.
@@ -224,8 +224,8 @@ _________________________________________________________________________
     p1.fala("JS");
     p1.nomeCompleto = "Nícolas Machado Cardoso";
     console.log(p1.nomeCompleto);
-  ------------------------------------
-  !4 - Funções construtoras 
+
+  #@ 4 - Funções construtoras 
     são usadas com new pra instanciar objetos.
     ideia: a função serve como um molde, e o new cria o objeto.
     usa quando o intuito é criar vários objetos com a mesma estrutura, principalmente com herança/prototype.
@@ -263,8 +263,8 @@ _________________________________________________________________________
 
     console.log(u.validarSenha("123")); // true
     console.log(u.senhaInterna); // undefined
-  ------------------------------------
-  !5 - Funções recursivas 
+
+  #@ 5 - Funções recursivas 
     Funções que chamam ela mesma
 
     function recursiva (max) {
@@ -275,8 +275,8 @@ _________________________________________________________________________
     }
 
     recursiva(-10);
-  ------------------------------------
-  !6 - Funções geradoras 
+
+  #@ 6 - Funções geradoras 
     são funções que podem pausar e continuar execução, usando yield.
     Lazy evaluation -> não entrega todos os valores de uma vez.
     usa quando o intuito é controlar execução passo a passo, ou lidar com fluxo de dados incremental.
