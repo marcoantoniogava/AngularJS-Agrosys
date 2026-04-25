@@ -9,9 +9,7 @@ Isso significa que algumas operações não retornam resultado imediatamente, co
 - leitura de arquivos
 - timers (setTimeout)
 
-----------------------------------------------------------------------------------------
-
-O que é programação assíncrona {
+#. 1 - O que é programação assíncrona 
     Programação assíncrona é quando o código continua executando sem esperar o resultado de uma operação.
 
     console.log("início");
@@ -43,11 +41,10 @@ O que é programação assíncrona {
     buscarDados(function(dados) {
         console.log(dados);
     });
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-Callbacks {
+#. 2 - Callbacks 
     antes das promises, o padrão era usar callbacks.
 
     é uma função passada como argumento que será executada depois
@@ -75,11 +72,10 @@ Callbacks {
 
     - difícil de ler
     - difícil de manter
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-Promises {
+#. 3 - Promises 
     Promises foram criadas para resolver esse problema.
 
     é um objeto que representa um valor que estará disponível no futuro
@@ -101,22 +97,20 @@ Promises {
     promessa.then(function(resultado) {
         console.log(resultado);
     });
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-then () {
+#. 4 - then () 
     then() é executado quando a promise resolve com sucesso.
 
     -------exemplo---------
     buscarDados().then(function(dados) {
         console.log(dados);
     });
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-catch () {
+#. 5 - catch () 
     catch() é executado quando ocorre erro.
 
     -------exemplo---------
@@ -127,11 +121,10 @@ catch () {
         .catch(function(erro) {
             console.log("erro:", erro);
         });
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-exemplo real com sucesso/erro {
+#. 6 - exemplo real com sucesso/erro 
     function buscarDados() {
         return new Promise(function(resolve, reject) {
             var sucesso = true;
@@ -143,11 +136,10 @@ exemplo real com sucesso/erro {
             }
         });
     }
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-encadeamento de promises {
+#. 7 - encadeamento de promises 
     você pode encadear várias operações:
     -------exemplo---------
     buscarDados()
@@ -160,11 +152,10 @@ encadeamento de promises {
         .catch(function(erro) {
             console.log(erro);
         });
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-async / await {
+#. 8 - async / await 
     é uma forma mais moderna de trabalhar com promises.
 
     -------exemplo---------
@@ -197,11 +188,10 @@ async / await {
             console.log(valor);
         });
     }
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-tratamento de erro com async/await {
+#. 9 - tratamento de erro com async/await 
     async function carregar() {
         try {
             var dados = await buscarDados();
@@ -210,20 +200,18 @@ tratamento de erro com async/await {
             console.log("erro:", erro);
         }
     }
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-comparação {
+#. 10 - comparação 
     abordagem	    legibilidade
     callback	    ruim
     promise	        boa
     async/await	    melhor
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-no contexto do AngularJS {
+#. 11 - no contexto do AngularJS 
     AngularJS antigo usa MUITO callback.
 
     -------exemplo---------
@@ -258,11 +246,10 @@ no contexto do AngularJS {
             console.log(erro);
         }
     }
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-erros comuns {
+#. 12 - erros comuns 
     1. esquecer que é assíncrono
     var dados = buscar();
 
@@ -275,11 +262,10 @@ erros comuns {
 
     4. usar await fora de async
     var dados = await buscar(); // erro
-}
 
-----------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________________________
 
-métodos da Promise 
+#. 13 - métodos da Promise
     Promise.resolve() 
         retorna uma promise já resolvida
 
@@ -436,3 +422,5 @@ métodos da Promise
         Promise.race → usado pra timeout
         Promise.any → fallback entre APIs
         Promise.allSettled → relatórios/logs
+
+_______________________________________________________________________________________________________________________

@@ -1,4 +1,4 @@
-1. O que é um objeto? {
+#. 1. O que é um objeto?
     uma estrutura que armazena dados organizados em pares de chaves e valor.
 
     ele representa "coisas do mundo real" no código.
@@ -10,11 +10,10 @@
         idade: 20,
         status: true
     }
-}
 
 ________________________________________________________________________________
 
-2. Como criar objetos {
+#. 2. Como criar objetos
     2.1 Literal (mais comum) {
         const carro = {
             marca: "Toyota",
@@ -142,11 +141,10 @@ ________________________________________________________________________________
     new Object()	❌	          ⭐⭐⭐⭐      ⭐	           ⭐
     function + new	⚠️legado       ⭐⭐⭐⭐      ⭐⭐            ⭐⭐⭐⭐
     class	        ⭐⭐⭐⭐⭐	⭐⭐⭐⭐	  ⭐⭐⭐⭐⭐	   ⭐⭐⭐⭐⭐
-}
 
 ________________________________________________________________________________
 
-3. Acessando propriedades {
+#. 3. Acessando propriedades
     > Notação ponto
     pessoa.nome
 
@@ -157,34 +155,26 @@ ________________________________________________________________________________
 
     const chave = "nome";
     pessoa[chave];
-}
 
 ________________________________________________________________________________
 
-
-4. Modificar objetos {
+#. 4. Modificar objetos
     pessoa.idade = 21;
     pessoa.status = false;
-}
 
 ________________________________________________________________________________
 
-
-5. Adicionar propriedades {
+#. 5. Adicionar propriedades
     pessoa.profissao = "dev";
-}
 
 ________________________________________________________________________________
 
-
-6. Remover propriedades {
+#. 6. Remover propriedades
     delete pessoa.status;
-}
 
 ________________________________________________________________________________
 
-
-7. Métodos (funções dentro de objetos) {
+#. 7. Métodos (funções dentro de objetos)
     const pessoa = {
         nome: "Nícolas",
         falar: function () {
@@ -202,12 +192,10 @@ ________________________________________________________________________________
             console.log("Olá!");
         }
     };
-}
 
 ________________________________________________________________________________
 
-
-8. this dentro de objetos {
+#. 8. this dentro de objetos
     this refere-se ao próprio objeto.
 
     const pessoa = {
@@ -218,12 +206,10 @@ ________________________________________________________________________________
     };
 
     pessoa.falar(); // Nícolas
-}
 
 ________________________________________________________________________________
 
-
-9. Objetos aninhados {
+#. 9. Objetos aninhados
     Objetos dentro de objetos:
 
     const usuario = {
@@ -235,22 +221,18 @@ ________________________________________________________________________________
     };
 
     console.log(usuario.endereco.cidade);
-}
 
 ________________________________________________________________________________
 
-
-10. Arrays dentro de objetos {
+#. 10. Arrays dentro de objetos
     const aluno = {
         nome: "Nícolas",
         notas: [10, 8, 9]
     };
-}
 
 ________________________________________________________________________________
 
-
-11. Desestruturação {
+#. 11. Desestruturação
     const pessoa = {
         nome: "Nícolas",
         idade: 20
@@ -259,12 +241,10 @@ ________________________________________________________________________________
     const { nome, idade } = pessoa;
 
     console.log(nome);
-}
 
 ________________________________________________________________________________
 
-
-12. Spread operator {
+#. 12. Spread operator
     const p1 = {
         nome: "Nícolas",
         idade: 20
@@ -274,12 +254,10 @@ ________________________________________________________________________________
         ...p1,
         cidade: "Criciúma"
     };
-}
 
 ________________________________________________________________________________
 
-
-13. Object methods úteis {
+#. 13. Object methods úteis
     Object.keys()
     Object.keys(pessoa);
 
@@ -350,12 +328,10 @@ ________________________________________________________________________________
 
     const p1 = new Produto("camisa", 10.99, 5);
     console.log(p1);
-}
 
 ________________________________________________________________________________
 
-
-14. Comparação de objetos {
+#. 14. Comparação de objetos
     Objetos não são comparados por valor, mas por referência.
 
     const a = { nome: "A" };
@@ -364,12 +340,10 @@ ________________________________________________________________________________
     console.log(a === b); // false
 
     Mesmo conteúdo, mas objetos diferentes na memória.
-}
 
 ________________________________________________________________________________
 
-
-15. Cópia de objetos {
+#. 15. Cópia de objetos
     Cópia rasa (shallow copy)
     const novo = { ...pessoa };
 
@@ -451,24 +425,20 @@ ________________________________________________________________________________
 
         (precisa de hasOwnProperty)
     }
-}
 
 ________________________________________________________________________________
 
-
-16. Propriedades dinâmicas {
+#. 16. Propriedades dinâmicas
     const chave = "idade";
 
     const pessoa = {
         nome: "Nícolas",
         [chave]: 20
     };
-}
 
 ________________________________________________________________________________
 
-
-17. Objetos são dinâmicos {
+#. 17. Objetos são dinâmicos
     Você pode mudar tudo em runtime:
 
     const obj = {};
@@ -476,23 +446,20 @@ ________________________________________________________________________________
     obj.a = 1;
     obj.b = 2;
     delete obj.a;
-}
 
 ________________________________________________________________________________
 
-
-18. Quando usar objetos {
+#. 18. Quando usar objetos
     Use objetos quando precisar representar:
 
     entidades (usuário, produto, carro)
     agrupamento de dados
     configurações
     estruturas complexas
-}
 
 ________________________________________________________________________________
 
-19. Objetos primitivos (wrappers)
+#. 19. Objetos primitivos (wrapper)
     const n = new Number(123);
 
     tipo: "object"
@@ -517,3 +484,5 @@ ________________________________________________________________________________
     o JS cria um wrapper temporário
     para permitir o uso de métodos, e depois descarta
     new String("abc").toUpperCase();
+    
+________________________________________________________________________________

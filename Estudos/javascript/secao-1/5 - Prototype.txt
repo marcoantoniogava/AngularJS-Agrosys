@@ -1,6 +1,6 @@
 Prototype e Prototype Chain (JavaScript real por trás dos objetos)
 
-o que é Prototype? 
+#. 1 - o que é Prototype? 
     JavaScript é baseado em protótipos para passar propriedades e métodos de um
     objeto para outro.
 
@@ -30,7 +30,7 @@ o que é Prototype?
 
 ________________________________________________________________________________
 
-Prototype na prática 
+#. 2 - Prototype na prática 
     todo objeto em JS aponta para um "pai":
     
     const obj = {};
@@ -173,7 +173,7 @@ Prototype na prática
 
 ________________________________________________________________________________
 
-Prototype chain 
+#. 3 - Prototype chain 
     quando é acessado:
 
     obj.chave
@@ -205,8 +205,7 @@ Prototype chain
 
 ________________________________________________________________________________
 
-
-Criando herança com prototype 
+#. 4 - Criando herança com prototype 
     exemplo clássico:
 
     function pessoa (nome) {
@@ -245,8 +244,7 @@ Criando herança com prototype
 
 ________________________________________________________________________________
 
-
-Prototype de funções
+#. 5 - Prototype de funções
     funções também são objetos:
 
     function teste () {}
@@ -287,8 +285,7 @@ Prototype de funções
 
 ________________________________________________________________________________
 
-
-New
+#. 6 - New
     quando é feito:
     const p1 = new Pessoa ("Nícolas");
 
@@ -362,7 +359,7 @@ New
 
 ________________________________________________________________________________
 
-Object.create (herança direta)
+#. 7 - Object.create (herança direta)
     const pessoa = {
         falar() {
             console.log("oi);
@@ -392,8 +389,7 @@ Object.create (herança direta)
 
 ________________________________________________________________________________
 
-
-Shadowing (Sobrescrita)
+#. 8 - Shadowing (Sobrescrita)
     se o filho tem a propriedade:
     const pai = {
         nome: "pai"
@@ -408,8 +404,7 @@ Shadowing (Sobrescrita)
 
 ________________________________________________________________________________
 
-
-Como o JS resolve propriedades 
+#. 9 - Como o JS resolve propriedades 
     Quando é feito:
     obj.x
     JS faz:

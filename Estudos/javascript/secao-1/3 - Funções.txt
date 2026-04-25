@@ -1,5 +1,5 @@
-Maneiras de escrever funções 
-  1. Função normal (function)
+#. 1 - Maneiras de escrever funções 
+  !1 - Função normal (function)
     Tem o próprio this
     O valor do this depende de como a função é chamada
     const obj = {
@@ -13,7 +13,7 @@ Maneiras de escrever funções
 
     aqui this aponta para obj
 
-  2. Arrow function (=>)
+  !2 - Arrow function (=>)
     NÃO tem this próprio
     Ela herda o this do contexto onde foi criada
     const obj = {
@@ -58,9 +58,10 @@ Maneiras de escrever funções
     };
 
     obj.metodo1();
+
 _________________________________________________________________________
 
-Closures 
+#. 2 - Closures 
   A habilidade da função de reconhecer seu escopo léxico
   escopo léxico é basicamente:
   uma função enxerga variáveis de onde ela foi criada, não de onde ela é chamada
@@ -157,10 +158,11 @@ Closures
   mesmo depois da função acabar, o setTimeout ainda acessa valor
 
   isso é closure em ação.
+
 _________________________________________________________________________
 
-Tipos de funções
-  Funções de callback 
+#. 3 - Tipos de funções
+  !1 - Funções de callback 
     Funções passadas como argumento que outras funções manipulam ela como parâmetro.
     no JavaScript, funções são objetos e podem ser declaradas em basicamente qualquer lugar do código.
 
@@ -180,8 +182,8 @@ Tipos de funções
     }
 
     executaCallback(f1);
-
-  Funções imediatas (IIFE)
+  ------------------------------------
+  !2 - Funções imediatas (IIFE)
     Funções anônimas executadas logo após sua criação:
     São úteis para não poluir o escopo global com funções.
 
@@ -191,8 +193,8 @@ Tipos de funções
     })();
 
     const nome = "Teste";
-
-  Funções fábrica (Factory Functions) 
+  ------------------------------------
+  !3 - Funções fábrica (Factory Functions) 
     são funções que retornam objetos prontos, sem usar new.
     ideia: você chama a função e ela fabrica um objeto pra você.
     usa quando o intuito é criar objetos de forma simples e flexível.
@@ -222,8 +224,8 @@ Tipos de funções
     p1.fala("JS");
     p1.nomeCompleto = "Nícolas Machado Cardoso";
     console.log(p1.nomeCompleto);
-
-  Funções construtoras 
+  ------------------------------------
+  !4 - Funções construtoras 
     são usadas com new pra instanciar objetos.
     ideia: a função serve como um molde, e o new cria o objeto.
     usa quando o intuito é criar vários objetos com a mesma estrutura, principalmente com herança/prototype.
@@ -261,8 +263,8 @@ Tipos de funções
 
     console.log(u.validarSenha("123")); // true
     console.log(u.senhaInterna); // undefined
-
-  Funções recursivas 
+  ------------------------------------
+  !5 - Funções recursivas 
     Funções que chamam ela mesma
 
     function recursiva (max) {
@@ -273,8 +275,8 @@ Tipos de funções
     }
 
     recursiva(-10);
-
-  Funções geradoras 
+  ------------------------------------
+  !6 - Funções geradoras 
     são funções que podem pausar e continuar execução, usando yield.
     Lazy evaluation -> não entrega todos os valores de uma vez.
     usa quando o intuito é controlar execução passo a passo, ou lidar com fluxo de dados incremental.
@@ -290,3 +292,5 @@ Tipos de funções
 
     console.log(ids.next().value); // 1
     console.log(ids.next().value); // 2
+
+_________________________________________________________________________

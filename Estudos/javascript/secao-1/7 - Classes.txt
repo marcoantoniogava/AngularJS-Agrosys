@@ -6,7 +6,7 @@ O que são classes
 Mesmo usando class, por baixo dos panos continua sendo prototype-based (não virou orientação a objetos
 "real" igual Java ou C#).
 
-1 - Sintaxe básica 
+#. 1 - Sintaxe básica 
     class Pessoa {
         constructor (nome, idade) {
             this.nome = nome;
@@ -25,7 +25,7 @@ Mesmo usando class, por baixo dos panos continua sendo prototype-based (não vir
 
 _________________________________________________________________________________________________________________
 
-2 - O construtor
+#. 2 - O construtor
     Constructor é executado automaticamente quando você usa new.
 
     class Produto {
@@ -42,7 +42,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-3 - Métodos
+#. 3 - Métodos
     Métodos definidos dentro da classe vão para o >>prototype<<
         class Animal {
             falar() {
@@ -58,7 +58,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-4 - This dentro da classe
+#. 4 - This dentro da classe
     O this sempre se refere à instância criada com new.
 
     problema comum:
@@ -83,7 +83,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-5 - Métodos estáticos 
+#. 5 - Métodos estáticos 
     Métodos que pertecem à classe, não à instância.
         class Calculadora {
             static somar(a,b) {
@@ -99,7 +99,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-6 - Getters e Setters
+#. 6 - Getters e Setters
     Permitem controlar acesso a propriedades.
         class Pessoa {
             constructor(nome) {
@@ -175,9 +175,10 @@ ________________________________________________________________________________
 
             agora sim:
             pessoa.#nome // erro
+
 _________________________________________________________________________________________________________________
 
-7 - Herança (extends)
+#. 7 - Herança (extends)
     Permite criar classes baseadas em outras.
         class Animal {
             constructor(nome, cor) {
@@ -202,7 +203,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-8 - Super
+#. 8 - Super
     Usado para chamar o constructor da classe pai.
         class Animal {
             constructor(nome) {
@@ -237,7 +238,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-9 - Campos de classe (class fields)
+#. 9 - Campos de classe (class fields)
     forma moderna de declarar propriedades com valores pré-estabelecidos na classe:
         class Usuario {
             nome = "anônimo"; 
@@ -249,7 +250,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-10 - Métodos privados (#)
+#. . 0 - Métodos privados (#)
     Encapsulamento real (ES2022+)
         class Conta {
             #saldo = 0;
@@ -268,7 +269,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-12 - Static + private 
+#. . 2 - Static + private 
     class Sistema {
         static #contador = 0;
 
@@ -280,7 +281,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-13 - Como funciona por baixo dos panos
+#. . 3 - Como funciona por baixo dos panos
     class Pessoa {}
 
     vira algo como:
@@ -294,7 +295,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-14 - Boas práticas
+#. . 4 - Boas práticas
     Usar classes quando:
     - modelar entidades (usuário, produto, pedido)
     - trabalhar com OO
@@ -311,7 +312,7 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-15 - Não usar arrow function como método de classe
+#. . 5 - Não usar arrow function como método de classe
     class Teste {
         metodo = () => {} // isso não vai pro prototype
     }

@@ -10,7 +10,7 @@ A engine (como v8) é responsável por:
 
 ____________________________________________________________
 
-1 - Estrutura da memória
+#. 1 - Estrutura da memória
     a memória no JavaScript é dividida em duas áreas principais:
 
     Stack (Pilha)
@@ -47,7 +47,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-2 - Tipos de dado e memória
+#. 2 - Tipos de dado e memória
     Tipos primitivos
         number
         string
@@ -89,7 +89,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-3 - Comparação de valores
+#. 3 - Comparação de valores
     Primitivos
         10 === 10 // true
 
@@ -100,7 +100,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-4 - Mutabilidade
+#. 4 - Mutabilidade
     Imutáveis (primitivos);
         let nome = "nícolas";
         nome[0] = "x";
@@ -113,7 +113,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-5 - Passagem de valores
+#. 5 - Passagem de valores
     Por valor (primitivos)
         function alterar(x) {
             x = 20;
@@ -136,7 +136,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-6 - Call Stack (Pilha de execução)
+#. 6 - Call Stack (Pilha de execução)
     responsável por controlar chamadas de funções
     
     exemplo:
@@ -179,7 +179,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-7 - Stack Overflow
+#. 7 - Stack Overflow
     Ocorre quando a stack ultrapassa seu limite.
 
     exemplo:
@@ -193,7 +193,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-8 - Heap na prática
+#. 8 - Heap na prática
     exemplo:
         let user = { nome: "nícolas" }
     
@@ -204,7 +204,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-9 - Garbage Collector (GC)
+#. 9 - Garbage Collector (GC)
     responsável por liberar memória automaticamente
     
     conceito principal: Reachability
@@ -218,7 +218,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-10 - Memory leaks
+#. 10 - Memory leaks
     Ocorrem quando a memória não é liberada mesmo sem necessidade.
 
     Variáveis globais:
@@ -251,7 +251,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-11 - Shallow Copy vs Deep Copy
+#. 11 - Shallow Copy vs Deep Copy
     shallow (cópia rasa):
         const a = {
             nome: "nícolas",
@@ -383,9 +383,10 @@ ____________________________________________________________
     - dados imutáveis
     - funções puras
     - controle de estado
+
 ____________________________________________________________
 
-12 - Closures
+#. 12 - Closures
     Closures mantêm acesso ao escopo externo mesmo após execução.
 
     function contador () {
@@ -399,7 +400,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-13 - Event Loop 
+#. 13 - Event Loop 
     operações assíncronas também utilizam memória até serem executadas.
 
     stack + async (detalhe avançado)
@@ -423,7 +424,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-14 - Boas práticas
+#. 14 - Boas práticas
     - sempre usar let/cont
     - evitar variáveis globais
     - remover event listeners quando não usados

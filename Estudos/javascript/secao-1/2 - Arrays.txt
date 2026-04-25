@@ -1,4 +1,4 @@
-o que é um array?
+#. 1 - o que é um array?
     array é uma estrutura que guarda vários valores em uma única variável, organizados por índice.
 
     const nomes = ["nicolas", "joao", "maria"];
@@ -11,21 +11,21 @@ o que é um array?
 
 ____________________________________________________________________________________________________________
 
-criando arrays
+#. 2 - criando arrays
     const lista1 = []; // vazio
     const lista2 = [1, 2, 3];
     const lista3 = new Array(10); // não recomendado
 
 ____________________________________________________________________________________________________________
 
-tamanho do array
+#. 3 - tamanho do array
     const arr = [10, 20, 30];
 
     console.log(arr.length); // 3
 
 ____________________________________________________________________________________________________________
 
-adicionar elementos
+#. 4 - adicionar elementos
     const arr = [1, 2];
 
     // final
@@ -36,7 +36,7 @@ adicionar elementos
     
 ____________________________________________________________________________________________________________
     
-remover elementos
+#. 5 - remover elementos
     const arr = [1, 2, 3];
 
     // final
@@ -47,7 +47,7 @@ remover elementos
 
 ____________________________________________________________________________________________________________
 
-buscar elementos
+#. 6 - buscar elementos
     const arr = ["a", "b", "c"];
 
     arr.includes("b"); // true
@@ -55,7 +55,7 @@ buscar elementos
 
 ____________________________________________________________________________________________________________
 
-percorrer array (LOOP)
+#. 7 - percorrer array (LOOP)
     clássico (menos usado hoje)
     for (let i = 0; i < arr.length; i++) {
         console.log(arr[i]);
@@ -72,7 +72,7 @@ percorrer array (LOOP)
 
 ____________________________________________________________________________________________________________
 
-métodos IMPORTANTES
+#. 8 - métodos IMPORTANTES
     🔹 map → transformar
     const numeros = [1, 2, 3];
 
@@ -130,7 +130,7 @@ métodos IMPORTANTES
 
 ____________________________________________________________________________________________________________
 
-slice vs splice 
+#. 9 - slice vs splice 
     slice → NÃO altera original
     const arr = [1, 2, 3, 4];
 
@@ -146,7 +146,7 @@ slice vs splice
 
 ____________________________________________________________________________________________________________
 
-arrays de objetos
+#. 10 - arrays de objetos
     const usuarios = [
         { nome: "nico", idade: 20 },
         { nome: "joao", idade: 30 }
@@ -157,7 +157,7 @@ arrays de objetos
 
 ____________________________________________________________________________________________________________
 
-referência vs cópia 
+#. 11 - referência vs cópia 
     const a = [1, 2];
     const b = a;
 
@@ -172,7 +172,7 @@ referência vs cópia
 
 ____________________________________________________________________________________________________________
 
-destructuring
+#. 12 - destructuring
     const arr = [10, 20];
 
     const [a, b] = arr;
@@ -181,7 +181,7 @@ destructuring
 
 ____________________________________________________________________________________________________________
 
-spread operator
+#. 13 - spread operator
     const a = [1, 2];
     const b = [3, 4];
 
@@ -189,7 +189,7 @@ spread operator
 
 ____________________________________________________________________________________________________________
 
-arrays + async
+#. 14 - arrays + async
 
     o erro clássico:
 
@@ -228,7 +228,7 @@ arrays + async
 
 ____________________________________________________________________________________________________________
 
-imutabilidade
+#. 15 - imutabilidade
     na prática (principalmente Angular/React), você não deve mutar array diretamente
 
     ❌ errado:
@@ -251,7 +251,7 @@ imutabilidade
 
 ____________________________________________________________________________________________________________
 
-performance
+#. 16 - performance
     ❌ ruim (vários loops):
     arr.filter(...).map(...).reduce(...);
 
@@ -267,7 +267,7 @@ performance
 
 ____________________________________________________________________________________________________________
 
-estruturação de dados
+#. 17 - estruturação de dados
     transformar array em objeto (indexação rápida):
 
     const usuarios = [
@@ -286,7 +286,7 @@ estruturação de dados
 
 ____________________________________________________________________________________________________________
 
-flat e flatMap
+#. 18 - flat e flatMap
     array dentro de array
     const arr = [[1, 2], [3, 4]];
 
@@ -299,14 +299,14 @@ flat e flatMap
 
 ____________________________________________________________________________________________________________
 
-deduplicar array
+#. 19 - deduplicar array
     const arr = [1, 1, 2, 3];
 
     const unico = [...new Set(arr)];
 
 ____________________________________________________________________________________________________________
 
-ordenação (sort)
+#. 20 - ordenação (sort)
     ⚠️ cuidado: sort muta o array
 
     const nums = [10, 2, 5];
@@ -318,7 +318,7 @@ ordenação (sort)
 
 ____________________________________________________________________________________________________________
 
-exemplo REAL 
+#. 21 - exemplo REAL 
     imagina API de pedidos:
 
     const pedidos = [
@@ -347,3 +347,5 @@ exemplo REAL
     {
       nico: 150
     }
+
+____________________________________________________________________________________________________________
