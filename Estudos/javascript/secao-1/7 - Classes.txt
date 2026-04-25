@@ -1,0 +1,317 @@
+Classes no JavaScript (ES6+)
+
+O que são classes
+-> Uma forma mais organizada e legível de trabalhar com funções construtoras e protótipos.
+
+Mesmo usando class, por baixo dos panos continua sendo prototype-based (não virou orientação a objetos
+"real" igual Java ou C#).
+
+1 - Sintaxe básica 
+    class Pessoa {
+        constructor (nome, idade) {
+            this.nome = nome;
+            this.idade = idade;
+        }
+
+        falar() {
+            return `Olá, meu nome é ${this.nome}`;
+        }
+    }
+
+    const p1 = new Pessoa("Nícolas", 20);
+
+    console.log(p1.nome);
+    console.log(p1.falar()); 
+
+_________________________________________________________________________________________________________________
+
+2 - O construtor
+    Constructor é executado automaticamente quando você usa new.
+
+    class Produto {
+        constructor(nome, preco) {
+            this.nome = nome;
+            this.preco = preco;
+        }
+    }
+
+    function Produto(nome, preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+_________________________________________________________________________________________________________________
+
+3 - Métodos
+    Métodos definidos dentro da classe vão para o >>prototype<<
+        class Animal {
+            falar() {
+                console.log("som genérico");
+            }
+        }
+
+        isso é equivalente a:
+
+        Animal.prototype.falar = function () {
+            console.log("som genérico");
+        }
+
+_________________________________________________________________________________________________________________
+
+4 - This dentro da classe
+    O this sempre se refere à instância criada com new.
+
+    problema comum:
+        class Usuario {
+            constructor(nome) {
+                this.nome = nome;
+            }
+
+            saudacao() {
+                return `Olá ${this.nome}`;
+            }
+        }
+
+        const u = new Usuario("João");
+        const fn = u.saudacao;
+
+        console.log(fn()); // undefined
+        -> perdeu o contexto
+
+        solução:
+        const fn = u.saudacao.bind(u);
+
+_________________________________________________________________________________________________________________
+
+5 - Métodos estáticos 
+    Métodos que pertecem à classe, não à instância.
+        class Calculadora {
+            static somar(a,b) {
+                return a + b;
+            }
+        }
+
+        console.log(Calculadora.somar(2,3));
+
+        X Isso não funciona:
+        const c = new Calculadora();
+        c.somar(); // erro
+
+_________________________________________________________________________________________________________________
+
+6 - Getters e Setters
+    Permitem controlar acesso a propriedades.
+        class Pessoa {
+            constructor(nome) {
+                this._nome = nome; 
+            }
+
+            get nome() {
+                return this._nome;
+            }
+
+            set nome(valor) {
+                if (valor.length < 2) return;
+                this._nome = valor;
+            }
+        }
+
+        const p = new Pessoa("Nícolas");
+
+        console.log(p.nome);
+        p.nome = "A" // ignorado
+
+    por que usar _ (underline)
+        Quando você vê algo assim:
+        this._nome = nome;
+
+        normalmente significa:
+        “isso aqui é uma propriedade interna, não deveria ser acessada diretamente”
+
+        aqui acontece o seguinte:
+
+        _nome = valor “real” interno
+        nome = interface controlada (getter/setter)
+
+        por que não usar só this.nome?
+            Se fizer isso:
+            set nome(valor) {
+                this.nome = valor;
+            }
+
+            você cria um loop infinito
+
+            porque:
+            - setter chama setter de novo
+            - e de novo
+            - e trava tudo
+
+            então o _ resolve isso
+            this._nome
+
+            evita conflito entre:
+            - propriedade interna
+            - getter/setter com mesmo nome
+
+        isso é encapsulamento?
+            -> mais ou menos
+
+            _nome → só na teoria, devs sabem que não devem mexer
+            mas ainda dá pra acessar:
+            pessoa._nome // funciona
+
+        encapsulamento REAL (moderno)
+            class Pessoa {
+                #nome;
+
+                constructor(nome) {
+                    this.#nome = nome;
+                }
+
+                get nome() {
+                    return this.#nome;
+                }
+            }
+
+            agora sim:
+            pessoa.#nome // erro
+_________________________________________________________________________________________________________________
+
+7 - Herança (extends)
+    Permite criar classes baseadas em outras.
+        class Animal {
+            constructor(nome, cor) {
+                this.nome = nome;
+                this.cor  = cor;
+            }
+
+            falar() {
+                console.log("som genérico");
+            }
+        }
+
+        class Cachorro extends Animal {
+            falar() {
+                console.log("Latindo");
+            }
+        }
+
+        -> nesse caso, Cachorro herda o prototype de Animal
+        a estrutura é herdada
+        mas o constructor do pai não roda automaticamente
+
+_________________________________________________________________________________________________________________
+
+8 - Super
+    Usado para chamar o constructor da classe pai.
+        class Animal {
+            constructor(nome) {
+                this.nome = nome;
+            }
+
+            falar() {
+                console.log("som genérico");
+            }
+        }
+
+        class Cachorro extends Animal {
+            constructor(nome, raca) {
+                super(nome);
+                this.raca = raca;
+            }
+
+            falar() {
+                super.falar(); // chama o do pai
+                console.log("latindo");
+            }
+        }
+
+        const c = new Cachorro("rex", "vira-lata");
+
+        c.falar();
+
+    super()
+        - chama o constructor da classe pai
+        - inicializa o this
+        - obrigatório se tiver constructor na filha
+
+_________________________________________________________________________________________________________________
+
+9 - Campos de classe (class fields)
+    forma moderna de declarar propriedades com valores pré-estabelecidos na classe:
+        class Usuario {
+            nome = "anônimo"; 
+
+            constructor(nome) {
+                this.nome = nome; 
+            }
+        }
+
+_________________________________________________________________________________________________________________
+
+10 - Métodos privados (#)
+    Encapsulamento real (ES2022+)
+        class Conta {
+            #saldo = 0;
+
+            depositar(valor) {
+                this.#saldo += valor;
+            }
+
+            verSaldo() {
+                return this.#saldo;
+            }
+        }
+
+        //Não podemos acessar no objeto instanciado:
+        conta.#saldo // erro
+
+_________________________________________________________________________________________________________________
+
+12 - Static + private 
+    class Sistema {
+        static #contador = 0;
+
+        static incrementar() {
+            this.#contador++;
+            return this.#contador;
+        }
+    }
+
+_________________________________________________________________________________________________________________
+
+13 - Como funciona por baixo dos panos
+    class Pessoa {}
+
+    vira algo como:
+
+    function Pessoa () {}
+    Pessoa.prototype = {};
+
+    Ou seja:
+    - class = açúcar sintático
+    - base continua sendo prototype
+
+_________________________________________________________________________________________________________________
+
+14 - Boas práticas
+    Usar classes quando:
+    - modelar entidades (usuário, produto, pedido)
+    - trabalhar com OO
+    - precisar de herança
+
+    evitar quando:
+    - lógica simples -> prefira funções
+    - código funciona (React moderno, por exemplo)
+
+    prefira:
+    - métodos no prototype (padrão de class já faz isso)
+    - encapsular com # quando necessário
+    - evitar lógica pesada dentro do constructor
+
+_________________________________________________________________________________________________________________
+
+15 - Não usar arrow function como método de classe
+    class Teste {
+        metodo = () => {} // isso não vai pro prototype
+    }
