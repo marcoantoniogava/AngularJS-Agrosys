@@ -80,6 +80,12 @@ conteúdo da secao 1 do JavaScript
         #. 9 - Como o JS resolve propriedades 
     ________________________________________________
     !. 6 - Avaliação de curto-circuito
+        #. 1 - Operador AND (&&)
+        #. 2 - Operador OR (||)
+        #. 3 - Operador de Coalescência Nula (??)
+        #. 4 - Valores Falsy
+        #. 5 - Valores Truthy
+        #. 6 - Curto-Circuito em Atribuições
     ________________________________________________
     !. 7 - Classes
         #. 1 - Sintaxe básica 
@@ -98,6 +104,13 @@ conteúdo da secao 1 do JavaScript
         #. . 5 - Não usar arrow function como método de classe
     ________________________________________________
     !. 8 - Expressões
+        #. 1 - Expressão vs Instrução (Statement)
+        #. 2 - Expressão de Atribuição
+        #. 3 - Expressão de Função
+        #. 4 - Arrow Function (também é expressão)
+        #. 5 - Expressão Ternária
+        #. 6 - Chamadas de Função
+        #. 7 - Teste Prático: É Expressão ou Não?
     ________________________________________________
     !. 9 - Memória
         #. 1 - Estrutura da memória
