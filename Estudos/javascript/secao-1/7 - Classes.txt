@@ -7,43 +7,49 @@ Mesmo usando class, por baixo dos panos continua sendo prototype-based (não vir
 "real" igual Java ou C#).
 
 #. 1 - Sintaxe básica 
-    class Pessoa {
-        constructor (nome, idade) {
-            this.nome = nome;
-            this.idade = idade;
+    #@ 1 - Estrutura básica
+        class Pessoa {
+            constructor (nome, idade) {
+                this.nome = nome;
+                this.idade = idade;
+            }
+
+            falar() {
+                return `Olá, meu nome é ${this.nome}`;
+            }
         }
 
-        falar() {
-            return `Olá, meu nome é ${this.nome}`;
-        }
-    }
+        const p1 = new Pessoa("Nícolas", 20);
 
-    const p1 = new Pessoa("Nícolas", 20);
-
-    console.log(p1.nome);
-    console.log(p1.falar()); 
+        console.log(p1.nome);
+        console.log(p1.falar()); 
 
 _________________________________________________________________________________________________________________
 
 #. 2 - O construtor
-    Constructor é executado automaticamente quando você usa new.
+    #@ 1 - Constructor é executado automaticamente
+        Constructor é executado automaticamente quando você usa new.
 
-    class Produto {
-        constructor(nome, preco) {
+        class Produto {
+            constructor(nome, preco) {
+                this.nome = nome;
+                this.preco = preco;
+            }
+        }
+
+        equivalente com function:
+
+        function Produto(nome, preco) {
             this.nome = nome;
             this.preco = preco;
         }
-    }
-
-    function Produto(nome, preco) {
-        this.nome = nome;
-        this.preco = preco;
-    }
 
 _________________________________________________________________________________________________________________
 
 #. 3 - Métodos
-    Métodos definidos dentro da classe vão para o >>prototype<<
+    #@ 1 - Métodos na classe
+        Métodos definidos dentro da classe vão para o >>prototype<<
+        
         class Animal {
             falar() {
                 console.log("som genérico");
@@ -59,9 +65,10 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________
 
 #. 4 - This dentro da classe
-    O this sempre se refere à instância criada com new.
+    #@ 1 - Contexto de this
+        O this sempre se refere à instância criada com new.
 
-    problema comum:
+    #@ 2 - Problemas comuns
         class Usuario {
             constructor(nome) {
                 this.nome = nome;
@@ -78,13 +85,15 @@ ________________________________________________________________________________
         console.log(fn()); // undefined
         -> perdeu o contexto
 
-        solução:
+    #@ 3 - Solução
         const fn = u.saudacao.bind(u);
 
 _________________________________________________________________________________________________________________
 
 #. 5 - Métodos estáticos 
-    Métodos que pertecem à classe, não à instância.
+    #@ 1 - Métodos da classe, não da instância
+        Métodos que pertecem à classe, não à instância.
+        
         class Calculadora {
             static somar(a,b) {
                 return a + b;
@@ -93,14 +102,16 @@ ________________________________________________________________________________
 
         console.log(Calculadora.somar(2,3));
 
-        X Isso não funciona:
+        ❌ Isso não funciona:
         const c = new Calculadora();
         c.somar(); // erro
 
 _________________________________________________________________________________________________________________
 
 #. 6 - Getters e Setters
-    Permitem controlar acesso a propriedades.
+    #@ 1 - Controlando acesso a propriedades
+        Permitem controlar acesso a propriedades.
+        
         class Pessoa {
             constructor(nome) {
                 this._nome = nome; 
@@ -121,7 +132,7 @@ ________________________________________________________________________________
         console.log(p.nome);
         p.nome = "A" // ignorado
 
-    por que usar _ (underline)
+    #@ 2 - Por que usar _ (underline)
         Quando você vê algo assim:
         this._nome = nome;
 
@@ -133,53 +144,48 @@ ________________________________________________________________________________
         _nome = valor “real” interno
         nome = interface controlada (getter/setter)
 
-        por que não usar só this.nome?
-            Se fizer isso:
-            set nome(valor) {
-                this.nome = valor;
+    #@ 3 - Por que não usar só this.nome?
+        Se fizer isso:
+        set nome(valor) {
+            this.nome = valor;
+        }
+
+        você cria um loop infinito
+
+        porque:
+        - setter chama setter de novo
+        - e de novo
+        - e trava tudo
+
+        então o _ resolve isso
+        this._nome
+
+        evita conflito entre:
+        - propriedade interna
+        - getter/setter com mesmo nome
+
+    #@ 4 - Encapsulamento moderno com #
+        class Pessoa {
+            #nome;
+
+            constructor(nome) {
+                this.#nome = nome;
             }
 
-            você cria um loop infinito
-
-            porque:
-            - setter chama setter de novo
-            - e de novo
-            - e trava tudo
-
-            então o _ resolve isso
-            this._nome
-
-            evita conflito entre:
-            - propriedade interna
-            - getter/setter com mesmo nome
-
-        isso é encapsulamento?
-            -> mais ou menos
-
-            _nome → só na teoria, devs sabem que não devem mexer
-            mas ainda dá pra acessar:
-            pessoa._nome // funciona
-
-        encapsulamento REAL (moderno)
-            class Pessoa {
-                #nome;
-
-                constructor(nome) {
-                    this.#nome = nome;
-                }
-
-                get nome() {
-                    return this.#nome;
-                }
+            get nome() {
+                return this.#nome;
             }
+        }
 
-            agora sim:
-            pessoa.#nome // erro
+        agora sim é verdadeiro encapsulamento:
+        pessoa.#nome // erro
 
 _________________________________________________________________________________________________________________
 
 #. 7 - Herança (extends)
-    Permite criar classes baseadas em outras.
+    #@ 1 - Criar classes baseadas em outras
+        Permite criar classes baseadas em outras.
+        
         class Animal {
             constructor(nome, cor) {
                 this.nome = nome;
@@ -204,7 +210,9 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________
 
 #. 8 - Super
-    Usado para chamar o constructor da classe pai.
+    #@ 1 - Chamar o constructor da classe pai
+        Usado para chamar o constructor da classe pai.
+        
         class Animal {
             constructor(nome) {
                 this.nome = nome;
@@ -231,7 +239,7 @@ ________________________________________________________________________________
 
         c.falar();
 
-    super()
+    #@ 2 - Como super() funciona
         - chama o constructor da classe pai
         - inicializa o this
         - obrigatório se tiver constructor na filha
@@ -239,7 +247,9 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________
 
 #. 9 - Campos de classe (class fields)
-    forma moderna de declarar propriedades com valores pré-estabelecidos na classe:
+    #@ 1 - Propriedades pré-estabelecidas
+        forma moderna de declarar propriedades com valores pré-estabelecidos na classe:
+        
         class Usuario {
             nome = "anônimo"; 
 
@@ -250,8 +260,10 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-#. . 0 - Métodos privados (#)
-    Encapsulamento real (ES2022+)
+_________________________________________________________________________________________________________________
+
+#. 10 - Métodos privados (#)
+    #@ 1 - Encapsulamento real (ES2022+)
         class Conta {
             #saldo = 0;
 
@@ -269,50 +281,64 @@ ________________________________________________________________________________
 
 _________________________________________________________________________________________________________________
 
-#. . 2 - Static + private 
-    class Sistema {
-        static #contador = 0;
+_________________________________________________________________________________________________________________
 
-        static incrementar() {
-            this.#contador++;
-            return this.#contador;
+#. 11 - Static + private 
+    #@ 1 - Combinando static com private
+        class Sistema {
+            static #contador = 0;
+
+            static incrementar() {
+                this.#contador++;
+                return this.#contador;
+            }
         }
-    }
 
 _________________________________________________________________________________________________________________
 
-#. . 3 - Como funciona por baixo dos panos
-    class Pessoa {}
+_________________________________________________________________________________________________________________
 
-    vira algo como:
+#. 12 - Como funciona por baixo dos panos
+    #@ 1 - Class é açúcar sintático
+        class Pessoa {}
 
-    function Pessoa () {}
-    Pessoa.prototype = {};
+        vira algo como:
 
-    Ou seja:
-    - class = açúcar sintático
-    - base continua sendo prototype
+        function Pessoa () {}
+        Pessoa.prototype = {};
+
+        Ou seja:
+        - class = açúcar sintático
+        - base continua sendo prototype
 
 _________________________________________________________________________________________________________________
 
-#. . 4 - Boas práticas
-    Usar classes quando:
-    - modelar entidades (usuário, produto, pedido)
-    - trabalhar com OO
-    - precisar de herança
+_________________________________________________________________________________________________________________
 
-    evitar quando:
-    - lógica simples -> prefira funções
-    - código funciona (React moderno, por exemplo)
+#. 13 - Boas práticas
+    #@ 1 - Quando usar classes
+        Usar classes quando:
+        - modelar entidades (usuário, produto, pedido)
+        - trabalhar com OO
+        - precisar de herança
 
-    prefira:
-    - métodos no prototype (padrão de class já faz isso)
-    - encapsular com # quando necessário
-    - evitar lógica pesada dentro do constructor
+    #@ 2 - Quando evitar classes
+        evitar quando:
+        - lógica simples -> prefira funções
+        - código funciona (React moderno, por exemplo)
+
+    #@ 3 - Recomendações
+        prefira:
+        - métodos no prototype (padrão de class já faz isso)
+        - encapsular com # quando necessário
+        - evitar lógica pesada dentro do constructor
 
 _________________________________________________________________________________________________________________
 
-#. . 5 - Não usar arrow function como método de classe
-    class Teste {
-        metodo = () => {} // isso não vai pro prototype
-    }
+_________________________________________________________________________________________________________________
+
+#. 14 - Não usar arrow function como método de classe
+    #@ 1 - Arrow functions não vão pro prototype
+        class Teste {
+            metodo = () => {} // isso não vai pro prototype
+        }

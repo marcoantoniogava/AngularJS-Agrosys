@@ -1,105 +1,56 @@
 Prototype e Prototype Chain (JavaScript real por trás dos objetos)
 
-#. 1 - o que é Prototype? 
-    JavaScript é baseado em protótipos para passar propriedades e métodos de um
-    objeto para outro.
+#. 1 - o que é Prototype?
+    #@ 1 - Conceito de protótipo em JS
+        JavaScript é baseado em protótipos para passar propriedades e métodos de um
+        objeto para outro.
 
-    Protótipo é o termo usado para se referir ao que foi criado pela primeira
-    vez, servindo de modelo ou molde para futuras produções.
+        Protótipo é o termo usado para se referir ao que foi criado pela primeira
+        vez, servindo de modelo ou molde para futuras produções.
 
-    Todo objeto em JavaScript tem uma ligação interna invisível chamada:
-    [[Prototype]] __proto__ que vem da propriedade prototype da função construtora
-    que foi usada para criá-lo. Quando tentamos acessar um membro de um objeto, 
-    primeiro o motor do JS vai tentar encontrar esse membro no próprio objeto 
-    e depois a cadeia de protótipos é usada até o topo (null) até encontrar 
-    (ou não) tal membro. 
-    Isso significa que ele pode "herdar" coisas de outro objeto.
+    #@ 2 - [[Prototype]] e __proto__
+        Todo objeto em JavaScript tem uma ligação interna invisível chamada:
+        [[Prototype]] __proto__ que vem da propriedade prototype da função construtora
+        que foi usada para criá-lo. Quando tentamos acessar um membro de um objeto, 
+        primeiro o motor do JS vai tentar encontrar esse membro no próprio objeto 
+        e depois a cadeia de protótipos é usada até o topo (null) até encontrar 
+        (ou não) tal membro. 
+        Isso significa que ele pode "herdar" coisas de outro objeto.
 
-    Exemplo simples:
-    const pessoa = {
-        nome: "Nícolas",
-    };
+    #@ 3 - Exemplo simples
+        const pessoa = {
+            nome: "Nícolas",
+        };
 
-    console.log(pessoa.toString());
+        console.log(pessoa.toString());
 
-    toString() nunca foi definido, mas mesmo assim funciona.
-    por quê?
-    porque ele foi herdado do Prototype.
-    // o js faz:sso
-    pessoa → Object.prototype → achou lá
+        toString() nunca foi definido, mas mesmo assim funciona.
+        por quê?
+        porque ele foi herdado do Prototype.
+        pessoa → Object.prototype → achou lá
 
 ________________________________________________________________________________
 
 #. 2 - Prototype na prática 
-    todo objeto em JS aponta para um "pai":
-    
-    const obj = {};
-    console.log(obj.__proto__);
-    Esse __proto__ (antigo, mas útil para entender) mostra o prototype
-    
-    --DUVIDAS-- 
-        //// cada objeto tem seu proprio prototype?
-        //// esse são retornos do devtools, qual é a diferença de __proto__ e prototype? 
-            Object.prototype:
-                {__defineGetter__: ƒ
-                __defineSetter__: ƒ
-                hasOwnProperty: ƒ
-                __lookupGetter__: ƒ
-                __lookupSetter__: ƒ
-                 …}constructor: ƒ
-                    Object()hasOwnProperty: ƒ
-                    hasOwnProperty()isPrototypeOf: ƒ
-                    isPrototypeOf()propertyIsEnumerable: ƒ
-                    propertyIsEnumerable()toLocaleString: ƒ
-                    toLocaleString()toString: ƒ
-                    toString()
-                    valueOf: ƒ
-                    valueOf()
-                    __defineGetter__: ƒ
-                    __defineGetter__()
-                    __defineSetter__: ƒ
-                    __defineSetter__()
-                    __lookupGetter__: ƒ
-                    __lookupGetter__()
-                    __lookupSetter__: ƒ
-                    __lookupSetter__()
-                    __proto__: 
-                    (...)
-                get __proto__: ƒ
-                __proto__()
-                set __proto__: ƒ
-                __proto__()
-                
-            Object.__proto__:
-            ƒ () { [native code] }
+    #@ 1 - Como acessar o prototype
+        todo objeto em JS aponta para um "pai":
+        
+        const obj = {};
+        console.log(obj.__proto__);
+        Esse __proto__ (antigo, mas útil para entender) mostra o prototype
 
-        //// o que define qual prototype o objeto aponta?
-
-    --EXPLICACOES-- 
-        Todo objeto tem um [[Prototype]] (essa ligação interna)
-        Vários objetos podem apontar pro mesmo prototype.
-
-        exemplo:
-        const a = {};
-        const b = {};
-
-        console.log(a.__proto__ === b.__proto__) // true
-
-        _________________________________________________________________________
-
-        diferença entre __proto__ e .prototype
-
+    #@ 2 - Diferença entre __proto__ e .prototype
         __proto__
-        é do objeto
-        aponta pro prototype dele
-        é um getter/setter (legado)
+        - é do objeto
+        - aponta pro prototype dele
+        - é um getter/setter (legado)
 
         const obj = {};
         console.log(obj.__proto__); // Object.prototype
 
         .prototype
-        é das funções construtoras
-        define o que vai ser herdado pelos objetos criados com new
+        - é das funções construtoras
+        - define o que vai ser herdado pelos objetos criados com new
 
         function Pessoa() {}
         console.log(Pessoa.prototype); // {} constructor: ƒ Pessoa()[[Prototype]]: Object
@@ -108,8 +59,7 @@ ________________________________________________________________________________
         obj.__proto__ → de onde o objeto herda
         Funcao.prototype → o que será herdado pelos objetos
 
-        _________________________________________________________________________
-
+    #@ 3 - O que define qual prototype um objeto aponta
         o que define qual prototype o objeto aponta é como ele foi criado.
 
         1. objeto literal {}
@@ -123,8 +73,6 @@ ________________________________________________________________________________
 
             obj.__proto__ === Object.prototype
         
-        ----------------------------------------
-
         2. com new
             const p1 = new Pessoa();
 
@@ -137,8 +85,6 @@ ________________________________________________________________________________
 
             p1.__proto__ === Pessoa.prototype
         
-        ----------------------------------------
-
         3. com Object.create
             const p1 = Object.create(pai);
 
@@ -149,8 +95,6 @@ ________________________________________________________________________________
 
             👉 aqui tu escolhe manualmente
         
-        ----------------------------------------
-
         4. arrays
             const arr = [];
 
@@ -162,8 +106,6 @@ ________________________________________________________________________________
 
             arr.__proto__ === Array.prototype
         
-        ----------------------------------------
-
         5. funções
             function teste() {}
 
@@ -174,133 +116,126 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 
 #. 3 - Prototype chain 
-    quando é acessado:
+    #@ 1 - Como o JS resolve propriedades
+        quando é acessado:
 
-    obj.chave
-    O js faz isso:
-    - procura no próprio objeto
-    - se não achar -> vai para o prototype
-    - se não achar -> vai para o prototype do prototype
-    - até chegar no topo (null)
+        obj.chave
+        O js faz isso:
+        - procura no próprio objeto
+        - se não achar -> vai para o prototype
+        - se não achar -> vai para o prototype do prototype
+        - até chegar no topo (null)
 
-    obj
-    ↓
-    Object.prototype
-    ↓
-    null
+        obj
+        ↓
+        Object.prototype
+        ↓
+        null
 
-    exemplo:
+    #@ 2 - Exemplo prático
+        const arr = [1, 2, 3];
 
-    const arr = [1, 2, 3];
+        arr.map();
+        arr.filter();
 
-    arr.map();
-    arr.filter();
+        Esses métodos vem de Array.prototype
 
-    Esses métodos vem de Array.prototype
-
-    Hierarquia completa
-    Array → Array.prototype → Object.prototype → null
-    Function → Function.prototype → Object.prototype → null
-    Object → Object.prototype → null
+    #@ 3 - Hierarquia completa
+        Array → Array.prototype → Object.prototype → null
+        Function → Function.prototype → Object.prototype → null
+        Object → Object.prototype → null
 
 ________________________________________________________________________________
 
 #. 4 - Criando herança com prototype 
-    exemplo clássico:
-
-    function pessoa (nome) {
-        this.nome = nome;
-    }
-
-    Pessoa.prototype.falar = function () {
-        console.log("Meu nome é " + this.nome);
-    }
-
-    const p1 new Pessoa("Nícolas");
-
-    p1.falar();
-
-    - p1 tem nome
-    - falar() não está dentro de p1
-    - então ele procura em:
-
-    p1 -> Pessoa.prototype -> Object.prototype
-
-    E encontra.
-    Por que isso existe?
-    Economizar memória.
-
-    Se fosse feito assim:
-    function Pessoa (nome) {
-        this.nome = nome;
-        this.falar() {
-            console.log(this.nome);
+    #@ 1 - Exemplo clássico
+        function Pessoa (nome) {
+            this.nome = nome;
         }
-    }
 
-    cada objeto teria sua própria função (ruim);
+        Pessoa.prototype.falar = function () {
+            console.log("Meu nome é " + this.nome);
+        }
 
-    Com prototype, todos compartilham a mesma função.
+        const p1 = new Pessoa("Nícolas");
+
+        p1.falar();
+
+    #@ 2 - Por que economiza memória
+        - p1 tem nome
+        - falar() não está dentro de p1
+        - então ele procura em:
+
+        p1 -> Pessoa.prototype -> Object.prototype
+
+        E encontra.
+
+        Se fosse feito assim:
+        function Pessoa (nome) {
+            this.nome = nome;
+            this.falar() {
+                console.log(this.nome);
+            }
+        }
+
+        cada objeto teria sua própria função (ruim)
+
+        Com prototype, todos compartilham a mesma função.
 
 ________________________________________________________________________________
 
 #. 5 - Prototype de funções
-    funções também são objetos:
+    #@ 1 - Toda função tem .prototype
+        funções também são objetos:
 
-    function teste () {}
+        function teste () {}
 
-    console.log(teste.prototype);
+        console.log(teste.prototype);
 
-    -> toda função construtora tem um .prototype
+        -> toda função construtora tem um .prototype
 
-    no devtools aparece algo tipo:
+        no devtools aparece algo tipo:
 
-    {}
-    constructor: ƒ teste()
-    [[Prototype]]: Object
+        {}
+        constructor: ƒ teste()
+        [[Prototype]]: Object
 
-    isso significa:
+    #@ 2 - Como o .prototype é criado
+        quando uma função é criada, o js faz por baixo:
+        teste.prototype = {
+            constructor: teste
+        }
 
-    teste.prototype é um objeto criado automaticamente
-    
-    quando uma função é criada, o js faz por baixo:
-    teste.prototype = {
-        constructor: teste
-    }
+        ou seja, é um objeto normal
+        tem uma propriedade constructor apontando pra função
 
-    ou seja, é um objeto normal
-    tem uma propriedade constructor apontando pra função
+        e o [[Prototype]]: Object ali?
 
-    e o [[Prototype]]: Object ali?
+        isso quer dizer:
+        teste.prototype.__proto__ === Object.prototype // true
 
-    isso quer dizer:
-    teste.prototype.__proto__ === Object.prototype // true
-
-    ou seja:
-    teste.prototype
-    ↓
-    Object.prototype
-    ↓
-    null
+        ou seja:
+        teste.prototype
+        ↓
+        Object.prototype
+        ↓
+        null
 
 ________________________________________________________________________________
 
 #. 6 - New
-    quando é feito:
-    const p1 = new Pessoa ("Nícolas");
+    #@ 1 - O que new faz internamente
+        quando é feito:
+        const p1 = new Pessoa ("Nícolas");
 
-    O js faz isso internamente:
-    const p1 = {};
+        O js faz isso internamente:
+        const p1 = {};
 
-    p1.__proto__ = Pessoa.prototype; 
+        p1.__proto__ = Pessoa.prototype; 
 
-    Pessoa.call(p1, "Nícolas") 
-    
-    -- DUVIDAS -- 
-        //// porque vincula prototype da função no prototype do objeto?
-        //// O que é esse call?
+        Pessoa.call(p1, "Nícolas")
 
-    -- EXPLICACOES -- 
+    #@ 2 - Por que vincula o prototype
         é assim que a herança funciona.
 
         o new conecta:
@@ -313,8 +248,8 @@ ________________________________________________________________________________
         p1.falar();
 
         mesmo "falar" não estando no p1.
-        _________________________________________________________________________
-    
+
+    #@ 3 - O que é esse call?
         isso aqui:
 
         Pessoa.call(p1, "Nícolas");
@@ -329,53 +264,51 @@ ________________________________________________________________________________
 
         mas aplicado dentro do p1.
 
-        Exemplo: 
-            function Produto (nome, preco) {
-                this.nome;
-                this.preco;
-            }
+    #@ 4 - Exemplo avançado
+        function Produto (nome, preco) {
+            this.nome = nome;
+            this.preco = preco;
+        }
 
-            Produto.prototype.aumentarPreco = function (valor) {
-                this.preco += valor;
-            }
+        Produto.prototype.aumentarPreco = function (valor) {
+            this.preco += valor;
+        }
 
-            Produto.prototype.diminuiPreco = function (valor) {
-                this.preco -= valor;
-            }
+        Produto.prototype.diminuiPreco = function (valor) {
+            this.preco -= valor;
+        }
 
-            function Camiseta (nome, preco, material) {
-                Produto.call(this, nome, preco);
-                this.material = material;
-            }
+        function Camiseta (nome, preco, material) {
+            Produto.call(this, nome, preco);
+            this.material = material;
+        }
 
-            Camiseta.prototype = Object.create(Produto.prototype);
-            Camiseta.prototype.constructor = Camiseta;
+        Camiseta.prototype = Object.create(Produto.prototype);
+        Camiseta.prototype.constructor = Camiseta;
 
-            const produto = new Produto('Prod. Generico', 10)
-            const camiseta = new Camiseta('Regata', 57.5, 'algodão')
-            
-            console.log(produto);
-            console.log(camiseta);
+        const produto = new Produto('Prod. Generico', 10)
+        const camiseta = new Camiseta('Regata', 57.5, 'algodão')
+        
+        console.log(produto);
+        console.log(camiseta);
 
 ________________________________________________________________________________
 
 #. 7 - Object.create (herança direta)
-    const pessoa = {
-        falar() {
-            console.log("oi);
+    #@ 1 - Usando Object.create
+        const pessoa = {
+            falar() {
+                console.log("oi");
+            }
         }
-    }
 
-    const p1 = Object.create(pessoa); 
+        const p1 = Object.create(pessoa); 
 
-    p1.falar();
+        p1.falar();
 
-    p1 não tem falar, mas herda do objeto peessoa
+        p1 não tem falar, mas herda do objeto pessoa
 
-    -- DUVIDA -- 
-    //// O que esse Object.create() faz na prática? como ele funciona?
-
-    -- EXPLICACAO -- {
+    #@ 2 - O que Object.create() faz
         ele faz basicamente isso:
 
         const p1 = {};
@@ -385,30 +318,31 @@ ________________________________________________________________________________
 
         cria um objeto vazio
         liga ele diretamente ao objeto que foi passado
-    }
 
 ________________________________________________________________________________
 
 #. 8 - Shadowing (Sobrescrita)
-    se o filho tem a propriedade:
-    const pai = {
-        nome: "pai"
-    };
+    #@ 1 - Propriedade no filho sobrescreve a do pai
+        se o filho tem a propriedade:
+        const pai = {
+            nome: "pai"
+        };
 
-    const filho = Object.create(pai);
+        const filho = Object.create(pai);
 
-    filho.nome = "filho";
+        filho.nome = "filho";
 
-    console.log(filho.nome); // filho
-    -> ele não usa do pai, pois encontrou primeiro nele mesmo.
+        console.log(filho.nome); // filho
+        -> ele não usa do pai, pois encontrou primeiro nele mesmo.
 
 ________________________________________________________________________________
 
 #. 9 - Como o JS resolve propriedades 
-    Quando é feito:
-    obj.x
-    JS faz:
-    1 - obj
-    2 - obj.__proto__
-    3 - obj.__proto__.__proto__ 
-    4 - null
+    #@ 1 - Ordem de busca
+        Quando é feito:
+        obj.x
+        JS faz:
+        1 - obj
+        2 - obj.__proto__
+        3 - obj.__proto__.__proto__ 
+        4 - null

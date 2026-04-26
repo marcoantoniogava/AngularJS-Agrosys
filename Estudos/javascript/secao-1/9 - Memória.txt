@@ -11,9 +11,7 @@ A engine (como v8) é responsável por:
 ____________________________________________________________
 
 #. 1 - Estrutura da memória
-    a memória no JavaScript é dividida em duas áreas principais:
-
-    Stack (Pilha)
+    #@ 1 - Stack (Pilha)
         responsável pela execução do código.
 
         Armazena:  
@@ -26,9 +24,9 @@ ____________________________________________________________
             - tamanho limitado
             - organização LIFO (Last In, First Out)
 
-    Heap (Montante)
+    #@ 2 - Heap (Montante)
         responsável pelo armazenamento de dados complexos.
-        heap é uma área de memória não estruturada.z
+        heap é uma área de memória não estruturada.
 
         Armazena:
             - objetos
@@ -41,21 +39,15 @@ ____________________________________________________________
             - mais lenta
             - gerenciada pelo garbage collector
 
-    Resumo:
-    - stack = execução
-    - heap  = dados
+    #@ 3 - Resumo
+        - stack = execução
+        - heap  = dados
 
 ____________________________________________________________
 
 #. 2 - Tipos de dado e memória
-    Tipos primitivos
-        number
-        string
-        boolean
-        null
-        undefined
-        symbol
-        bigint
+    #@ 1 - Tipos primitivos
+        number, string, boolean, null, undefined, symbol, bigint
 
         exemplo:
         let a = 10;
@@ -67,7 +59,7 @@ ____________________________________________________________
 
         -> Cada variável possui seu próprio valor na memória
 
-    Tipos por referência
+    #@ 2 - Tipos por referência
         exemplo: 
         let obj1 = { nome: "Nícolas" };
         let obj2 = obj1;
@@ -90,10 +82,10 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 3 - Comparação de valores
-    Primitivos
+    #@ 1 - Primitivos
         10 === 10 // true
 
-    Objetos
+    #@ 2 - Objetos
         {} === {} // false
         
         Motivo: são posições diferentes na memória
@@ -101,20 +93,20 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 4 - Mutabilidade
-    Imutáveis (primitivos);
+    #@ 1 - Imutáveis (primitivos)
         let nome = "nícolas";
         nome[0] = "x";
 
         console.log(nome); // "nicolas"
 
-    Mútaveis (objetos)
+    #@ 2 - Mútaveis (objetos)
         let user = { nome: "nícolas" } 
         user.nome = "joao";
 
 ____________________________________________________________
 
 #. 5 - Passagem de valores
-    Por valor (primitivos)
+    #@ 1 - Por valor (primitivos)
         function alterar(x) {
             x = 20;
         }
@@ -124,7 +116,7 @@ ____________________________________________________________
 
         console.log(a) // 10
 
-    Por referência (objetos)
+    #@ 2 - Por referência (objetos)
         function alterar(obj) {
             obj.nome = "joao";
         }
@@ -137,23 +129,25 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 6 - Call Stack (Pilha de execução)
-    responsável por controlar chamadas de funções
-    
-    exemplo:
-        function a() {
-            b();
-        }
+    #@ 1 - Controlando chamadas de funções
+        responsável por controlar chamadas de funções
+        
+        exemplo:
+            function a() {
+                b();
+            }
 
-        function b() {
-            c();
-        }
+            function b() {
+                c();
+            }
 
-        function c() {
-            console.log("oi");
-        }
+            function c() {
+                console.log("oi");
+            }
 
-        a();
+            a();
 
+    #@ 2 - Ordem de execução
         execução:
         1 - global
         2 - a();
@@ -180,60 +174,62 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 7 - Stack Overflow
-    Ocorre quando a stack ultrapassa seu limite.
+    #@ 1 - Ultrapassar limite da stack
+        Ocorre quando a stack ultrapassa seu limite.
 
-    exemplo:
-        function loop() {
+        exemplo:
+            function loop() {
+                loop();
+            }
+
             loop();
-        }
 
-        loop();
-
-        erro: Maximum call stack size exceeded
+            erro: Maximum call stack size exceeded
 
 ____________________________________________________________
 
 #. 8 - Heap na prática
-    exemplo:
-        let user = { nome: "nícolas" }
-    
-        stack:
-        - user -> referência
-        heap:
-        - objeto armazenado
+    #@ 1 - Heap e referências
+        exemplo:
+            let user = { nome: "nícolas" }
+        
+            stack:
+            - user -> referência
+            heap:
+            - objeto armazenado
 
 ____________________________________________________________
 
 #. 9 - Garbage Collector (GC)
-    responsável por liberar memória automaticamente
-    
-    conceito principal: Reachability
-    - Um valor é mantido na memória se for alcançável
+    #@ 1 - Liberação automática de memória
+        responsável por liberar memória automaticamente
+        
+        conceito principal: Reachability
+        - Um valor é mantido na memória se for alcançável
 
-    exemplo:
-    let obj = { nome: "nícolas" };
-    obj = null;
+    #@ 2 - Exemplo prático
+        exemplo:
+        let obj = { nome: "nícolas" };
+        obj = null;
 
-    o objeto antigo perde a referência e pode ser removido.
+        o objeto antigo perde a referência e pode ser removido.
 
 ____________________________________________________________
 
 #. 10 - Memory leaks
-    Ocorrem quando a memória não é liberada mesmo sem necessidade.
-
-    Variáveis globais:
+    #@ 1 - Variáveis globais
         function criar() {
             dado = {pesado: true}; // sem let/const
         }
-    
-    Estruturas acumulativas:
+
+    #@ 2 - Estruturas acumulativas
         let lista = [];
 
         function adicionar() {
             lista.push(new Array(100000));
         }
 
-    Closures
+    #@ 3 - Closures
         function criar () {
             let grande = new Array(1000000);
 
@@ -242,7 +238,7 @@ ____________________________________________________________
             }
         }
 
-    Event listeners
+    #@ 4 - Event listeners
         element.addEventListener("click", () => {
             console.log("clicou");
         });
@@ -252,7 +248,7 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 11 - Shallow Copy vs Deep Copy
-    shallow (cópia rasa):
+    #@ 1 - Shallow (cópia rasa)
         const a = {
             nome: "nícolas",
             endereco: {
@@ -270,15 +266,14 @@ ____________________________________________________________
         - não copia níveis internos
         - mantém referências
 
-    Deep Copy (Cópia profunda)
+    #@ 2 - Deep Copy com JSON
         const b = JSON.parse(JSON.stringify(a));
     
         limitações:
         - não copia métodos
         - perde objetos especiais (Date, Map, etc)
 
-    Solução moderna:
-        structuredClone
+    #@ 3 - structuredClone (moderno)
         const copia = structuredClone(obj);
 
         vantagens
@@ -308,23 +303,19 @@ ____________________________________________________________
 
         console.log(copia);
 
-    quando usar cada abordagem
+    #@ 4 - Quando usar cada abordagem
+        🟢 caso 1 — objeto simples
+        const copia = { ...obj };
+        - rápido e suficiente
 
-    🟢 caso 1 — objeto simples
-    const copia = { ...obj };
+        🟡 caso 2 — objeto com níveis internos
+        const copia = structuredClone(obj);
+        - padrão atual recomendado
 
-    - rápido e suficiente
+        🔴 caso 3 — precisa preservar comportamento (funções, classes)
+        aí você precisa de clonagem manual
 
-    🟡 caso 2 — objeto com níveis internos
-    const copia = structuredClone(obj);
-
-    - padrão atual recomendado
-
-    🔴 caso 3 — precisa preservar comportamento (funções, classes)
-
-    aí você precisa de clonagem manual
-
-    clone customizado
+    #@ 5 - Clone customizado
         function deepClone(obj) {
             if (obj === null || typeof obj !== "object") {
                 return obj;
@@ -359,51 +350,54 @@ ____________________________________________________________
         - manutenção
         - risco de bug
 
-    em sistemas grandes, a solução NÃO é sair clonando tudo
-    - o correto é evitar mutação
+    #@ 6 - Arquitetura sem cópias excessivas
+        em sistemas grandes, a solução NÃO é sair clonando tudo
+        - o correto é evitar mutação
 
-    usar imutabilidade
-        const novoUser = {
-            ...user,
-            nome: "joao"
-        };
-    
-    ou libs (em projetos modernos)
-        immer
-        lodash.cloneDeep
-    
-    erro clássico
-        const config = defaultConfig;
-        config.debug = true;
+        usar imutabilidade
+            const novoUser = {
+                ...user,
+                nome: "joao"
+            };
+        
+        ou libs (em projetos modernos)
+            immer
+            lodash.cloneDeep
+        
+        erro clássico
+            const config = defaultConfig;
+            config.debug = true;
 
-        - isso NÃO é cópia, isso é referência
-    
-    se você precisa de cópia profunda toda hora → arquitetura está errada
-    prefira:
-    - dados imutáveis
-    - funções puras
-    - controle de estado
+            - isso NÃO é cópia, isso é referência
+        
+        se você precisa de cópia profunda toda hora → arquitetura está errada
+        prefira:
+        - dados imutáveis
+        - funções puras
+        - controle de estado
 
 ____________________________________________________________
 
 #. 12 - Closures
-    Closures mantêm acesso ao escopo externo mesmo após execução.
+    #@ 1 - Mantendo acesso ao escopo externo
+        Closures mantêm acesso ao escopo externo mesmo após execução.
 
-    function contador () {
-        let i = 0;
+        function contador () {
+            let i = 0;
 
-        return function () {
-            i++;
-            return i;
-        };
-    }
+            return function () {
+                i++;
+                return i;
+            };
+        }
 
 ____________________________________________________________
 
 #. 13 - Event Loop 
-    operações assíncronas também utilizam memória até serem executadas.
+    #@ 1 - Operações assíncronas e memória
+        operações assíncronas também utilizam memória até serem executadas.
 
-    stack + async (detalhe avançado)
+    #@ 2 - Stack + async
         function a() {
             setTimeout(() => {
                 console.log("oi");
@@ -425,11 +419,12 @@ ____________________________________________________________
 ____________________________________________________________
 
 #. 14 - Boas práticas
-    - sempre usar let/cont
-    - evitar variáveis globais
-    - remover event listeners quando não usados
-    - evitar mutações inesperadas
-    - limpar estruturas grandes quando não necessárias
-    - entender quando usar cópia profunda
+    #@ 1 - Prevenção de memory leaks
+        - sempre usar let/const
+        - evitar variáveis globais
+        - remover event listeners quando não usados
+        - evitar mutações inesperadas
+        - limpar estruturas grandes quando não necessárias
+        - entender quando usar cópia profunda
 
 ____________________________________________________________
