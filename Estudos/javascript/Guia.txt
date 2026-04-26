@@ -278,28 +278,16 @@ conteúdo da secao 1 do JavaScript
     ________________________________________________
     !. 6 - Avaliação de curto-circuito
         #. 1 - Operador AND (&&)
-            #@ 1 - Como funciona
-            #@ 2 - Exemplos
 
         #. 2 - Operador OR (||)
-            #@ 1 - Como funciona
-            #@ 2 - Exemplos
 
         #. 3 - Operador de Coalescência Nula (??)
-            #@ 1 - Como funciona
-            #@ 2 - Exemplos
 
         #. 4 - Valores Falsy
-            #@ 1 - Quais são os valores falsy
 
         #. 5 - Valores Truthy
-            #@ 1 - Quais são os valores truthy
 
         #. 6 - Curto-Circuito em Atribuições
-            #@ 1 - Utilizando em atribuições
-            #@ 2 - Padrões com && e ||
-            #@ 3 - Combinando com operadores ternários
-            #@ 4 - Exemplos práticos
     ________________________________________________
     !. 7 - Classes
         #. 1 - Sintaxe básica
@@ -354,30 +342,60 @@ conteúdo da secao 1 do JavaScript
     ________________________________________________
     !. 8 - Expressões
         #. 1 - Expressão vs Instrução (Statement)
-            #@ 1 - Expressão (retorna valor)
-            #@ 2 - Instrução/Statement (não retorna valor direto)
 
         #. 2 - Expressão de Atribuição
-            #@ 1 - Atribuição como expressão
 
         #. 3 - Expressão de Função
-            #@ 1 - Function expression
-            #@ 2 - Diferença de função declarada
 
         #. 4 - Arrow Function (também é expressão)
-            #@ 1 - Sintaxe
 
         #. 5 - Expressão Ternária
-            #@ 1 - Operador ternário
-            #@ 2 - Diferença do if
 
         #. 6 - Chamadas de Função
-            #@ 1 - Funções como expressões
 
         #. 7 - Teste Prático: É Expressão ou Não?
-            #@ 1 - Teste prático
     ________________________________________________
-    !. 9 - Memória
+    !. 9 - Objeto Map()
+        # . 1 - Diferenças principais entre Map e Object
+            ## 1 - Chaves de qualquer tipo
+            ## 2 - Ordem de inserção
+            ## 3 - Performance
+            ## 4 - Iteração fácil
+            ## 5 - Tamanho
+
+        # . 2 - Criando um Map
+
+        # . 3 - Métodos principais
+            ## 1 - set(chave, valor)
+            ## 2 - get(chave)
+            ## 3 - has(chave)
+            ## 4 - delete(chave)
+            ## 5 - clear()
+            ## 6 - size
+
+        # . 4 - Iteração
+            ## 1 - for...of
+            ## 2 - forEach
+            ## 3 - keys()
+            ## 4 - values()
+            ## 5 - entries()
+
+        # . 5 - Comparação de chaves
+
+        # . 6 - Vantagens do Map
+
+        # . 7 - Casos reais de uso
+            ## 1 - Cache
+            ## 2 - Contagem de ocorrências
+            ## 3 - Chaves complexas (OBJETO como chave)
+
+        # . 8 - Convertendo Map para Object e vice-versa    
+            ## 1 - Map para Object
+            ## 2 - Object para Map
+
+conteúdo da secao 2 do JavaScript 
+(secao-2):
+    !. 10 - Memória
         #. 1 - Estrutura da memória
             #@ 1 - Stack (Pilha)
             #@ 2 - Heap (Montante)
@@ -437,9 +455,7 @@ conteúdo da secao 1 do JavaScript
         #. 14 - Boas práticas
             #@ 1 - Prevenção de memory leaks
 
-conteúdo da secao 2 do JavaScript 
-(secao-2):
-    !. 10 - this, bind, call e apply
+    !. 11 - this, bind, call e apply
         #. 1 - contexto (this) -  a base de tudo
             #@ 1 - O que é this?
             #@ 2 - Exemplo simples
@@ -476,14 +492,38 @@ conteúdo da secao 2 do JavaScript
             #@ 4 - Exemplo de bind em um componente de UI
             #@ 5 - Exemplo de call para usar método de um objeto em outro
     ________________________________________________ 
-    !. 11 - Motor JavaScript
+    !. 12 - Motor JavaScript
+        # . 1 - Como o motor funciona
+            ## 1 - Parsing (leitura do código)
+            ## 2 - Compilação JIT (Just-In-Time)
+            ## 3 - Execução
+
+        # . 2 - Otimizações do motor
+            ## 1 - Inline Caching
+            ## 2 - Hidden Classes (V8)
+            ## 3 - De-optimization
+
+        # . 3 - Interpretação vs Compilação
+
+        # . 4 - Boas práticas para performance:
+            ## 1 - Mantenha o tipo das variáveis consistente:
+            ## 2 - Evite criar objetos com estruturas diferentes:
+            ## 3 - Evite recriar funções dentro de loops
+            ## 4 - Evite acessar objeto profundo várias vezes:
+            ## 5 - Prefira loops simples em código crítico:
+            ## 6 - Não misture tipos em arrays:
+            ## 7 - Entenda o event loop para evitar bugs:
+            ## 8 - Evite recursão profunda sem controle:
+            ## 9 - Cache de resultado (memoization simples)
+            ## 10 - Evite criar objetos desnecessários
+        
     ________________________________________________ 
-    !. 12 - ES6 Modules
+    !. 13 - ES6 Modules
     ________________________________________________ 
-    !. 13 - DOM
+    !. 14 - DOM
     ________________________________________________
-    !. 14 - Eventos
+    !. 15 - Eventos
     ________________________________________________
-    !. 15 - Web Storage API
+    !. 16 - Web Storage API
 
 

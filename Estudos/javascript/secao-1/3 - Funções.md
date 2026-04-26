@@ -3,6 +3,7 @@
 ## 1 - Função normal (function)
   Tem o próprio this
   O valor do this depende de como a função é chamada
+  
   const obj = {
     nome: "Nícolas",
     falar: function () {
@@ -65,7 +66,6 @@
 
 # . 2 - Closures 
 ## 1 - Conceito de escopo léxico
-  A habilidade da função de reconhecer seu escopo léxico
   escopo léxico é basicamente:
   uma função enxerga variáveis de onde ela foi criada, não de onde ela é chamada
   
@@ -75,7 +75,7 @@
       const nome = "fora";
 
       function dentro() {
-          console.log(nome);
+        console.log(nome);
       }
 
       dentro();
@@ -83,9 +83,11 @@
 
   fora(); // "fora"
 
-  a função dentro pega o nome do lugar onde ela foi definida, não de onde foi chamada.
+  a função dentro pega o nome do lugar onde ela foi definida.
 
 ## 2 - O que é Closure
+  A habilidade da função de reconhecer seu escopo léxico
+
   closure é quando uma função:
 
   lembra das variáveis do escopo onde foi criada, mesmo depois desse escopo ter "acabado"
@@ -117,6 +119,7 @@ closure → mantém esse acesso vivo na memória
 
 uso real
 1. encapsulamento (tipo “variável privada”)
+ 
 function criarUsuario(nome) {
     let senha = "123"; // privado
 
@@ -135,7 +138,7 @@ console.log(nicolas.validarSenha("123"))
 
 ninguém acessa senha direto — só via função
 
-2.  evitar variável global (organização)
+2. evitar variável global (organização)
 function init() {
     let config = { api: "url" };
 
@@ -210,13 +213,15 @@ isso é closure em ação.
       },
       // getter
       get nomeCompleto() {
-        return this.nome + " " + this.sobrenome
+        return this.nome + " " + this.sobrenome;
       },
       // setter
       set nomeCompleto(valor) {
         valor = valor.split(' ');
+
         this.nome = valor.shift();
         this.sobrenome = valor.join(' ');
+
         console.log(valor);
       }
     }
