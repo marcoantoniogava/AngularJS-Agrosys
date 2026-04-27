@@ -292,11 +292,18 @@
     const arr = [[1, 2], [3, 4]];
 
     const flat = arr.flat(); // [1, 2, 3, 4]
+    
+    o flat tem um parâmetro opcional pra controlar a profundidade:
+    const arr = [1, [2, [3, 4]]];
+    const flat = arr.flat(2); // [1, 2, 3, 4]
+
 
 ## 2 - flatMap (map + flatten)
     const frases = ["oi mundo", "js é bom"];
 
     const palavras = frases.flatMap(f => f.split(" "));
+    
+    flatmap é muito usado pra transformar e achatar em um passo só.
 
 # ____________________________________________________________________________________________________________
 
@@ -305,6 +312,8 @@
     const arr = [1, 1, 2, 3];
 
     const unico = [...new Set(arr)];
+
+    esse set é uma estrutura que só aceita valores únicos, então ele automaticamente remove duplicatas.
 
 # ____________________________________________________________________________________________________________
 

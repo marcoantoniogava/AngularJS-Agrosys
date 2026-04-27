@@ -40,6 +40,8 @@
 
 ## 3 - Como funciona internamente
     bind é uma função que está dentro de Function.prototype, ou seja, todas as funções herdam esse método.
+    ela cria uma nova função que, quando chamada, tem seu this definido para o valor passado como argumento,
+    e também pode receber argumentos adicionais que serão passados para a função original.
 
 ## 4 - bind com parâmetros
     function saudacao(saudacaoInicial) {
