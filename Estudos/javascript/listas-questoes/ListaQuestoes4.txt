@@ -1,110 +1,179 @@
-1. 🧾 sistema de pedidos com processamento assíncrono
-objetivo:
+1. (array + reduce + estrutura de dados)
 
-simular um backend simples de pedidos
+dado:
 
-requisitos:
-crie uma função construtora Pedido(id, cliente, valor)
-adicione no prototype:
-aplicarDesconto(percentual)
-ehValido() (valor > 0)
-crie um array com vários pedidos
-crie uma função que:
-simula processamento com setTimeout
-tempo aleatório (até 2s)
-se pedido inválido → reject
-se válido → aplica 10% de desconto e resolve
-processe todos os pedidos:
-use Promise.all
-trate sucesso e erro
-retorne:
+const pedidos = [
+  { cliente: "joao", total: 100 },
+  { cliente: "maria", total: 200 },
+  { cliente: "joao", total: 50 }
+];
+
+retorne um objeto agrupado por cliente:
+
 {
-  aprovados: [...],
-  recusados: [...]
+  joao: 150,
+  maria: 200
 }
-2. 👥 sistema de usuários + ranking
-objetivo:
 
-trabalhar com agregação e ordenação
+👉 obrigatório usar reduce
 
-requisitos:
-função construtora Usuario(nome)
-cada usuário tem um array de pontuacoes
-prototype:
-mediaPontuacao()
-crie vários usuários
-simule carregamento das pontuações via Promise
-após carregar tudo:
-calcule média de cada usuário
-ordene do maior para o menor
-retorne ranking:
-[
-  { nome: "joao", media: 9 },
-  { nome: "maria", media: 7 }
-]
-3. 📦 sistema de estoque com retry
-objetivo:
 
-trabalhar erro + retry + estrutura
 
-requisitos:
-função construtora Produto(nome, estoque)
-método:
-retirar(qtd) → diminui estoque
-crie função async:
-tenta retirar produto
-pode falhar aleatoriamente
-implemente:
+
+2. (função pura + imutabilidade)
+
+crie uma função atualizarUsuario(usuario, novosDados) que:
+
+NÃO altera o objeto original
+retorna um novo objeto atualizado
+
+exemplo:
+
+const user = { nome: "joao", idade: 20 };
+
+const atualizado = atualizarUsuario(user, { idade: 25 });
+
+
+
+
+3. (this + bind + contexto)
+
+explique e resolva:
+
+const usuario = {
+  nome: "joao",
+  saudacao() {
+    return `ola, ${this.nome}`;
+  }
+};
+
+const fn = usuario.saudacao;
+
+console.log(fn());
+por que retorna errado?
+corrija usando bind
+
+
+
+4. (prototype + herança)
+
+crie:
+
+function Pessoa(nome)
+function Funcionario(nome, salario)
+
+faça Funcionario herdar de Pessoa
+
+adicionar método:
+
+mostrarSalario
+
+👉 sem usar class, só prototype
+
+
+
+
+5. (array + deduplicação)
+
+dado:
+
+const numeros = [1, 2, 2, 3, 4, 4, 5];
+
+retorne um array sem valores duplicados
+
+👉 não pode usar Set
+
+
+
+
+6. (promise + encadeamento)
+
+crie 3 funções:
+
+buscarUsuario
+buscarPedidos
+calcularTotal
+
+cada uma retorna uma Promise
+
+encadeie para:
+
+buscar usuário
+buscar pedidos dele
+calcular total gasto
+-- depois de concluido: --
+trate erro com .catch
+simule erro em alguma etapa
+
+
+
+
+8. função de alto nível com retry (promises)
+
+implemente uma função chamada:
+
 executarComRetry(fn, tentativas)
-aplique isso para tentar retirar produtos
-resultado final:
-{
-  sucesso: [...],
-  falha: [...]
-}
-4. 🧠 sistema de tarefas (tipo mini todo list async)
-objetivo:
+descrição
 
-misturar tudo + organização
+essa função deve receber:
 
-requisitos:
-função construtora Tarefa(descricao, prioridade)
-prioridade: baixa, media, alta
-prototype:
-ehAltaPrioridade()
-simule processamento async das tarefas
-alta prioridade resolve mais rápido
-baixa demora mais
-processe todas tarefas
-agrupe resultado:
-{
-  alta: [...],
-  media: [...],
-  baixa: [...]
-}
-5. 🔗 pipeline de processamento (nível mais avançado)
-objetivo:
+fn: uma função que retorna uma Promise
+tentativas: número máximo de tentativas em caso de falha
 
-simular fluxo real de dados
+comportamento esperado:
+- a função deve executar fn
+- se a Promise for resolvida, retornar o resultado imediatamente
+- se a Promise for rejeitada, tentar executar novamente
+- repetir até atingir o limite de tentativas
+- se todas as tentativas falharem, deve lançar (reject) o último erro ocorrido
+- regras importantes
+- fn deve ser chamada novamente a cada tentativa (não reutilizar resultado anterior)
+- não usar variáveis globais para controle
+- o retorno de executarComRetry deve ser uma Promise
+- respeitar o número máximo de tentativas
 
-requisitos:
 
-crie um pipeline com 3 etapas:
 
-buscarDados (Promise)
-transformarDados
-salvarDados (Promise)
-regras:
-cada etapa pode falhar
-use encadeamento de Promises
-trate erro corretamente
-entrada:
+
+9. debounce (controle de execução)
+
+implemente uma função chamada:
+
+debounce(fn, delay)
+descrição
+
+essa função deve receber:
+
+fn: função que será executada
+delay: tempo em milissegundos
+
+e retornar uma nova função controlada (função de alto nível)
+
+comportamento esperado:
+- a função retornada pode ser chamada várias vezes
+- a execução de fn deve ser adiada
+- se a função for chamada novamente antes do tempo (delay) acabar:
+- o timer anterior deve ser cancelado
+- um novo timer deve começar
+- fn só deve ser executada quando pararem de chamar a função por X ms
+
+
+
+
+
+10. (estrutura + lógica)
+
+crie uma função que recebe:
+
 [
-  { nome: "joao", idade: 20 },
-  { nome: "maria", idade: 15 }
+  { nome: "joao", idade: 17 },
+  { nome: "maria", idade: 22 },
+  { nome: "pedro", idade: 17 }
 ]
-saída:
+
+retorne:
+
 {
-  sucesso: [...],
-  erro: [...]
+  menores: [...],
+  maiores: [...]
 }

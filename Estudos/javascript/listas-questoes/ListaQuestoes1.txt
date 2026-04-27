@@ -1,55 +1,89 @@
-1 - Manipulação avançada de arrays e objetos
+1. Timer com Promise
 
-Map, reduce, filter, find, some, every, flatMap
+Cria uma função contagemRegressiva(segundos) que imprime no console a contagem (3... 2... 1... 🚀) usando await esperar(ms) a cada segundo.
 
-Clonagem profunda de objetos (structuredClone, JSON, lodash)
+Dica: usa a função esperar que tu já fez.
 
-Destructuring complexo (arrays, objetos, funções)
+2. Encadeando Promises
 
-Exercício rápido: pegar um array de usuários, filtrar por idade, agrupar por cidade e retornar um objeto {cidade: [usuarios]}
+Cria uma Promise que começa com o número 2, e:
+
+multiplica por 3,
+
+depois soma 10,
+
+depois mostra o resultado no console.
+
+Faz primeiro com .then() encadeando, depois com async/await.
+
+3. Fetch básico
+
+Usa o fetch pra pegar 10 posts da API https://jsonplaceholder.typicode.com/posts.
+Mostra no console só os títulos (title).
+
+4. Fetch com erro
+
+Tenta fazer um fetch numa URL errada (ex: https://jsonplaceholder.typicode.com/abcdxyz).
+Trata o erro com try/catch e mostra "Erro ao buscar dados:" + mensagem.
+
+5. Requisições em paralelo
+
+Cria uma função que busca usuário 1 e posts do usuário 1 ao mesmo tempo (Promise.all).
+Mostra o nome do usuário e quantos posts ele tem.
+
+6. Criando dados (POST)
+
+Faz uma função que cria um novo post (fake) usando a API https://jsonplaceholder.typicode.com/posts.
+Envia { title: "teste", body: "conteúdo do post", userId: 99 } e mostra a resposta no console.
+
+7. Fetch com retry
+
+Reaproveita teu fetchComRetry(url, tentativas) e testa numa URL válida e numa inválida.
+
+Se falhar, mostra quantas tentativas foram feitas.
+
+Se der certo, mostra o resultado.
+
+8. Race condition
+
+Cria duas Promises que resolvem em tempos diferentes (esperar(2000) e esperar(500)).
+Usa Promise.race e mostra no console quem “ganhou”.
+
+9. Promise.any
+
+Simula várias Promises onde algumas rejeitam e outras resolvem.
+Exemplo:
+
+Promise.any([
+  Promise.reject("falhou 1"),
+  Promise.reject("falhou 2"),
+  Promise.resolve("deu certo aqui!")
+])
+
+
+Mostra qual resultado chegou.
 
 
 
 
-2 - Array / Object Avançado
-
-dado um array de objetos representando produtos {nome, preco, categoria}, faça:
-
-um objeto que agrupe produtos por categoria
-
-calcule o total de preço por categoria
-
-retorne uma lista só com nomes dos produtos que custam mais de 50
 
 
 
+10. Desafio final
 
-3 - Funções e Closures
+Cria uma função buscarUsuarioEPosts(id) que:
 
-crie uma função contador(inicial) que retorna outra função que ao ser chamada incrementa e retorna o valor atual
+Busca o usuário (/users/:id)
 
-teste criando 2 contadores diferentes, veja se cada um mantém seu próprio estado
+Busca os posts dele (/posts?userId=:id)
 
+Retorna um objeto assim:
 
-
-
-4 - Array / Funções Funcionais
-
-usando apenas map, filter e reduce, dado um array de números [1,2,3,4,5,6,7,8,9,10]:
-
-filtre apenas os pares
-
-multiplique cada um por 3
-
-calcule a soma final
+{
+  nome: "...",
+  email: "...",
+  posts: [ { id, title }, ... ]
+}
 
 
-
-
-5 - Async / Promise / Fetch Simulado
-
-crie uma função simulaFetch(url) que retorna uma promise que resolve em x segundos (random de 1 a 3s) com a string "dados da url: <url>"
-
-faça um loop pra chamar 5 urls diferentes e retorne quando todas terminarem (Promise.all)
-
-depois, faça um outro teste retornando assim que a primeira terminar (Promise.race)
+Mostra esse objeto no console.

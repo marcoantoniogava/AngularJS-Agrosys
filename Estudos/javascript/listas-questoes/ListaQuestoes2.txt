@@ -1,152 +1,55 @@
-1. (expressões + return)
+1 - Manipulação avançada de arrays e objetos
 
-refatore essa função usando apenas expressão (sem if):
+Map, reduce, filter, find, some, every, flatMap
 
-function ehPar(n) {
-  if (n % 2 === 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
+Clonagem profunda de objetos (structuredClone, JSON, lodash)
 
+Destructuring complexo (arrays, objetos, funções)
 
+Exercício rápido: pegar um array de usuários, filtrar por idade, agrupar por cidade e retornar um objeto {cidade: [usuarios]}
 
-2. (funções + this)
 
-crie uma função construtora Carro com:
 
-propriedades: marca, velocidade
-método: acelerar() que soma +10 na velocidade
 
-teste criando dois carros diferentes.
+2 - Array / Object Avançado
 
+dado um array de objetos representando produtos {nome, preco, categoria}, faça:
 
+um objeto que agrupe produtos por categoria
 
+calcule o total de preço por categoria
 
-3. (privado vs público)
+retorne uma lista só com nomes dos produtos que custam mais de 50
 
-baseado nisso que você viu:
 
-function Pessoa(nome) {
-  const id = 123;
-  this.nome = nome;
-}
-adicione um método público mostrarNome
-crie um método interno (privado)
-tente acessar o método privado de fora e entenda o que acontece
 
 
+3 - Funções e Closures
 
-4. (arrays intermediário)
+crie uma função contador(inicial) que retorna outra função que ao ser chamada incrementa e retorna o valor atual
 
-dado:
+teste criando 2 contadores diferentes, veja se cada um mantém seu próprio estado
 
-const numeros = [1, 2, 3, 4, 5, 6];
 
-retorne um novo array apenas com números pares multiplicados por 2
 
-👉 dica: usar filter + map
 
+4 - Array / Funções Funcionais
 
+usando apenas map, filter e reduce, dado um array de números [1,2,3,4,5,6,7,8,9,10]:
 
+filtre apenas os pares
 
-5. (arrays + lógica)
+multiplique cada um por 3
 
-crie uma função que recebe um array de números e retorna:
+calcule a soma final
 
-o maior número
-o menor número
 
-sem usar Math.max ou Math.min
 
 
+5 - Async / Promise / Fetch Simulado
 
+crie uma função simulaFetch(url) que retorna uma promise que resolve em x segundos (random de 1 a 3s) com a string "dados da url: <url>"
 
-6. (prototype)
+faça um loop pra chamar 5 urls diferentes e retorne quando todas terminarem (Promise.all)
 
-crie:
-
-function Animal(nome) {
-  this.nome = nome;
-}
-adicione no prototype um método falar
-crie dois animais e teste
-
-👉 objetivo: entender que ambos compartilham o mesmo método
-
-
-
-
-7. (comparação de objetos)
-
-explique com código por que isso é falso:
-
-const a = new Number(10);
-const b = new Number(10);
-
-console.log(a === b);
-
-e mostre como comparar corretamente o valor
-
-
-
-
-8. (promise básica)
-
-crie uma função que retorna uma Promise que:
-
-resolve após 2 segundos
-retorna a string "deu certo"
-
-
-
-9. (simulando Promise.any)
-
-implemente uma função simples estilo Promise.any:
-
-function promiseAny(promises) {
-  // sua implementação
-}
-
-regras:
-
-retorna o valor da primeira promise que resolver
-ignora as que falharem
-se todas falharem, retorna erro
-
-
-10. (desafio real - async + objetos + organização)
-
-crie um sistema simples de usuários seguindo os passos abaixo:
-
-1 - crie uma função construtora Usuario(nome, idade)
-
-2 - adicione no prototype o método:
-    eMaiorDeIdade() → retorna true ou false
-
-3 - crie um array com pelo menos 5 usuários
-
-4 - crie uma função que:
-    recebe um usuário
-    retorna uma Promise
-    usa setTimeout com tempo aleatório (Math.floor(Math.random() * 2000))
-    adiciona o tempo ao usuário
-    se for maior de idade → resolve
-    se for menor de idade → reject
-
-5 - para todos os usuários:
-    execute as Promises
-    trate sucesso e erro
-    aguarde todas com Promise.all
-
-6 - monte um objeto final no formato:
-
-{
-  maiores: [
-    { nome: "joao", idade: 20, tempo: 123 },
-  ],
-  menores: [
-    { nome: "carlos", idade: 15, tempo: 456 },
-  ]
-}
+depois, faça um outro teste retornando assim que a primeira terminar (Promise.race)
