@@ -65,7 +65,7 @@ Onde encontrar cada conteúdo desse diretório:
 # conteúdo da secao 2 do JavaScript  
 (secao-2-assincronismo)
 
-## !. 6 - Promises e async.md
+## !. 1 - Promises e async.md
 - programação assíncrona
 - síncrono vs assíncrono
 - callbacks
@@ -84,7 +84,7 @@ Onde encontrar cada conteúdo desse diretório:
 - uso no AngularJS
 - erros comuns
 
-## !. 7 - Memória.md
+## !. 2 - Memória.md
 - stack
 - heap
 - call stack
@@ -104,7 +104,7 @@ Onde encontrar cada conteúdo desse diretório:
 # conteúdo da secao 3 do JavaScript  
 (secao-3-orientacao-a-objetos)
 
-## !. 8 - Prototype.md
+## !. 1 - Prototype.md
 - prototype
 - __proto__
 - prototype chain
@@ -114,7 +114,7 @@ Onde encontrar cada conteúdo desse diretório:
 - operador new
 - resolução de propriedades
 
-## !. 9 - Classes.md
+## !. 2 - Classes.md
 - sintaxe class
 - constructor
 - métodos
@@ -128,7 +128,7 @@ Onde encontrar cada conteúdo desse diretório:
 - encapsulamento
 - class como açúcar sintático
 
-## !. 10 - this, bind, call e apply.md
+## !. 3 - this, bind, call e apply.md
 - contexto do this
 - bind()
 - call()
@@ -138,7 +138,7 @@ Onde encontrar cada conteúdo desse diretório:
 - uso em UI
 - herança com call
 
-## !. 11 - Objeto Map.md
+## !. 4 - Objeto Map.md
 - diferenças Map vs Object
 - chaves de qualquer tipo
 - ordem de inserção
@@ -155,7 +155,7 @@ Onde encontrar cada conteúdo desse diretório:
 # conteúdo da secao 4 do JavaScript  
 (secao-4-modularizacao)
 
-## !. 12 - ES6 Modules.md
+## !. 1 - ES6 Modules.md
 - o que são módulos
 - export default
 - named export
@@ -172,7 +172,7 @@ Onde encontrar cada conteúdo desse diretório:
 - escopo isolado
 - vantagens da modularização
 
-## !. 13 - Modularização moderna.md
+## !. 2 - Modularização moderna.md
 - arquitetura por módulos
 - separação por responsabilidade
 - services
@@ -189,7 +189,7 @@ Onde encontrar cada conteúdo desse diretório:
 # conteúdo da secao 5 do JavaScript  
 (secao-5-engine-browser)
 
-## !. 14 - Motor JavaScript.md
+## !. 1 - Motor JavaScript.md
 - parsing
 - compilação JIT
 - execução
@@ -199,16 +199,75 @@ Onde encontrar cada conteúdo desse diretório:
 - interpretação vs compilação
 - performance real
 
-## !. 15 - DOM.md
+## !. 2 - DOM.md
 - (a fazer)
 
-## !. 16 - Eventos.md
+## !. 3 - Eventos.md
 - (a fazer)
 
-## !. 17 - Web storage API.md
+## !. 4 - Web storage API.md
 - (a fazer)
 
 ---
+
+# conteúdo da secao 6 do JavaScript  
+(secao-6-http-integracao)
+
+## !. 1 - Fetch API.md
+- O que é Fetch API
+- Sintaxe básica
+- Exemplo com async await
+- Entendendo a resposta
+- Converter resposta
+- Get 
+- Post
+- PUT
+- DELETE 
+- Tratando erros
+- Headers
+- Query params
+
+## !. 2 - REST API.md
+(a fazer)
+
+## !. 3 - Status HTTP.md
+(a fazer)
+
+## !. 4 - Headers HTTP.md
+(a fazer)
+
+## !. 5 - Autenticação e JWT.md
+(a fazer)
+
+## !. 6 - CORS.md
+(a fazer)
+
+## !. 7 - Upload de Arquivos.md
+(a fazer)
+
+## !. 8 - Interceptação de Requests.md
+(a fazer)
+
+## !. 9 - Tratamento de Erros HTTP.md
+(a fazer)
+
+## !. 10 - Consumo de APIs no AngularJS.md
+(a fazer)
+
+## !. 11 - Cookies, Sessão e Credentials.md
+(a fazer)
+
+## !. 12 - Query Params e URLSearchParams.md
+(a fazer)
+
+## !. 13 - Paginação, Filtros e Ordenação.md
+(a fazer)
+
+## !. 14 - Retry, Timeout e Cancelamento.md
+(a fazer)
+
+## !. 15 - Performance e Boas Práticas.md
+(a fazer)
 
 # ordem recomendada de estudo
 
