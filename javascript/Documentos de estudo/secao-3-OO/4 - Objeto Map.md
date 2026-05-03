@@ -13,7 +13,7 @@ mas com várias vantagens importantes.
     Melhor para muitas operações, porque é otimizado para isso, enquanto objetos podem ter performance degradada com muitas chaves.
 
 ## 4 - Iteração fácil
-    Map tem métodos nativos para iterar (forEach, keys, values, entries), enquanto objetos exigem mais trabalho para iterar.
+    Map tem métodos nativos para iterar (forEach, keys, values, entries) por conta de sua estrutura interna ser um array, enquanto objetos exigem mais trabalho para iterar.
 
 ## 5 - Tamanho
     Map tem a propriedade size para obter o número de pares, enquanto objetos exigem contagem manual.
@@ -93,6 +93,8 @@ mas com várias vantagens importantes.
     mapa.set(obj1, "valor");
 
     console.log(mapa.get(obj2)); // undefined, porque obj1 e obj2 são referências diferentes
+
+    // É como se todas as chaves do Map fossem objetos, mesmo que sejam strings ou números, elas são convertidas para objetos internamente.
 
 # __________________________________________________________________________________________________________________
 
