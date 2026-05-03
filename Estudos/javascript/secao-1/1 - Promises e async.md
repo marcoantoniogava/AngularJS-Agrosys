@@ -435,3 +435,153 @@ Isso significa que algumas operações não retornam resultado imediatamente, co
         Promise.allSettled → relatórios/logs
 
 # _______________________________________________________________________________________________________________________
+
+# . 14 - Fetch API e Promises
+## 1 - O que é Fetch API
+    é uma API moderna para fazer requisições HTTP
+    baseada em Promises.
+
+    Ele serve para buscar dados de APIs, enviar informações para servidores, autenticar usuários, carregar listas, etc.
+
+    retorna uma Promise que resolve com a resposta da requisição.
+
+## 2 - Sintaxe básica
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+        });
+
+## 3 - Exemplo com async await
+    async function carregarDados() {
+        try {
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("Erro na requisição");
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.error("Erro:", error);
+        }
+    }
+
+## 4 - Entendendo a resposta
+    Quando o fetch termina, ele retorna um objeto Response.
+
+    Exemplo:
+    const resposta = await fetch(url);
+
+    Esse objeto tem:
+    - status: código HTTP (200, 404, etc)
+    - ok: true se status for 200-299
+    - json(): método para ler o corpo como JSON
+    - text(): método para ler o corpo como texto
+    - headers: informações sobre a resposta (tipo, etc)
+    Para acessar os dados, geralmente usamos response.json() que também retorna uma Promise.
+
+## 5 - Converter resposta
+    JSON
+    const dados = await response.json();
+
+    Texto
+    const texto = await response.text();
+
+    Blob (imagens, arquivos)
+    const imagem = await response.blob();
+
+    FormData (formulários)
+    const formData = await response.formData();
+
+    arrayBuffer (dados binários)
+    const buffer = await response.arrayBuffer();
+
+## 6 - Get 
+    async function listarProdutos () {
+        const resposta = await fetch("/api/produtos");
+        const produtos = await resposta.json();
+
+        console.log(produtos);
+    }
+
+## 7 - Post
+    async function criarUsuario() {
+        const resposta = await fetch("/api/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: "Nícolas",
+                idade: 20
+            })
+        });
+
+        const retorno = await resposta.json();
+        console.log(retorno);
+    }
+
+## 8 - PUT
+    async function atualizaUsuario() {
+        const resposta = await fetch("/api/usuarios/123", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: "Nícolas",
+                idade: 21
+            })
+        })
+    }
+    
+## 9 - DELETE 
+    async function deletarUsuario() {
+        const resposta = await fetch("/api/usuarios/123", {
+            method: "DELETE"
+        });
+
+        if (resposta.ok) {
+            console.log("Usuário deletado");
+        } else {
+            console.log("Erro ao deletar");
+        }
+    }
+
+## 10 - Tratando erros
+    importante:
+    fetch não cai no catch só porque veio 404 ou 500.
+    
+    ele só cai no catch em erro real:
+    - sem internet
+    - DNS falhou
+    - cors bloqueado
+    - conexão caiu
+
+    Exemplo correto:
+    async function buscar() {
+        try {
+            const resposta = await fetch("/api/usuarios");
+
+            if (!resposta.ok)  {
+                throw new Error("Erro na requisição: " + resposta.status);
+            }
+
+            const dados = await resposta.json();
+
+            console.log(dados);
+        } catch (error) {
+            console.log("Erro:", error);
+        }
+    }
