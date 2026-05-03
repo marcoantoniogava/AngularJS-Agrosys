@@ -585,3 +585,29 @@ Isso significa que algumas operações não retornam resultado imediatamente, co
             console.log("Erro:", error);
         }
     }
+
+## 11 - Headers
+    Enviar token:
+
+    fetch("/perfil", {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    });
+
+    Ler tipo de conteúdo:
+    const tipo = resposta.headers.get("Content-Type");
+
+    O headers é um objeto que contém informações sobre a requisição ou resposta, como tipo de conteúdo, autenticação, etc.
+
+## 12 - Query params
+    const resposta = await fetch("/api/usuarios?idade=20&cidade=SP");
+
+    ou usando URLSearchParams:
+
+    const params = new URLSearchParams({ idade: 20, cidade: "SP" });
+    const resposta = await fetch("/api/usuarios?" + params.toString());
+
+    URLSearchParams é uma forma fácil de criar query strings a partir de objetos.
+    ele é uma classe nativa do JS que converte um objeto em uma string de consulta (query string) para URLs.
+

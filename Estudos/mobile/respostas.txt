@@ -56,9 +56,5 @@ na prática:
 - erro no console
 - HTML vira "estático"
 - Angular não roda
----------------------------------------------------------------
 
-perguntas alteradas:
-8. Explique o fluxo completo: HTML → Controller → Service → HTML (Estrutura_AngularJS.txt)
-para 
-8. Explique o fluxo completo: HTML → Controller → Service → Controller → HTML (Estrutura_AngularJS.txt)
+---------------------------------------------------------------

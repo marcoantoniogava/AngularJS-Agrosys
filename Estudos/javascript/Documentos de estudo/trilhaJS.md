@@ -202,6 +202,12 @@ Onde encontrar cada conteúdo desse diretório:
 ## !. 15 - DOM.md
 - (a fazer)
 
+## !. 16 - Eventos.md
+- (a fazer)
+
+## !. 17 - Web storage API.md
+- (a fazer)
+
 ---
 
 # ordem recomendada de estudo
