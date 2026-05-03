@@ -16,7 +16,7 @@ Com fetch, você consegue:
 - enviar arquivos
 - atualizar registros
 - deletar dados
-- integrar frontend com backend
+- integrar frontend com backend 
 
 Ela funciona baseada em Promises, ou seja:
 
@@ -139,6 +139,7 @@ não trava o navegador.
 # . 4 - Entendendo a resposta (Response)
 
 Quando fetch resolve, ele entrega um objeto Response.
+Esse objeto vem em formato de stream, ou seja, o corpo da resposta é lido aos poucos.
 
 Exemplo:
 
@@ -149,47 +150,47 @@ Esse objeto representa a resposta HTTP inteira.
 Principais propriedades:
 
 response.status
-Ex:
-200
-404
-500
+    Ex:
+    200
+    404
+    500
 
 response.ok
 
-true se status entre 200 e 299
+    true se status entre 200 e 299
 
 response.statusText
 
-texto do status
+    texto do status
 
 response.headers
 
-headers recebidos
+    headers recebidos
 
 response.url
 
-url final
+    url final
 
 response.redirected
 
-se houve redirecionamento
+    se houve redirecionamento
 
 Principais métodos:
 
-response.json()
-response.text()
-response.blob()
-response.formData()
-response.arrayBuffer()
+    response.json()
+    response.text()
+    response.blob()
+    response.formData()
+    response.arrayBuffer()
 
 Importante:
 
-o body da resposta normalmente só pode ser consumido uma vez.
+    o body da resposta normalmente só pode ser consumido uma vez.
 
 Errado:
 
-await response.json();
-await response.json();
+    await response.json();
+    await response.json();
 
 --------------------------------------------------
 
@@ -199,19 +200,19 @@ O servidor responde em formatos diferentes.
 
 JSON:
 
-const dados = await response.json();
+    const dados = await response.json();
 
 Mais comum em APIs REST.
 
 Texto:
 
-const texto = await response.text();
+    const texto = await response.text();
 
 HTML, logs, mensagens simples.
 
 Blob:
 
-const arquivo = await response.blob();
+    const arquivo = await response.blob();
 
 Usado para:
 
@@ -222,22 +223,22 @@ Usado para:
 
 FormData:
 
-const form = await response.formData();
+    const form = await response.formData();
 
 Usado em respostas multipart.
 
 ArrayBuffer:
 
-const buffer = await response.arrayBuffer();
+    const buffer = await response.arrayBuffer();
 
 Usado para dados binários avançados.
 
 Resumo:
 
-json = APIs
-text = texto puro
-blob = arquivos
-arrayBuffer = bytes
+    json = APIs
+    text = texto puro
+    blob = arquivos
+    arrayBuffer = bytes
 
 --------------------------------------------------
 
@@ -293,16 +294,16 @@ async function criarUsuario() {
 Explicando:
 
 method:
-define POST
+    define POST
 
 headers:
-informa tipo do body
+    informa tipo do body
 
 body:
-dados enviados
+    dados enviados
 
 JSON.stringify:
-transforma objeto JS em string JSON
+    transforma objeto JS em string JSON
 
 Muito comum em:
 
@@ -312,10 +313,11 @@ Muito comum em:
 
 --------------------------------------------------
 
-# . 8 - PUT
+# . 8 - PUT/PATCH
 
 Usado normalmente para atualização total do recurso.
 
+// EXEMPLO PUT
 async function atualizarUsuario() {
     const response = await fetch("/api/usuarios/123", {
         method: "PUT",
@@ -325,6 +327,19 @@ async function atualizarUsuario() {
         body: JSON.stringify({
             nome: "Nícolas",
             idade: 21
+        })
+    });
+}
+
+// EXEMPLO PATCH
+async function atualizarUsuarioParcial() {
+    const response = await fetch("/api/usuarios/123", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idade: 21 // Só enviamos o atributo que queremos alterar
         })
     });
 }
@@ -447,13 +462,13 @@ Servem para filtros e paginação.
 
 Exemplo:
 
-/api/usuarios?idade=20&cidade=SP
+    /api/usuarios?idade=20&cidade=SP
 
 Muito comum em GET.
 
 Exemplo real:
 
-/produtos?pagina=2&limite=10&ordem=preco
+    /produtos?pagina=2&limite=10&ordem=preco
 
 Forma segura:
 
@@ -536,24 +551,3 @@ Uso:
 const usuarios = await request("/usuarios");
 
 Isso centraliza padrão.
-
---------------------------------------------------
-
-# . 16 - Resumo final
-
-Fetch é base do frontend moderno.
-
-Se dominar bem:
-
-- APIs REST
-- login
-- CRUD
-- integrações
-- React / Angular / Vue
-- sistemas corporativos
-
-Você sobe bastante de nível no mercado.
-
-Pra dev full-stack, saber fetch superficialmente é comum.
-
-Saber headers, erros, status, auth, body, cancelamento e arquitetura de requests já diferencia bastante.

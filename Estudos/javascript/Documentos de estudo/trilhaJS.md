@@ -217,15 +217,19 @@ Onde encontrar cada conteúdo desse diretório:
 - O que é Fetch API
 - Sintaxe básica
 - Exemplo com async await
-- Entendendo a resposta
+- Entendendo a resposta (Response)
 - Converter resposta
-- Get 
-- Post
+- GET
+- POST
 - PUT
-- DELETE 
+- DELETE
 - Tratando erros
 - Headers
-- Query params
+- Query Params
+- Extra profissional: AbortController
+- Extra profissional: Credenciais
+- Extra profissional: Estrutura ideal
+- Resumo final
 
 ## !. 2 - REST API.md
 (a fazer)
