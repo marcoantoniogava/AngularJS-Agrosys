@@ -57,6 +57,7 @@ Este repositório foi pensado para:
 # Créditos
 
 **Criação do repositório:** Marco Antonio Gava
+
 **Desenvolvimento e organização dos materiais:** Nícolas Machado Cardoso
 
 ---
