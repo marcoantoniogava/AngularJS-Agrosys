@@ -180,3 +180,209 @@ ele lê
 - texto Teste
 
 com isso ele cria objetos internos.
+
+# . 7 - Estrutura de dados real
+
+O DOM é basicamente uma árvore de nós conectadas por ponteiros/referências
+
+Algo parecido com:
+
+class Node {
+    parent;
+    children = [];
+}
+
+E elementos HTML
+
+class Element extends Node {
+    tagName;
+    attributes = {};
+}
+
+Texto:
+
+class TextNode extends Node {
+    textContent;
+}
+
+Então um <h1 id="x">Olá</h1> seria algo como:
+
+{
+    type: "element",
+    tagname: "H1",
+    attributes: {
+        id: "x"
+    },
+    children: [
+        {
+            type: "text",
+            textContent: "Olá"
+        }
+    ]
+}
+
+Internamente, em C++ é muito mais complexo.
+
+# . 8 - Por que document existe?
+
+É um objeto exposto pelo navegador para o JavaScript.
+Quando o JS roda no browser, ele recebe acesso a APIs prontas:
+
+window
+document
+history
+location
+fetch
+console
+
+Essas coisas não são do JavaScript puro.
+São objetos fornecidos pelo navegador.
+
+JavaScript por si só não conhece HTML.
+Quem entrega isso é o navegador.
+
+# . 9 - JS Engine vs Browser Engine
+
+## 1 - JS Engine - Executa JS.
+
+Exemplos: V8 (Chrome), SpiderMonkey (Firefox).
+
+Ela entende:
+
+const x = 5 + 2;
+
+## 2 - Browser Engine 
+Cuida de:
+- DOM
+- HTML parser
+- CSS
+- renderização
+- eventos
+
+O JS engine conversa com ele.
+
+# . 10 - Por trás do querySelector
+
+document.querySelector(".btn");
+
+- JS chama método do objeto document
+- navegador recebe seletor CSS
+- percorre árvore DOM procurando match
+- retorna referência ao nó encontrado
+
+## Isso retorna cópia?
+R: Não
+
+Retorna referência ao objeto real da árvore DOM.
+
+Então
+const titulo = document.querySelector("h1");
+titulo.innerText = "Novo";
+
+O próprio nó da árvore foi alterado.
+
+# . 11 - Como innerText funciona
+
+Quando faz
+titulo.innerText = "Novo";
+
+O navegador:
+1 - Encontra nó h1
+2 - remove filhos texto antigo
+3 - cria novo TextNode
+4 - marca interface para re-renderizar
+
+como se fosse:
+h1.children = [TextNode("Novo")];
+
+# . 12 - DOM não é a tela
+
+DOM != pixels da tela.
+DOM é estrutura lógica.
+
+Depois dele existe:
+CSSOM
+Árvore do CSS interpretado.
+
+Render Tree
+Mistura:
+DOM + CSS
+
+Só elementos visíveis.
+Depois disso o navegador desenha.
+
+Fluxo real
+HTML -> DOM
+CSS -> CSSOM
+DOM + CSSOM -> Render Tree
+Render Tree -> Layout
+Layout -> Paint
+Paint -> Composite
+Tela
+
+# . 12 - Layout (reflow)
+
+Se mudar:
+div.style.width = "500px";
+
+O navegador precisa recalcular:
+- tamanho
+- posição
+- impacto nos irmãos
+- quebra de linha
+- scroll
+
+Isso chama reflow/layout.
+É caro.
+
+Fazer isso:
+
+for (let i = 0; i < 1000; i++) {
+    el.style.width = i + "px";
+}
+
+Pode causar vários recalculos.
+Por isso surge a necessidade de otimização.
+
+# . 13 - Paint
+
+Depois do layout ele redesenha pixels:
+- cor
+- borda
+- sombra
+- texto
+
+# . 14 - Por que NodeList existe?
+
+document.querySelectorAll("li");
+
+Retorna coleção especial
+Porque navegador evita devolver array JS comum em muitos casos.
+
+Ele usa tipos próprios otimizados.
+
+Ex:
+- HTMLCollection
+- NodeList
+
+# . 15 - DOM vive fora do heap JS puro
+
+Objetos DOM geralmente são wrappers JS apontado para estruturas nativas internas do navegador (C++)
+
+Ou seja:
+const div = document.querySelector("div");
+
+div no JS é interface para algo nativo.
+Não é só objeto literal JS.
+
+# . 16 - Garbage collector e DOM
+
+se remover elemento:
+div.remove();
+
+mas ainda guardar referência:
+const x = div;
+
+ele pode continuar em memória.
+por isso memory leak acontece.
+
