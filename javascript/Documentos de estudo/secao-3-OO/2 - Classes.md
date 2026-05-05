@@ -165,6 +165,25 @@ Mesmo usando class, por baixo dos panos continua sendo prototype-based (não vir
     - propriedade interna
     - getter/setter com mesmo nome
 
+## 4 - Utilizando Symbol para propriedades privadas
+    class Pessoa () {
+        const _senha = Symbol("senha"); // Símbolo é um tipo de dado primitivo único.
+
+        constructor(nome, senha) {
+            this.nome = nome;
+            this[_senha] = senha; // propriedade "privada"
+        }
+
+        verificarSenha(senha) {
+            return this[_senha] === senha;
+        }
+    }
+
+    const c1 = new Pessoa("Maria", "12345");
+    console.log(c1.verificarSenha("12345")); // true
+    c1["senha"]; // undefined
+
+
 ## 4 - Encapsulamento moderno com #
     class Pessoa {
         #nome;
