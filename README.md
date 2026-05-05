@@ -1,16 +1,16 @@
 # Repositório de Estudos — JavaScript e AngularJS
 
-Este repositório foi criado por **Marco Antonio Gava** e está sendo desenvolvido em conjunto com materiais organizados por **Nícolas Machado Cardoso**, com o objetivo de reunir conteúdos de apoio técnico e acelerar a preparação de um estagiário que iniciará atuação em um sistema legado construído com **AngularJS** e **Cordova**.
+Este repositório foi criado por **Marco Antonio Gava**, novo estagiário da equipe, e será utilizado como base para seu treinamento técnico por meio de materiais organizados e desenvolvidos por **Nícolas Machado Cardoso**, com foco em sua preparação para atuar em um sistema legado construído com **AngularJS** e **Cordova**.
 
-A proposta do projeto é servir como uma base de aprendizado clara, prática e organizada, facilitando a adaptação ao ambiente real da aplicação e o entendimento das tecnologias utilizadas no dia a dia.
+O objetivo é centralizar conteúdos de apoio, trilhas de estudo e materiais práticos para acelerar seu processo de onboarding, facilitar a adaptação ao ambiente real da aplicação e fortalecer sua base técnica desde o início.
 
 ---
 
 # Objetivo principal
 
-Preparar um novo desenvolvedor para atuar com mais segurança e produtividade em um projeto corporativo já existente, oferecendo uma trilha de conhecimento direcionada às necessidades reais do sistema.
+Preparar um novo desenvolvedor para atuar com mais segurança, autonomia e produtividade em um projeto corporativo já existente, oferecendo uma trilha de aprendizado direcionada às tecnologias e desafios reais encontrados no sistema.
 
-Além do uso interno, o repositório também funciona como registro de conhecimento técnico, centralização de materiais e base contínua de consulta para a equipe.
+Além do treinamento inicial, o repositório também servirá como base permanente de consulta e registro de conhecimento técnico da equipe.
 
 ---
 
@@ -18,9 +18,9 @@ Além do uso interno, o repositório também funciona como registro de conhecime
 
 ## JavaScript
 
-Diretório voltado aos fundamentos da linguagem, essenciais para compreender a lógica do sistema, manipulação de dados, assincronismo, funções, objetos e demais recursos utilizados constantemente no projeto.
+Diretório voltado aos fundamentos da linguagem, essenciais para compreender lógica de programação, manipulação de dados, assincronismo, funções, objetos e demais recursos utilizados diariamente no projeto.
 
-O foco está em construir base sólida para manutenção e evolução da aplicação.
+O foco está em construir uma base sólida para manutenção e evolução da aplicação.
 
 ---
 
@@ -28,15 +28,15 @@ O foco está em construir base sólida para manutenção e evolução da aplica�
 
 Diretório dedicado ao framework principal utilizado no sistema legado.
 
-Inclui materiais voltados à estrutura do AngularJS, controllers, services, fluxo de telas, e manutenção de aplicações corporativas já consolidadas.
+Inclui materiais voltados à estrutura do AngularJS, controllers, services, fluxo de telas, integração com APIs, organização de código e manutenção de aplicações corporativas já consolidadas.
 
 ---
 
 ## Cordova
 
-Considerado como parte importante do contexto do projeto, devido à existência da versão mobile híbrida da aplicação.
+Tecnologia presente no contexto do projeto devido à existência da versão mobile híbrida da aplicação.
 
-O material também auxilia na compreensão de integrações mobile, empacotamento e comportamento do app em dispositivos.
+Os estudos também consideram esse cenário para auxiliar no entendimento de build mobile, plugins nativos e comportamento da aplicação em dispositivos.
 
 ---
 
@@ -44,12 +44,13 @@ O material também auxilia na compreensão de integrações mobile, empacotament
 
 Este repositório foi pensado para:
 
-* Reduzir a curva de aprendizado do estagiário.
+* Reduzir a curva de aprendizado de novos integrantes.
 * Facilitar onboarding técnico.
 * Organizar conhecimento interno.
 * Aumentar autonomia no desenvolvimento.
 * Servir como consulta rápida no dia a dia.
 * Preservar conhecimento de sistemas legados.
+* Padronizar a formação técnica da equipe.
 
 ---
 
@@ -62,4 +63,4 @@ Este repositório foi pensado para:
 
 # Observação
 
-O conteúdo está em evolução contínua e pode receber novas seções, melhorias estruturais e aprofundamentos conforme as demandas do projeto e o crescimento técnico da equipe.
+O conteúdo está em evolução contínua e pode receber novas seções, revisões técnicas e aprofundamentos conforme as demandas do projeto e o crescimento da equipe.
