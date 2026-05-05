@@ -132,3 +132,51 @@ Quando abre o site:
     - element.nextElementSibling
     etc.
 
+# ________________________________________________________________________________________________
+#
+# <-------------------------------------COMO O DOM FUNCIONA-------------------------------------->
+# ________________________________________________________________________________________________
+
+# . 5 - Visão geral do processo
+
+Quando é escrito:
+<h1>Olá</h1>
+
+e depois
+
+document.getElementById("titulo").textContent = "Novo título";
+
+parece simples.
+Mas por trás existe um sistema enorme dentro do navegador:
+1 - parser de HTML -> lê o HTML e cria a árvore DOM (essa parte é feita pelo navegador, pelas engines de renderização, não pelo JS)
+2 - construção de árvore DOM -> transforma o HTML em objetos (feita pelo parser)
+3 - engine JavaScript -> executa o código JS (feita pelo motor JS, como V8, SpiderMonkey, etc.)
+4 - ponte entre JS e DOM -> quando o JS acessa o DOM, ele precisa se comunicar com a parte do navegador 
+que controla o DOM, isso é feito por uma ponte que conecta o motor JS com a engine de renderização. 
+(essa parte é feita pelo navegador, mas o JS interage com ela)
+5 - renderização visual -> quando o DOM é alterado, o navegador precisa atualizar a tela para refletir as mudanças 
+(feita pela engine de renderização do navegador)
+6 - recálculo de layout -> quando o DOM é alterado, o navegador precisa recalcular o layout da página para 
+posicionar os elementos corretamente (feita pela engine de renderização)
+7 - pintura -> depois de recalcular o layout, o navegador precisa pintar os pixels na tela para mostrar as mudanças (feita pela engine de renderização)
+8 - otimizações -> os navegadores modernos fazem várias otimizações para melhorar a performance, como
+reutilizar partes do layout que não mudaram, adiar a pintura até que seja necessário
+
+# . 6 - HTML não vira tela direto
+O navegador não desenha HTML cru.
+Ele primeiro lê texto puro:
+
+<h1>Olá</h1>
+<p>Bem-vindo</p>
+
+Esse arquivo é só string.
+O navegador possui um HTML Parser, que interpreta caractere por caractere.
+
+ele lê
+- abriu tag h1
+- texto olá
+- fechou h1
+- abriu p
+- texto Teste
+
+com isso ele cria objetos internos.
