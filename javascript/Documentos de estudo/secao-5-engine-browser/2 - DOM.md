@@ -1,3 +1,29 @@
+# Sumário
+
+- [1 - O que é o DOM](#1-o-que-e-o-dom)
+- [2 - Objeto principal document](#2-objeto-principal-document)
+- [3 - Buscar elementos no DOM](#3-buscar-elementos-no-dom)
+- [4 - Alterar texto e HTML](#4-alterar-texto-e-html)
+- [5 - Alterar CSS pelo DOM](#5-alterar-css-pelo-dom)
+- [6 - Criar elementos novos](#6-criar-elementos-novos)
+- [7 - Estrutura de árvore do DOM](#7-estrutura-de-arvore-do-dom)
+- [8 - Estrutura de dados real](#8-estrutura-de-dados-real)
+- [9 - Por que document existe](#9-por-que-document-existe)
+- [10 - JS Engine vs Browser Engine](#10-js-engine-vs-browser-engine)
+- [11 - Por trás do querySelector](#11-por-tras-do-queryselector)
+- [12 - Como innerText funciona](#12-como-innertext-funciona)
+- [13 - DOM não é a tela](#13-dom-nao-e-a-tela)
+- [14 - Layout reflow](#14-layout-reflow)
+- [15 - Paint](#15-paint)
+- [16 - Por que NodeList existe](#16-por-que-nodelist-existe)
+- [17 - DOM vive fora do heap JS puro](#17-dom-vive-fora-do-heap-js-puro)
+- [18 - Garbage collector e DOM](#18-garbage-collector-e-dom)
+- [RESUMÃO DE REVISÃO](#resumao-de-revisao)
+
+
+
+<a id="1-o-que-e-o-dom"></a>
+
 # 1 - O que é o DOM
 
 ## Teoria
@@ -6,9 +32,9 @@ DOM significa **Document Object Model**.
 
 Quando o navegador lê seu HTML, ele transforma tudo em objetos manipuláveis pelo JavaScript.
 
-Ou seja: o JavaScript não mexe no HTML diretamente. Ele mexe em objetos que representam o HTML dentro da memória do navegador.
+O JavaScript não mexe no arquivo HTML diretamente. Ele mexe em objetos que representam o HTML dentro da memória do navegador.
 
-Por meio do DOM, conseguimos alterar dinamicamente o conteúdo da página, criar elementos, remover elementos, alterar estilos, escutar eventos e modificar a estrutura da página enquanto ela está sendo usada.
+Com o DOM, conseguimos alterar dinamicamente o conteúdo da página, criar elementos, remover elementos, alterar estilos, escutar eventos e modificar a estrutura da página enquanto ela está sendo usada.
 
 
 ## Código
@@ -84,7 +110,9 @@ Alterar o DOM muda a página visível no navegador, mas não altera o arquivo HT
 
 
 
-# 2 - Objeto principal: document
+<a id="2-objeto-principal-document"></a>
+
+# 2 - Objeto principal document
 
 ## Teoria
 
@@ -145,6 +173,8 @@ Quando chamamos métodos como `getElementById`, `querySelector` ou `createElemen
 Com `document`, podemos buscar elementos, criar elementos e alterar a estrutura da página.
 
 
+
+<a id="3-buscar-elementos-no-dom"></a>
 
 # 3 - Buscar elementos no DOM
 
@@ -282,6 +312,8 @@ Use `querySelectorAll` para buscar vários elementos.
 
 
 
+<a id="4-alterar-texto-e-html"></a>
+
 # 4 - Alterar texto e HTML
 
 ## Teoria
@@ -397,6 +429,8 @@ Evite usar `innerHTML` com conteúdo vindo diretamente do usuário.
 
 
 
+<a id="5-alterar-css-pelo-dom"></a>
+
 # 5 - Alterar CSS pelo DOM
 
 ## Teoria
@@ -495,6 +529,8 @@ Classes tornam os estilos mais reutilizáveis e organizados.
 
 
 
+<a id="6-criar-elementos-novos"></a>
+
 # 6 - Criar elementos novos
 
 ## Teoria
@@ -562,6 +598,8 @@ Depois disso, o navegador pode precisar atualizar a renderização para mostrar 
 Depois de inserido, o elemento aparece na página.
 
 
+
+<a id="7-estrutura-de-arvore-do-dom"></a>
 
 # 7 - Estrutura de árvore do DOM
 
@@ -657,200 +695,947 @@ Alterações nos nós podem refletir diretamente na tela.
 
 
 
-# 8 - Como o DOM funciona
+<a id="8-estrutura-de-dados-real"></a>
+
+# 8 - Estrutura de dados real
 
 ## Teoria
 
-Quando escrevemos algo simples como:
+O DOM é basicamente uma árvore de nós conectados por ponteiros ou referências.
 
-```html
-<h1>Olá</h1>
-```
+Cada nó sabe onde está dentro da árvore.
 
-E depois usamos:
+Um elemento pode ter:
 
-```js
-document.getElementById("titulo").textContent = "Novo título";
-```
+- Um pai.
+- Vários filhos.
+- Atributos.
+- Conteúdo de texto.
+- Outros elementos dentro dele.
 
-Parece que o JavaScript simplesmente encontrou o elemento e alterou o texto.
-
-Mas, por trás, existe um sistema grande dentro do navegador.
+Essa ideia explica por que conseguimos navegar pelo DOM usando propriedades como `parentElement`, `children` e `nextElementSibling`.
 
 
 ## Código
 
-Exemplo de alteração:
-
-```html
-<h1 id="titulo">Olá</h1>
-```
+Uma representação simplificada de um nó poderia ser assim:
 
 ```js
-document.getElementById("titulo").textContent = "Novo título";
+class Node {
+    parent;
+    children = [];
+}
+```
+
+Um elemento HTML poderia ser algo parecido com:
+
+```js
+class Element extends Node {
+    tagName;
+    attributes = {};
+}
+```
+
+Um nó de texto poderia ser algo parecido com:
+
+```js
+class TextNode extends Node {
+    textContent;
+}
+```
+
+Então este HTML:
+
+```html
+<h1 id="x">Olá</h1>
+```
+
+Poderia virar algo parecido com:
+
+```js
+{
+    type: "element",
+    tagName: "H1",
+    attributes: {
+        id: "x"
+    },
+    children: [
+        {
+            type: "text",
+            textContent: "Olá"
+        }
+    ]
+}
 ```
 
 
 ## Prática
 
-Na prática, esse código:
+Essa estrutura explica por que um elemento pode conter texto dentro dele.
 
-- Busca o elemento com `id="titulo"`.
-- Acessa o objeto DOM correspondente.
-- Altera o texto interno desse objeto.
-- Faz o navegador refletir a mudança visualmente.
+No exemplo:
 
-Esse processo é usado constantemente em páginas interativas.
+```html
+<h1 id="x">Olá</h1>
+```
+
+O `h1` não é apenas uma string.
+
+Ele é um nó de elemento que contém um filho do tipo texto.
+
+Na prática, quando alteramos o texto de um elemento, estamos mexendo em nós internos da árvore DOM.
 
 
 ## Por trás dos panos
 
-Existe uma sequência de etapas dentro do navegador:
+Internamente, nos navegadores reais, essa estrutura é muito mais complexa.
 
-1. **Parser de HTML**
+A implementação não é feita com classes JavaScript simples como nos exemplos acima.
 
-O navegador lê o HTML e cria a árvore DOM.
+Em muitos navegadores, boa parte da estrutura real do DOM é implementada em linguagens como C++.
 
-Essa parte é feita pelo navegador, pelas engines de renderização, não pelo JavaScript.
+O JavaScript enxerga uma interface de alto nível, mas por baixo existem estruturas nativas otimizadas pela engine do navegador.
 
-2. **Construção da árvore DOM**
 
-O parser transforma o HTML em objetos.
+## Resumo rápido
 
-Esses objetos formam a árvore DOM.
+O DOM é uma árvore de nós conectados por referências.
 
-3. **Engine JavaScript**
+Elementos, textos e outras partes da página são nós.
 
-A engine JavaScript executa o código JS.
+Um elemento pode ter atributos e filhos.
 
-Exemplos de motores JavaScript:
+Internamente, a estrutura real é muito mais complexa do que um objeto JavaScript comum.
 
-- V8.
-- SpiderMonkey.
-- JavaScriptCore.
 
-4. **Ponte entre JS e DOM**
 
-Quando o JavaScript acessa o DOM, ele precisa se comunicar com a parte do navegador que controla o DOM.
+<a id="9-por-que-document-existe"></a>
 
-Essa comunicação é feita por uma ponte que conecta o motor JavaScript com a engine de renderização.
+# 9 - Por que document existe
 
-Essa parte é feita pelo navegador, mas o JavaScript interage com ela.
+## Teoria
 
-5. **Renderização visual**
+`document` existe porque o navegador expõe uma API para o JavaScript interagir com a página.
 
-Quando o DOM é alterado, o navegador precisa atualizar a tela para refletir as mudanças.
+Quando o JavaScript roda no browser, ele recebe acesso a vários objetos prontos fornecidos pelo ambiente do navegador.
 
-Essa etapa é feita pela engine de renderização do navegador.
+Esses objetos não fazem parte do JavaScript puro.
 
-6. **Recálculo de layout**
+Eles são APIs do navegador.
 
-Quando o DOM é alterado, o navegador pode precisar recalcular o layout da página para posicionar os elementos corretamente.
 
-Essa etapa também é feita pela engine de renderização.
+## Código
 
-7. **Pintura**
+Exemplos de objetos e APIs disponíveis no navegador:
 
-Depois de recalcular o layout, o navegador precisa pintar os pixels na tela para mostrar as mudanças.
+```js
+window;
+document;
+history;
+location;
+fetch;
+console;
+```
 
-Essa etapa é feita pela engine de renderização.
 
-8. **Otimizações**
+## Prática
 
-Navegadores modernos fazem várias otimizações para melhorar a performance.
+Usamos `document` para acessar o HTML carregado na página.
+
+Usamos `window` para acessar informações e recursos da janela do navegador.
+
+Usamos `history` para trabalhar com histórico de navegação.
+
+Usamos `location` para ler ou alterar a URL.
+
+Usamos `fetch` para fazer requisições HTTP.
+
+Usamos `console` para exibir mensagens no console do navegador.
+
+
+## Por trás dos panos
+
+JavaScript por si só não conhece HTML.
+
+A linguagem JavaScript pura sabe executar código, criar variáveis, funções, objetos, classes, arrays e estruturas de controle.
+
+Mas ela não sabe, sozinha, o que é uma tag `h1`, um botão ou uma página HTML.
+
+Quem entrega esse acesso é o navegador.
+
+O navegador fornece objetos como `document`, `window`, `history`, `location`, `fetch` e `console` para que o JavaScript consiga interagir com o ambiente da página.
+
+
+## Resumo rápido
+
+`document` é uma API fornecida pelo navegador.
+
+JavaScript puro não conhece HTML.
+
+O navegador entrega objetos prontos para o JS interagir com a página.
+
+`document` é a porta de entrada para manipular o DOM.
+
+
+
+<a id="10-js-engine-vs-browser-engine"></a>
+
+# 10 - JS Engine vs Browser Engine
+
+## Teoria
+
+Dentro do navegador existem partes diferentes trabalhando juntas.
+
+A **JS Engine** executa o JavaScript.
+
+A **Browser Engine** ou engine de renderização cuida do HTML, CSS, DOM, eventos e renderização visual.
+
+Elas trabalham em conjunto para transformar código em uma página interativa.
+
+
+## Código
+
+A JS Engine entende e executa código JavaScript:
+
+```js
+const x = 5 + 2;
+```
+
+Exemplos de JS Engines:
+
+- V8, usada no Chrome e no Node.js.
+- SpiderMonkey, usada no Firefox.
+- JavaScriptCore, usada no Safari.
+
+
+## Prática
+
+Quando escrevemos JavaScript, a JS Engine executa o código.
+
+Quando esse código acessa o DOM, o navegador precisa envolver outra parte do sistema: a engine responsável pela página.
+
+Exemplo:
+
+```js
+const titulo = document.querySelector("h1");
+titulo.textContent = "Novo título";
+```
+
+Nesse caso:
+
+- A JS Engine executa o código JavaScript.
+- A Browser Engine fornece acesso ao `document`.
+- A estrutura DOM é consultada.
+- O texto do nó é alterado.
+- A renderização pode ser atualizada.
+
+
+## Por trás dos panos
+
+A JS Engine cuida de coisas como:
+
+- Executar expressões.
+- Criar variáveis.
+- Chamar funções.
+- Gerenciar objetos JavaScript.
+- Trabalhar com memória do lado do JS.
+
+A Browser Engine cuida de coisas como:
+
+- DOM.
+- HTML Parser.
+- CSS.
+- CSSOM.
+- Renderização.
+- Eventos.
+- Layout.
+- Paint.
+- Composite.
+
+A JS Engine conversa com a Browser Engine quando o código JavaScript precisa acessar recursos do navegador.
+
+
+## Resumo rápido
+
+A JS Engine executa JavaScript.
+
+A Browser Engine cuida do DOM, HTML, CSS, eventos e renderização.
+
+Quando o JS acessa o DOM, essas partes precisam conversar.
+
+O DOM não é apenas JavaScript puro.
+
+
+
+<a id="11-por-tras-do-queryselector"></a>
+
+# 11 - Por trás do querySelector
+
+## Teoria
+
+`querySelector` permite buscar elementos usando seletores CSS.
+
+Ele é flexível porque aceita o mesmo tipo de seletor usado no CSS.
+
+Porém, essa flexibilidade tem custo: o navegador precisa interpretar o seletor e procurar elementos compatíveis na árvore DOM.
+
+
+## Código
+
+```js
+document.querySelector(".btn");
+```
+
+Exemplo alterando o nó encontrado:
+
+```js
+const titulo = document.querySelector("h1");
+titulo.innerText = "Novo";
+```
+
+
+## Prática
+
+Use `querySelector` quando quiser buscar um elemento por seletores CSS.
 
 Exemplos:
 
-- Reutilizar partes do layout que não mudaram.
-- Adiar a pintura até que seja necessário.
-- Evitar recalcular partes da página que não foram afetadas.
+```js
+const botao = document.querySelector(".btn");
+const titulo = document.querySelector("#titulo");
+const primeiroInput = document.querySelector("form input");
+```
+
+Esse método é excelente para praticidade e legibilidade.
+
+Em páginas muito grandes ou com seletores muito complexos, vale ter atenção ao custo da busca.
+
+
+## Por trás dos panos
+
+Quando executamos:
+
+```js
+document.querySelector(".btn");
+```
+
+Acontece algo parecido com:
+
+1. O JavaScript chama um método do objeto `document`.
+2. O navegador recebe o seletor CSS.
+3. O navegador interpreta o seletor.
+4. O navegador percorre a árvore DOM procurando um elemento compatível.
+5. O navegador retorna uma referência ao nó encontrado.
+
+### Isso retorna uma cópia?
+
+Não.
+
+`querySelector` retorna uma referência ao objeto real da árvore DOM.
+
+Por isso, quando fazemos:
+
+```js
+const titulo = document.querySelector("h1");
+titulo.innerText = "Novo";
+```
+
+O próprio nó da árvore DOM foi alterado.
+
+Não é uma cópia separada.
+
+É uma referência para o elemento real representado na estrutura do navegador.
 
 
 ## Resumo rápido
 
-O DOM não é manipulado isoladamente pelo JavaScript.
+`querySelector` usa seletores CSS para buscar elementos.
 
-O JavaScript conversa com estruturas internas do navegador.
+O navegador interpreta o seletor e procura na árvore DOM.
 
-Alterar o DOM pode acionar renderização, recálculo de layout e pintura.
+O retorno não é uma cópia.
 
-Navegadores modernos otimizam esse processo para melhorar a performance.
+O retorno é uma referência ao nó real do DOM.
 
 
 
-# 9 - HTML não vira tela direto
+<a id="12-como-innertext-funciona"></a>
+
+# 12 - Como innerText funciona
 
 ## Teoria
 
-O navegador não desenha HTML cru.
+`innerText` altera o texto visível de um elemento.
 
-Ele primeiro lê texto puro.
+Quando definimos um novo valor em `innerText`, o navegador precisa atualizar os nós internos daquele elemento.
 
-Um arquivo HTML, antes de ser interpretado, é apenas uma string.
-
-O navegador possui um **HTML Parser**, que interpreta esse texto caractere por caractere.
+Isso parece simples, mas internamente envolve alteração da estrutura de filhos do nó.
 
 
 ## Código
 
-HTML escrito no arquivo:
+```js
+titulo.innerText = "Novo";
+```
 
-```html
-<h1>Olá</h1>
-<p>Bem-vindo</p>
+Representação simplificada do que pode acontecer:
+
+```js
+h1.children = [TextNode("Novo")];
 ```
 
 
 ## Prática
 
-O navegador lê esse conteúdo e interpreta sua estrutura.
+Use `innerText` quando quiser alterar o texto visível de um elemento.
 
-Ele identifica:
+Exemplo:
 
-- A abertura da tag `h1`.
-- O texto `Olá`.
-- O fechamento da tag `h1`.
-- A abertura da tag `p`.
-- O texto `Bem-vindo`.
-- O fechamento da tag `p`.
+```html
+<h1>Olá</h1>
+```
 
-Com isso, ele cria objetos internos.
+```js
+const titulo = document.querySelector("h1");
+titulo.innerText = "Novo";
+```
+
+Depois da execução, o conteúdo visível do `h1` passa a ser `Novo`.
 
 
 ## Por trás dos panos
 
-O HTML Parser analisa o documento como texto.
+Quando fazemos:
 
-Ele entende onde uma tag começa, onde uma tag termina e qual conteúdo existe dentro dela.
-
-Depois disso, o navegador transforma essa sequência em nós internos.
-
-Esses nós formam a árvore DOM.
-
-Então, o caminho não é:
-
-```txt
-HTML -> Tela
+```js
+titulo.innerText = "Novo";
 ```
 
-O caminho real é mais próximo de:
+O navegador pode seguir um processo parecido com:
+
+1. Encontra o nó `h1`.
+2. Remove os filhos de texto antigos.
+3. Cria um novo `TextNode`.
+4. Coloca esse `TextNode` como filho do `h1`.
+5. Marca a interface para re-renderizar.
+
+Na prática, é como se o navegador fizesse algo parecido com:
+
+```js
+h1.children = [TextNode("Novo")];
+```
+
+Isso reforça uma ideia importante: texto dentro de um elemento também faz parte da árvore DOM.
+
+
+## Resumo rápido
+
+`innerText` altera o texto visível.
+
+Internamente, o navegador pode remover nós de texto antigos e criar novos.
+
+O texto dentro de uma tag também é representado como nó.
+
+Alterar texto pode marcar a interface para nova renderização.
+
+
+
+<a id="13-dom-nao-e-a-tela"></a>
+
+# 13 - DOM não é a tela
+
+## Teoria
+
+DOM não é a mesma coisa que pixels da tela.
+
+O DOM é uma estrutura lógica.
+
+Ele representa a organização do documento, mas ainda não é a imagem final que aparece no monitor.
+
+Depois do DOM, existem outras estruturas e etapas antes de algo virar tela.
+
+
+## Código
+
+Fluxo simplificado:
 
 ```txt
-HTML em texto -> Parser HTML -> Objetos DOM -> Árvore DOM -> Renderização -> Tela
+HTML -> DOM
+CSS -> CSSOM
+DOM + CSSOM -> Render Tree
+Render Tree -> Layout
+Layout -> Paint
+Paint -> Composite
+Composite -> Tela
+```
+
+
+## Prática
+
+Quando alteramos o DOM, nem sempre estamos alterando pixels diretamente.
+
+Exemplo:
+
+```js
+const titulo = document.querySelector("h1");
+titulo.textContent = "Novo título";
+```
+
+Esse código altera a estrutura lógica.
+
+Depois, o navegador decide quais etapas de renderização precisam ser refeitas para atualizar a tela.
+
+
+## Por trás dos panos
+
+Depois do DOM, existe o **CSSOM**.
+
+CSSOM significa **CSS Object Model**.
+
+Ele é a árvore do CSS interpretado pelo navegador.
+
+Depois, o navegador combina:
+
+- DOM.
+- CSSOM.
+
+Essa combinação forma a **Render Tree**.
+
+A Render Tree mistura estrutura e estilo, mas inclui apenas elementos visíveis.
+
+Depois disso, o navegador passa por etapas como:
+
+- Layout.
+- Paint.
+- Composite.
+
+### Fluxo real
+
+```txt
+HTML -> DOM
+CSS -> CSSOM
+DOM + CSSOM -> Render Tree
+Render Tree -> Layout
+Layout -> Paint
+Paint -> Composite
+Tela
 ```
 
 
 ## Resumo rápido
 
-HTML não vira tela diretamente.
+DOM não é pixels da tela.
 
-Primeiro, o navegador interpreta o HTML como texto.
+DOM é estrutura lógica do documento.
 
-O parser cria objetos internos.
+CSS vira CSSOM.
 
-Esses objetos formam a árvore DOM usada para renderizar a página.
+DOM + CSSOM formam a Render Tree, que depois passa por layout, paint e composite.
 
 
+
+<a id="14-layout-reflow"></a>
+
+# 14 - Layout reflow
+
+## Teoria
+
+Layout, também chamado de **reflow**, é a etapa em que o navegador calcula tamanhos e posições dos elementos.
+
+Quando uma alteração afeta dimensões, posição ou fluxo da página, o navegador pode precisar recalcular o layout.
+
+Esse processo pode ser caro em termos de performance.
+
+
+## Código
+
+Alteração que pode causar layout/reflow:
+
+```js
+div.style.width = "500px";
+```
+
+Exemplo problemático:
+
+```js
+for (let i = 0; i < 1000; i++) {
+    el.style.width = i + "px";
+}
+```
+
+
+## Prática
+
+Mudanças que podem gerar reflow:
+
+- Alterar largura.
+- Alterar altura.
+- Alterar posição.
+- Alterar fonte.
+- Inserir ou remover elementos.
+- Mudar conteúdo que afeta quebra de linha.
+- Alterar algo que influencia scroll.
+
+Se isso acontece muitas vezes em sequência, a página pode ficar lenta.
+
+Por isso surge a necessidade de otimização.
+
+
+## Por trás dos panos
+
+Se mudamos:
+
+```js
+div.style.width = "500px";
+```
+
+O navegador pode precisar recalcular:
+
+- Tamanho do elemento.
+- Posição do elemento.
+- Impacto nos elementos irmãos.
+- Quebras de linha.
+- Área de scroll.
+- Espaço ocupado no layout.
+
+Esse processo é chamado de **reflow** ou **layout**.
+
+Ele é caro porque uma mudança em um elemento pode afetar vários outros elementos ao redor.
+
+No exemplo:
+
+```js
+for (let i = 0; i < 1000; i++) {
+    el.style.width = i + "px";
+}
+```
+
+O navegador pode ser forçado a lidar com vários recálculos de layout.
+
+
+## Resumo rápido
+
+Layout/reflow calcula tamanho e posição dos elementos.
+
+Mudanças de largura, altura, posição e conteúdo podem causar reflow.
+
+Reflow pode ser caro.
+
+Várias alterações seguidas podem prejudicar a performance.
+
+
+
+<a id="15-paint"></a>
+
+# 15 - Paint
+
+## Teoria
+
+Depois do layout, o navegador precisa desenhar os pixels dos elementos.
+
+Essa etapa é chamada de **paint**.
+
+Paint envolve transformar as informações visuais em pixels na tela.
+
+
+## Código
+
+Exemplo de alteração que pode exigir pintura:
+
+```js
+titulo.style.color = "red";
+```
+
+Outro exemplo:
+
+```js
+card.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.2)";
+```
+
+
+## Prática
+
+Paint acontece quando o navegador precisa redesenhar aspectos visuais, como:
+
+- Cor.
+- Borda.
+- Sombra.
+- Texto.
+- Fundo.
+- Imagens.
+
+Nem toda alteração visual exige reflow, mas pode exigir paint.
+
+Por exemplo, mudar apenas a cor de um texto normalmente não exige recalcular a posição dos elementos, mas exige redesenhar os pixels.
+
+
+## Por trás dos panos
+
+Depois que o layout define onde cada coisa fica, o paint define como cada coisa aparece visualmente.
+
+O navegador redesenha pixels considerando informações como:
+
+- Cor do texto.
+- Cor de fundo.
+- Bordas.
+- Sombras.
+- Imagens.
+- Decoração visual.
+
+Em seguida, o navegador pode passar para a etapa de composição, onde camadas são combinadas para formar a imagem final.
+
+
+## Resumo rápido
+
+Paint é a etapa de desenhar pixels.
+
+Ele acontece depois do layout.
+
+Mudanças de cor, borda, sombra e texto podem exigir paint.
+
+Paint não é a mesma coisa que DOM; é uma etapa visual posterior.
+
+
+
+<a id="16-por-que-nodelist-existe"></a>
+
+# 16 - Por que NodeList existe
+
+## Teoria
+
+`NodeList` existe porque o navegador trabalha com coleções próprias de nós do DOM.
+
+Quando usamos métodos como `querySelectorAll`, o navegador não precisa devolver um array JavaScript comum.
+
+Ele pode devolver uma coleção especial mais ligada à estrutura interna do DOM.
+
+
+## Código
+
+```js
+document.querySelectorAll("li");
+```
+
+Isso retorna uma `NodeList`.
+
+Outros tipos de coleções do DOM:
+
+```txt
+NodeList
+HTMLCollection
+```
+
+
+## Prática
+
+Use `NodeList` quando receber vários elementos do DOM.
+
+Exemplo:
+
+```js
+const itens = document.querySelectorAll("li");
+
+itens.forEach(function(item) {
+    item.classList.add("ativo");
+});
+```
+
+Se precisar usar métodos completos de array, é comum converter para array:
+
+```js
+const itens = Array.from(document.querySelectorAll("li"));
+```
+
+
+## Por trás dos panos
+
+O navegador evita devolver arrays JavaScript comuns em muitos casos porque usa tipos próprios otimizados.
+
+Exemplos:
+
+- `HTMLCollection`.
+- `NodeList`.
+
+Essas coleções representam grupos de elementos ou nós vindos do DOM.
+
+Elas se parecem com arrays, mas não são necessariamente arrays reais.
+
+Essa separação faz sentido porque o DOM vive em estruturas internas do navegador, e não apenas dentro do heap JavaScript puro.
+
+
+## Resumo rápido
+
+`querySelectorAll` retorna uma `NodeList`.
+
+`NodeList` é uma coleção especial de nós.
+
+Ela parece array, mas não é um array completo.
+
+O navegador usa coleções próprias otimizadas para representar partes do DOM.
+
+
+
+<a id="17-dom-vive-fora-do-heap-js-puro"></a>
+
+# 17 - DOM vive fora do heap JS puro
+
+## Teoria
+
+Objetos DOM geralmente não são apenas objetos literais JavaScript.
+
+Eles costumam ser interfaces JavaScript apontando para estruturas nativas internas do navegador.
+
+Ou seja: quando o JavaScript acessa um elemento, ele pode estar lidando com um wrapper para uma estrutura real implementada internamente pelo navegador.
+
+
+## Código
+
+```js
+const div = document.querySelector("div");
+```
+
+Nesse código, `div` parece um objeto JavaScript comum.
+
+Mas ele representa uma interface para algo nativo do navegador.
+
+
+## Prática
+
+Na prática, podemos usar esse objeto como se ele fosse um objeto JavaScript acessível:
+
+```js
+const div = document.querySelector("div");
+
+div.textContent = "Novo texto";
+div.classList.add("ativo");
+div.remove();
+```
+
+Mas é importante lembrar que essas operações conversam com estruturas internas do navegador.
+
+
+## Por trás dos panos
+
+Objetos DOM geralmente são **wrappers JS** apontando para estruturas nativas internas do navegador.
+
+Essas estruturas podem ser implementadas em linguagens como C++.
+
+Então:
+
+```js
+const div = document.querySelector("div");
+```
+
+O `div` no JavaScript é uma interface para algo nativo.
+
+Ele não é apenas um objeto literal como:
+
+```js
+const div = {
+    tagName: "DIV"
+};
+```
+
+Essa diferença é importante para entender performance, memória e garbage collector.
+
+
+## Resumo rápido
+
+O DOM não vive apenas como objeto JavaScript puro.
+
+O JS acessa wrappers que apontam para estruturas nativas do navegador.
+
+Essas estruturas costumam ser mais complexas e otimizadas.
+
+Manipular DOM envolve comunicação entre JS e navegador.
+
+
+
+<a id="18-garbage-collector-e-dom"></a>
+
+# 18 - Garbage collector e DOM
+
+## Teoria
+
+O garbage collector remove da memória objetos que não são mais alcançáveis pelo programa.
+
+Com DOM, precisamos tomar cuidado porque um elemento removido da página pode continuar em memória se ainda existir alguma referência JavaScript apontando para ele.
+
+Isso pode causar memory leak.
+
+
+## Código
+
+```js
+const div = document.querySelector("div");
+
+div.remove();
+```
+
+Se ainda guardarmos uma referência:
+
+```js
+const x = div;
+```
+
+Esse elemento pode continuar em memória.
+
+
+## Prática
+
+Memory leaks podem acontecer quando removemos elementos da tela, mas continuamos guardando referências a eles.
+
+Exemplo comum:
+
+```js
+const elementosRemovidos = [];
+const div = document.querySelector("div");
+
+div.remove();
+elementosRemovidos.push(div);
+```
+
+Nesse caso, a `div` saiu do DOM visível, mas ainda está referenciada dentro do array.
+
+Como ainda existe uma referência, o garbage collector pode não liberar essa memória.
+
+
+## Por trás dos panos
+
+Quando fazemos:
+
+```js
+div.remove();
+```
+
+O elemento é removido da árvore DOM.
+
+Mas se fizermos:
+
+```js
+const x = div;
+```
+
+Ou se ele continuar guardado em algum array, objeto, closure ou listener, ele ainda pode estar alcançável pelo JavaScript.
+
+Enquanto um objeto está alcançável, o garbage collector tende a preservá-lo.
+
+Por isso, memory leaks acontecem quando partes que já deveriam morrer continuam referenciadas em algum lugar.
+
+
+## Resumo rápido
+
+Remover um elemento do DOM não garante que ele saiu da memória.
+
+Se ainda existir referência JavaScript, ele pode continuar vivo.
+
+Isso pode causar memory leak.
+
+Para liberar memória, o objeto precisa deixar de ser alcançável.
+
+
+
+<a id="resumao-de-revisao"></a>
 
 # RESUMÃO DE REVISÃO
 
@@ -864,6 +1649,8 @@ Use `document.querySelectorAll("seletor")` para buscar vários elementos.
 
 `querySelectorAll` retorna uma `NodeList`, que parece array, mas não é um array completo.
 
+`querySelector` retorna uma referência ao nó real do DOM, não uma cópia.
+
 
 ## Alterar texto
 
@@ -874,6 +1661,8 @@ Use `innerText` para trabalhar com texto visível.
 Use `innerHTML` para inserir HTML dentro de um elemento.
 
 Tenha cuidado com `innerHTML`, porque ele pode abrir brecha para XSS quando usado com conteúdo inseguro.
+
+Alterar texto pode remover nós de texto antigos e criar novos `TextNode` internamente.
 
 
 ## CSS
@@ -886,6 +1675,8 @@ Exemplo: `background-color` vira `backgroundColor`.
 
 Prefira `classList` para manter CSS separado do JavaScript.
 
+Alterações visuais podem acionar paint, layout/reflow ou ambos.
+
 
 ## Criar elementos
 
@@ -896,6 +1687,8 @@ Use `textContent` para definir seu texto.
 Use `appendChild` para inserir o elemento na árvore DOM.
 
 O elemento só aparece na tela depois de ser anexado ao DOM.
+
+Internamente, o elemento pode ser um wrapper JavaScript para uma estrutura nativa do navegador.
 
 
 ## Navegar DOM
@@ -908,6 +1701,8 @@ Use `parentElement`, `children` e `nextElementSibling` para navegar por essa est
 
 Isso evita buscas desnecessárias quando você já está perto do elemento desejado.
 
+Texto dentro de uma tag também pode ser representado como nó.
+
 
 ## Conceito central
 
@@ -917,4 +1712,8 @@ O navegador lê o HTML, usa o parser para criar objetos internos e monta a árvo
 
 O JavaScript acessa essa árvore para alterar a página.
 
-Alterações no DOM podem acionar renderização, recálculo de layout e pintura.
+JavaScript puro não conhece HTML; quem fornece `document`, `window` e outras APIs é o navegador.
+
+Alterações no DOM podem acionar renderização, recálculo de layout, paint e composite.
+
+O DOM não é a tela; ele é uma estrutura lógica usada no caminho até a renderização visual.
