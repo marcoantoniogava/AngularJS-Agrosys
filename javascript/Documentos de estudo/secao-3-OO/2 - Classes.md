@@ -177,12 +177,17 @@ Mesmo usando class, por baixo dos panos continua sendo prototype-based (não vir
         verificarSenha(senha) {
             return this[_senha] === senha;
         }
+
+        // para acessar, poderia criar um getter específico:
+        get senha() {
+            throw new Error("Acesso negado");
+        }
     }
 
     const c1 = new Pessoa("Maria", "12345");
     console.log(c1.verificarSenha("12345")); // true
     c1["senha"]; // undefined
-
+    c1.senha; // erro "Acesso negado"
 
 ## 4 - Encapsulamento moderno com #
     class Pessoa {
